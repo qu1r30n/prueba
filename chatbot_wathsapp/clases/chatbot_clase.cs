@@ -15,13 +15,14 @@ namespace chatbot_wathsapp.clases
 {
     class chatbot_clase
     {
-        public void inicio()
+        string[] G_caracter_separacion = variables_globales.GG_caracter_separacion;
+        public void configuracion_de_inicio()
         {
-            string pagina = "https://web.whatsapp.com/";
+            string pagina = "https://" + "web.whatsapp.com/";
             //<span class="l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt"
             //aria-label="No leídos">1</span>
 
-            int tiempo_en_segunds_espera = 35;
+            int tiempo_en_segunds_espera = 60;
             int tiempo_en_minutos = 0;
 
 
@@ -37,6 +38,7 @@ namespace chatbot_wathsapp.clases
             //declaramos un elemento esperarque nos ayude a evitar erroes de elementos no encontrados
             var esperar = new WebDriverWait(manejadores, TimeSpan.FromMinutes(tiempo_en_minutos));//segun 5 min es suficiente pero no hace  la espera
             Thread.Sleep(tiempo_en_segunds_espera * 1000);//puse este yo para que se haga la espera
+            
             esperar.Until(manej => manej.FindElement(By.Id("side")));//este es un id que aparece despues de escanear el codigo
 
             procesos(manejadores, esperar);
@@ -50,7 +52,6 @@ namespace chatbot_wathsapp.clases
             string elementos_clase = elementos + "//ancestor::div[@class='_8nE1Y']";
             //-----------------------------------------------------------------------------------------
             //estos son los de buscar el mensage que nos llego
-            
             string elementos2 = "//div[contains(@class, 'message-in')]//span[contains(@class, '_11JPr')]";
             //------------------------------------------------------------------------------------------
             while (true)
@@ -69,22 +70,29 @@ namespace chatbot_wathsapp.clases
                             // Si el elemento está presente, retorna verdadero
 
                             manejadores.FindElement(By.XPath(elementos_clase)).Click();//clikea el elemento del no leido
-                            var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
 
                             // texto mensaje que recibio-----------------------------------------------------------------------
-                            IWebElement elementoMensaje = esperar.Until(manej => manej.FindElement(By.XPath(elementos2)));
+
+                            /*antes se puso haci
+                             IWebElement elementoMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2)));
                             string textoDelMensaje = elementoMensaje.Text;
+                             */
+                            //mejorado
+                            string textoDelMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2))).Text;
+
                             //fin mensaje que resibio--------------------------------------------------------------
 
-                            string mensaje = $"Bienvenido {nombre_de_usuario} en que puedo ayudarlo?";
-                            mandar_mensage(esperar, mensaje);
+
+                            opciones_a_hacer_y_mandar_mensge(esperar, textoDelMensaje);
+                            
+                            
 
                             return true;
                         }
                         else
                         {
                             // Si el elemento no está presente, espera y luego vuelve a intentar
-                            Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según tu escenario
+                            Thread.Sleep(2000); // Puedes ajustar el tiempo de espera según tu escenario
                             return false;
                         }
                     });
@@ -102,8 +110,31 @@ namespace chatbot_wathsapp.clases
 
         }
 
+        public void opciones_a_hacer_y_mandar_mensge(WebDriverWait esperar, string texto, string[] caracter_separacion = null)
+        {
+            if (caracter_separacion==null)
+            {
+                caracter_separacion = G_caracter_separacion;
+            }
 
-        static void mandar_mensage(WebDriverWait esperar,string texto_enviar)
+            string[] informacion_espliteada = texto.Split(Convert.ToChar(caracter_separacion[0]));
+            string mensaje = "";
+            switch (informacion_espliteada[0])
+            {
+                case "1":
+                    mensaje = "prueba 1";
+                break;
+
+                default:
+                    mensaje = $"Bienvenido {texto} en que puedo ayudarlo?";
+                    
+                    break;
+            }
+
+            mandar_mensage(esperar, mensaje);
+        }
+
+        private void mandar_mensage(WebDriverWait esperar,string texto_enviar)
         {
             
             //aqui hacemos que reconosca la barra de texto y escriba

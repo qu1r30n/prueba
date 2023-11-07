@@ -19,7 +19,7 @@ namespace chatbot_wathsapp.formularios
             InitializeComponent();
 
             chatbot_clase ch_bot_clase = new chatbot_clase();
-            ch_bot_clase.inicio();
+            ch_bot_clase.configuracion_de_inicio();
         }
     }
 }
