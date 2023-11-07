@@ -117,19 +117,19 @@ namespace chatbot_wathsapp.clases
                 caracter_separacion = G_caracter_separacion;
             }
 
+            
             string[] informacion_espliteada = texto.Split(Convert.ToChar(caracter_separacion[0]));
             string mensaje = "";
-            switch (informacion_espliteada[0])
-            {
-                case "1":
-                    mensaje = "prueba 1";
-                break;
 
-                default:
-                    mensaje = $"Bienvenido {texto} en que puedo ayudarlo?";
-                    
-                    break;
+            if (informacion_espliteada[0]=="1")
+            {
+                mensaje = "prueba 1";
             }
+            else
+            {
+                mensaje = $"Bienvenido {texto} en que puedo ayudarlo?";
+            }
+            
 
             mandar_mensage(esperar, mensaje);
         }
