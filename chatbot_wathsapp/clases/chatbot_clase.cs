@@ -22,7 +22,7 @@ namespace chatbot_wathsapp.clases
             //<span class="l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt"
             //aria-label="No leídos">1</span>
 
-            int tiempo_en_segunds_espera = 60;
+            int tiempo_en_segunds_espera = 1;
             int tiempo_en_minutos = 0;
 
 
@@ -38,8 +38,18 @@ namespace chatbot_wathsapp.clases
             //declaramos un elemento esperarque nos ayude a evitar erroes de elementos no encontrados
             var esperar = new WebDriverWait(manejadores, TimeSpan.FromMinutes(tiempo_en_minutos));//segun 5 min es suficiente pero no hace  la espera
             Thread.Sleep(tiempo_en_segunds_espera * 1000);//puse este yo para que se haga la espera
+
+            //esperar.Until(manej => manej.FindElement(By.Id("side")));//este es un id que aparece despues de escanear el codigo
+
+            esperar.Until(manej =>
+            {
+                //IWebElement elemento_app = manej.FindElement(By.Id("app"));
+                IWebElement elementoSide = manej.FindElement(By.Id("side"));
+                return elementoSide;
+            });
             
-            esperar.Until(manej => manej.FindElement(By.Id("side")));//este es un id que aparece despues de escanear el codigo
+
+            
 
             procesos(manejadores, esperar);
 
