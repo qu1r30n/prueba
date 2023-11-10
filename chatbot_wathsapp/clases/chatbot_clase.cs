@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Collections.ObjectModel;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -22,8 +24,8 @@ namespace chatbot_wathsapp.clases
             //<span class="l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt"
             //aria-label="No leídos">1</span>
 
-            int tiempo_en_segunds_espera = 1;
-            int tiempo_en_minutos = 0;
+            int tiempo_en_segunds_espera = 40;
+            int tiempo_en_minutos = 5;
 
 
             //damos algunas opciones para iniciar el chomer
@@ -79,7 +81,7 @@ namespace chatbot_wathsapp.clases
                         {
                             // Si el elemento está presente, retorna verdadero
 
-                            manejadores.FindElement(By.XPath(elementos_clase)).Click();//clikea el elemento del no leido
+                            manejadores.FindElement(By.XPath(elementos_clase)).Click();//clickea el elemento del no leido
 
                             // texto mensaje que recibio-----------------------------------------------------------------------
 
@@ -87,22 +89,32 @@ namespace chatbot_wathsapp.clases
                              IWebElement elementoMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2)));
                             string textoDelMensaje = elementoMensaje.Text;
                              */
-                            //mejorado
-                            string textoDelMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2))).Text;
+                            //antes
+                            //string textoDelMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2))).Text;
+                            //este esta mucho mejor
+                            ReadOnlyCollection<IWebElement> elementos_ = esperar.Until(manej3 => manej3.FindElements(By.XPath(elementos2)));
 
+                            // Inicializa un arreglo de strings para almacenar los textos de los elementos
+                            string[] textosDelMensaje = new string[elementos_.Count];
+
+                            // Itera a través de los elementos para obtener sus textos y guardarlos en el arreglo
+                            for (int i = 0; i < elementos_.Count; i++)
+                            {
+                                textosDelMensaje[i] = elementos_[i].Text;
+                            }
                             //fin mensaje que resibio--------------------------------------------------------------
 
+                            
+                            opciones_a_hacer_y_mandar_mensge(manejadores,esperar, textosDelMensaje[textosDelMensaje.Length-1]);
 
-                            opciones_a_hacer_y_mandar_mensge(esperar, textoDelMensaje);
-                            
-                            
+                            Thread.Sleep(3000);
 
                             return true;
                         }
                         else
                         {
                             // Si el elemento no está presente, espera y luego vuelve a intentar
-                            Thread.Sleep(2000); // Puedes ajustar el tiempo de espera según tu escenario
+                            Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
                             return false;
                         }
                     });
@@ -120,7 +132,7 @@ namespace chatbot_wathsapp.clases
 
         }
 
-        public void opciones_a_hacer_y_mandar_mensge(WebDriverWait esperar, string texto, string[] caracter_separacion = null)
+        public void opciones_a_hacer_y_mandar_mensge(IWebDriver manejadores, WebDriverWait esperar, string texto, string[] caracter_separacion = null)
         {
             if (caracter_separacion==null)
             {
@@ -133,26 +145,43 @@ namespace chatbot_wathsapp.clases
 
             if (informacion_espliteada[0]=="1")
             {
+
+                buscar_nombre_y_dar_click(manejadores, "R3f");
                 mensaje = "prueba 1";
+                mandar_mensage(esperar, mensaje);
             }
             else
             {
-                mensaje = $"Bienvenido {texto} en que puedo ayudarlo?";
+                var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
+                mensaje = $"Bienvenido {nombre_de_usuario} en que puedo ayudarlo?";
+
+                mandar_mensage(esperar, mensaje);
             }
             
 
-            mandar_mensage(esperar, mensaje);
+            
         }
 
-        private void mandar_mensage(WebDriverWait esperar,string texto_enviar)
+        private void buscar_nombre_y_dar_click(IWebDriver manejadores,string nombre_o_numero)
         {
-            
+            IWebDriver manejadores_de_busqueda = manejadores;
+            //ReadOnlyCollection<IWebElement> elementos = manejadores_de_busqueda.FindElements(By.XPath("//span[contains(@title, 'Jorge')]"));
+            IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath("//span[contains(@title, '" + nombre_o_numero + "')]"));
+            elemento.Click();
+        }
+
+        private void mandar_mensage(WebDriverWait esperar, string texto_enviar)
+        {
+
             //aqui hacemos que reconosca la barra de texto y escriba
             //html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]
 
             var escribir_msg = esperar.Until(manej => manej.FindElement(By.XPath("html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]")));
-
-            escribir_msg.SendKeys(texto_enviar + Keys.Enter);
+            
+            escribir_msg.SendKeys(texto_enviar);
+            Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
+            escribir_msg.SendKeys(Keys.Enter);
+            Thread.Sleep(500); // Puedes ajustar el tiempo de espera según tu escenario
             escribir_msg.SendKeys(Keys.Escape);
             
         }

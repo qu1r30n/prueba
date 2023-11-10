@@ -21,3 +21,4 @@ C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wa
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.csproj.CopyComplete
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.exe
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.pdb
+C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\bin\Debug\SeleniumExtras.WaitHelpers.dll
