@@ -23,13 +23,20 @@ namespace chatbot_wathsapp.clases
 
         string[,] G_productos;
         string[] G_encargados;
-
+        string G_productos_string = "";
+        string G_mensaje_bienvenida_inicio = "";
+        string G_mensaje_bienvenida_final = "";
         public void crear_archivos_inicio()
         {
-            bas.Crear_archivo_y_directorio("productos.txt");
-            bas.Crear_archivo_y_directorio("encargados.txt");
-            string[] produc = bas.Leer("productos.txt");
-            G_encargados = bas.Leer("encargados.txt");
+            bas.Crear_archivo_y_directorio("config\\productos.txt");
+            bas.Crear_archivo_y_directorio("config\\encargados.txt");
+            bas.Crear_archivo_y_directorio("config\\mensaje_bienvenida_inicio.txt");
+            bas.Crear_archivo_y_directorio("config\\mensaje_bienvenida_final.txt");
+            string[] produc = bas.Leer("config\\productos.txt");
+            G_encargados = bas.Leer("config\\encargados.txt");
+            G_mensaje_bienvenida_inicio = string.Join("\n", bas.Leer("config\\mensaje_bienvenida_inicio.txt"));
+            G_mensaje_bienvenida_final = string.Join("\n", bas.Leer("config\\mensaje_bienvenida_final.txt"));
+
 
             G_productos = new string[produc.Length, 2];
             for (int i = 0; i < produc.Length; i++)
@@ -37,6 +44,17 @@ namespace chatbot_wathsapp.clases
                 string[] datosProducto = produc[i].Split(Convert.ToChar(G_caracter_separacion[0]));
                 G_productos[i, 0] = datosProducto[0].Trim(); // Nombre del producto
                 G_productos[i, 1] = datosProducto[1].Trim(); // Precio del producto
+                if (i < produc.Length-1)
+                {
+                    G_productos_string = G_productos_string + i + ")" + G_productos[i, 0] + " $" + G_productos[i, 1] + "\n";
+                }
+                else
+                {
+                    G_productos_string = G_productos_string + i + ")" + G_productos[i, 0] + " $" + G_productos[i, 1];
+                }
+
+
+
             }
 
         }
@@ -94,6 +112,8 @@ namespace chatbot_wathsapp.clases
             //estos son los de buscar el mensage que nos llego
             string elementos2 = "//div[contains(@class, 'message-in')]//span[contains(@class, '_11JPr')]";
             //------------------------------------------------------------------------------------------
+
+
             while (true)
             {
                 try
@@ -132,8 +152,15 @@ namespace chatbot_wathsapp.clases
                             }
                             //fin mensaje que resibio--------------------------------------------------------------
 
+                            Thread.Sleep(1000);
+                            try
+                            {
+                                opciones_a_hacer_y_mandar_mensge(manejadores, esperar, textosDelMensaje[textosDelMensaje.Length - 1]);
+                            }
+                            catch
+                            {
+                            }
                             
-                            opciones_a_hacer_y_mandar_mensge(manejadores,esperar, textosDelMensaje[textosDelMensaje.Length-1]);
 
                             Thread.Sleep(3000);
 
@@ -198,17 +225,18 @@ namespace chatbot_wathsapp.clases
                     }
                     
                 }
-                
-                mensaje = op_arr.agregar_registro_del_array(mensaje, "total a pagar: " + total_a_pagar+"\n"+nombre_de_usuario);
+                mensaje = op_arr.agregar_registro_del_array(mensaje, "total a pagar: " + total_a_pagar);
                 mandar_mensage(esperar, mensaje);
-                
+                mensaje = op_arr.agregar_registro_del_array(mensaje, nombre_de_usuario);
+
                 for (int i = 0; i < G_encargados.Length; i++)
                 {
-
+                    
+                    
                     buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
                     
                     mandar_mensage(esperar, mensaje);
-
+                    
                 }
                 
 
@@ -219,21 +247,10 @@ namespace chatbot_wathsapp.clases
             {
 
                 var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
-                mensaje = new string[] { $"Bienvenido {nombre_de_usuario} a nuestra encantadora fondita! ",
-                                        "Estamos emocionados de tenerte aquí y compartir",
-                                        "contigo una experiencia culinaria inolvidable. ",
-                                        "A continuación, te presentamos ",
-                                        "tres opciones deliciosas para que elijas:",
-                                        "",
-                                        $"0) {G_productos[0, 0]} ${G_productos[0, 1]}",
-                                        $"1) {G_productos[1, 0]} ${G_productos[1, 1]}",
-                                        $"2) {G_productos[2, 0]} ${G_productos[2, 1]}",
-                                        "",
-                                        "Cuando estés listo/a para realizar tu pedido, ",
-                                        "simplemente indícanos el número correspondiente sin espacios ni otro caracter ",
-                                        "al platillo que has elegido. ",
-                                        "¡Estamos aquí para hacer de tu experiencia gastronómica algo excepcional! ",
-                                        "¡Buen provecho!"};
+                mensaje = new string[] { $"Bienvenido {nombre_de_usuario}",
+                                        G_mensaje_bienvenida_inicio,
+                                        G_productos_string,
+                                        G_mensaje_bienvenida_final};
 
 
 
