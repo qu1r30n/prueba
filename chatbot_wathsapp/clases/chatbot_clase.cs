@@ -23,6 +23,10 @@ namespace chatbot_wathsapp.clases
 
         string[,] G_productos;
         string[] G_encargados;
+        string[] G_supervisores;
+        string[] G_contadores;
+        string[] G_vendedores;
+        
         string G_productos_string = "";
         string G_mensaje_bienvenida_inicio = "";
         string G_mensaje_bienvenida_final = "";
@@ -30,13 +34,20 @@ namespace chatbot_wathsapp.clases
         {
             bas.Crear_archivo_y_directorio("config\\productos.txt");
             bas.Crear_archivo_y_directorio("config\\encargados.txt");
+            bas.Crear_archivo_y_directorio("config\\supervisores.txt");
+            bas.Crear_archivo_y_directorio("config\\contadores.txt");
+            bas.Crear_archivo_y_directorio("config\\vendedores.txt");
             bas.Crear_archivo_y_directorio("config\\mensaje_bienvenida_inicio.txt");
             bas.Crear_archivo_y_directorio("config\\mensaje_bienvenida_final.txt");
+            
+
             string[] produc = bas.Leer("config\\productos.txt");
             G_encargados = bas.Leer("config\\encargados.txt");
+            G_supervisores = bas.Leer("config\\supervisores.txt");
+            G_contadores = bas.Leer("config\\contadores.txt");
+            G_vendedores = bas.Leer("config\\vendedores.txt");
             G_mensaje_bienvenida_inicio = string.Join("\n", bas.Leer("config\\mensaje_bienvenida_inicio.txt"));
             G_mensaje_bienvenida_final = string.Join("\n", bas.Leer("config\\mensaje_bienvenida_final.txt"));
-
 
             G_productos = new string[produc.Length, 2];
             for (int i = 0; i < produc.Length; i++)
@@ -155,7 +166,8 @@ namespace chatbot_wathsapp.clases
                             Thread.Sleep(1000);
                             try
                             {
-                                opciones_a_hacer_y_mandar_mensge(manejadores, esperar, textosDelMensaje[textosDelMensaje.Length - 1]);
+                                string[] separador = { ":" };
+                                opciones_a_hacer_y_mandar_mensge(manejadores, esperar, textosDelMensaje[textosDelMensaje.Length - 1],separador);
                             }
                             catch
                             {
@@ -194,71 +206,182 @@ namespace chatbot_wathsapp.clases
                 caracter_separacion = G_caracter_separacion;
             }
 
-            
-            string[] informacion_espliteada = texto.Split(Convert.ToChar(caracter_separacion[0]));
-            string[] mensaje;
+            var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
 
-            
-            try
+            string[] lineas_del_mensaje = texto.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+            for (int j = 0; j < lineas_del_mensaje.Length; j++)
             {
-                var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
-                
-                Convert.ToInt32(informacion_espliteada[0]);
-                string numero_de_platillo = informacion_espliteada[0];
-                double total_a_pagar = 0;
-                int[] cantidad_de_platillos = new int[G_productos.GetLength(0)];
-                mensaje = new string[G_productos.GetLength(0)];
-                for (int i = 0; i < numero_de_platillo.Length; i++)
+                //en esta parte se asegura que no tenga espacios al principio ni al final y que todo este en minusculas
+                string[] informacion_espliteada = lineas_del_mensaje[j].Split(Convert.ToChar(caracter_separacion[0]));
+                string[] temp_informacion_tratada = new string[informacion_espliteada.Length];
+                for (int i = 0; i < informacion_espliteada.Length; i++)
                 {
-
-                    cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])] = Convert.ToInt32(cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])]) + 1;
-
-                    int num_plat = Convert.ToInt32(""+numero_de_platillo[i]);
-                    total_a_pagar = total_a_pagar + Convert.ToDouble(G_productos[num_plat, 1]);
+                    temp_informacion_tratada[i] = informacion_espliteada[i].Trim();
+                    informacion_espliteada[i] = temp_informacion_tratada[i].ToLower();
                 }
 
-                for (int i = 0; i < mensaje.Length; i++)
+                string[] mensaje;
+                //aqui se chequea que opciones a hacer
+                if (informacion_espliteada.Length>1)
                 {
-                    if (cantidad_de_platillos[i]>0)
+                    switch (informacion_espliteada[0])
                     {
-                        mensaje[i] = G_productos[i, 0] + G_caracter_separacion[0] + cantidad_de_platillos[i];
+                        case"extra":
+                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, informacion_espliteada, "todos-cont");
+                            break;
+                        default:
+
+                            break;
                     }
-                    
                 }
-                mensaje = op_arr.agregar_registro_del_array(mensaje, "total a pagar: " + total_a_pagar);
-                mandar_mensage(esperar, mensaje);
-                mensaje = op_arr.agregar_registro_del_array(mensaje, nombre_de_usuario);
-
-                for (int i = 0; i < G_encargados.Length; i++)
+                else
                 {
-                    
-                    
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
-                    
-                    mandar_mensage(esperar, mensaje);
-                    
-                }
-                
+
+                    try
+                    {
+
+                        Convert.ToInt32(informacion_espliteada[0]);
+                        string numero_de_platillo = informacion_espliteada[0];
+                        double total_a_pagar = 0;
+                        int[] cantidad_de_platillos = new int[G_productos.GetLength(0)];
+                        mensaje = new string[G_productos.GetLength(0)];
+                        for (int i = 0; i < numero_de_platillo.Length; i++)
+                        {
+
+                            cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])] = Convert.ToInt32(cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])]) + 1;
+
+                            int num_plat = Convert.ToInt32("" + numero_de_platillo[i]);
+                            total_a_pagar = total_a_pagar + Convert.ToDouble(G_productos[num_plat, 1]);
+                        }
+
+                        for (int i = 0; i < mensaje.Length; i++)
+                        {
+                            if (cantidad_de_platillos[i] > 0)
+                            {
+                                mensaje[i] = G_productos[i, 0] + G_caracter_separacion[0] + cantidad_de_platillos[i];
+                            }
+
+                        }
+
+                        string[] temp_guardar_pedido_para_encargados=mensaje;
+                        //le manda su pedido y el total a pagar al que lo pidio
+                        mensaje = op_arr.agregar_registro_del_array(mensaje, "total a pagar: " + total_a_pagar);
+                        mandar_mensage(esperar, mensaje);
+                        
+                        //manda pedido a encargados
+                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, temp_guardar_pedido_para_encargados, "encargados");
+                        //mandar mensaje a contadores
+                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje, "contadores");
+
+                        //agrega el nombre de usuario y le manda mensaje del pedido  a supervisores
+                        mensaje = op_arr.agregar_registro_del_array(mensaje, nombre_de_usuario);
+                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje,"supervisores");
 
 
+                    }
+                    catch (Exception ex)
+                    {
 
-            }
-            catch(Exception ex)
-            {
-
-                var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
-                mensaje = new string[] { $"Bienvenido {nombre_de_usuario}",
+                        mensaje = new string[] { $"Bienvenido {nombre_de_usuario}",
                                         G_mensaje_bienvenida_inicio,
                                         G_productos_string,
                                         G_mensaje_bienvenida_final};
 
 
 
-                mandar_mensage(esperar, mensaje);
+                        mandar_mensage(esperar, mensaje);
+                    }
+
+
+                }
+                
+
+
             }
 
-
             
+        }
+
+        private void mandar_mensajes_a_supervisores_y_encargados(IWebDriver manejadores, WebDriverWait esperar,string[] mensaje,string NotificarSupEnc="todos")
+        {
+            if (NotificarSupEnc == "todos")
+            {
+                for (int i = 0; i < G_supervisores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+                }
+
+                for (int i = 0; i < G_encargados.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
+
+                    mandar_mensage(esperar, mensaje);
+
+                }
+
+                for (int i = 0; i < G_contadores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_contadores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+
+                }
+            }
+
+            else if (NotificarSupEnc == "todos-cont")
+            {
+                for (int i = 0; i < G_supervisores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+                }
+
+                for (int i = 0; i < G_encargados.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
+
+                    mandar_mensage(esperar, mensaje);
+
+                }
+
+            }
+
+            else if (NotificarSupEnc == "supervisores")
+            {
+                for (int i = 0; i < G_supervisores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+                }
+            }
+
+            else if (NotificarSupEnc == "encargados")
+            {
+                for (int i = 0; i < G_encargados.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
+
+                    mandar_mensage(esperar, mensaje);
+
+                }
+            }
+
+            else if (NotificarSupEnc == "contadores")
+            {
+                for (int i = 0; i < G_contadores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_contadores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+
+                }
+            }
+
         }
 
         private void buscar_nombre_y_dar_click(IWebDriver manejadores, WebDriverWait esperar, string nombre_o_numero)
