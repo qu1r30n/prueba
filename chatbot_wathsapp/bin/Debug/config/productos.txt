@@ -1,3 +1,3 @@
-huevos al gusto|50
-carne de puerco en salsa roja|50
-taco carnitas|25
+comida corrida pechuga empanizada|60
+comida corrida pollo en chile verde|60
+comida corrida pechuga rellena|60

@@ -1,0 +1,135 @@
+Prueba 
+
+taco carnitas|1
+
+
+
+
+folio 105848y1
+
+total a pagar: 25
+Prueba 
+
+taco carnitas|3
+
+
+
+
+folio 115246
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+total a pagar: 25
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio 120308s
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+total a pagar: 50
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio 121841hYA
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+Prueba 
+chilaquiles|1
+
+
+
+
+folio 122133z
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio
+122338N
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio
+122842EZ
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio
+1319163bb
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+Prueba 
+
+tacos dorados(6)|1
+
+
+
+folio
+132706NJ
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+\n EJEMPLO \"cancelar: 1234 me equivoque\"
+Prueba 
+
+
+homelet|1
+
+
+folio
+132918a
+total a pagar: 50
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+EJEMPLO "cancelar: 1234 me equivoque"
+Prueba comida corrida pechuga empanizada|1
+
+
+folio
+131030cU
+total a pagar: 60
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+EJEMPLO "cancelar: 1234 me equivoque"
+Prueba comida corrida pechuga empanizada|1
+
+
+folio
+143958W
+total a pagar: 60
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+EJEMPLO "cancelar: 1234 me equivoque"
+Prueba 
+
+comida corrida pechuga rellena|1
+folio
+164937
+total a pagar: 60
+si quieres canselar escribe:
+cancelar: el FOLIO y el motivo de la cancelacion
+EJEMPLO "cancelar: 1234 me equivoque"
