@@ -1,10 +1,10 @@
+COMIDA CORRIDA |75
+COMIDA CORRIDA |75
+COMIDA CORRIDA |75
 club sandwich|60
 chilaquiles|60
 pechuga rellena|60
-enchiladas|60
 molletes|60
-enmoladas|60
 enfrijoladas|60
-coctel de frutas|40
 cafe|15
 jugo(naranja o zanahoria)|29

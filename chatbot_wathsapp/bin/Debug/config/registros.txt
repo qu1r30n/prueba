@@ -133,3 +133,143 @@ total a pagar: 60
 si quieres canselar escribe:
 cancelar: el FOLIO y el motivo de la cancelacion
 EJEMPLO "cancelar: 1234 me equivoque"
++52 1 748 107 2336 
+homelet|1
+
+folio
+082804Q
+total a pagar: 50
+Prueba 
+
+enchiladas suisas|1
+folio
+094627u
+total a pagar: 50
+Prueba 
+homelet|1
+
+folio
+095414w
+total a pagar: 50
++52 1 748 107 2336 comida corrida pechuga empanizada|1
+
+
+
+
+folio
+14340868
+total a pagar: 60
+Prueba 
+comida corrida mole de pollo san fernando|1
+
+
+
+folio
+151057Alt
+total a pagar: 60
+Prueba 
+
+comida corrida pechuga rellena|1
+
+
+folio
+152945pC
+total a pagar: 60
+Prueba 
+
+
+
+chilaquiles pollo o bistek|1
+folio
+112254SOK
+total a pagar: 50
+Prueba 
+
+
+
+pozole con pollo o carne de puerco|2
+
+
+folio
+143046V
+total a pagar: 120
+Prueba 
+
+
+
+pozole con pollo o carne de puerco|1
+
+
+folio
+143112
+total a pagar: 60
+Prueba 
+
+comida corrida pechuga rellena|1
+
+
+
+folio
+151801F
+total a pagar: 60
+Prueba 
+
+
+comida corrida pechuga empanizada|1
+
+
+folio
+152029o55
+total a pagar: 60
+Prueba 
+
+enchiladas suisas|1
+
+
+
+folio
+200749
+total a pagar: 50
+Prueba poyo al estilo kentoki|1
+chilaquiles|1
+
+
+
+
+folio
+201007OXQ
+total a pagar: 100
+Prueba 
+chilaquiles|1
+
+
+
+
+folio
+201147kk
+total a pagar: 50
+Prueba poyo al estilo kentoki|1
+
+
+
+
+
+folio
+202132h
+total a pagar: 50
+Prueba desayuno club sandwich|1
+
+
+
+
+
+folio
+110828B
+total a pagar: 50
+Prueba 
+pollo al estilo kentoki|1
+
+
+folio
+124619M
+total a pagar: 75

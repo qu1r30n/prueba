@@ -47,6 +47,7 @@ namespace chatbot_wathsapp.clases
                 /*8*/"config\\mensaje_extra_despues_de_la_venta.txt",
                 /*9*/"config\\poner_1_si_recargaras_los_archivos.txt",
                 /*10*/"config\\reg_mensaje.txt",
+                /*11*/"config_prog\\configuracion_programador.txt"
             };
 
         public void configuracion_de_inicio()
@@ -93,8 +94,9 @@ namespace chatbot_wathsapp.clases
 
         public void procesos(IWebDriver manejadores, WebDriverWait esperar)
         {
+
             //estos son del no leido--------------------------------------------------------------------
-            string elementos = "//span[contains(@aria-label, 'No leídos')" + " or contains(@aria-label, 'No leído')]";
+            string elementos = "//span[contains(@aria-label, 'No leídos')" + " or contains(@aria-label, '4 mensaje no leído')" + " or contains(@aria-label, '3 mensaje no leído')" + " or contains(@aria-label, '2 mensaje no leído')" + " or contains(@aria-label, '1 mensaje no leído')]";
             string elementos_clase = elementos + "//ancestor::div[@class='_8nE1Y']";
             //-----------------------------------------------------------------------------------------
             //estos son los de buscar el mensage que nos llego
@@ -132,7 +134,7 @@ namespace chatbot_wathsapp.clases
 
                             // Inicializa un arreglo de strings para almacenar los textos de los elementos
                             string[] textosDelMensaje = new string[elementos_.Count];
-
+                            
                             // Itera a través de los elementos para obtener sus textos y guardarlos en el arreglo
                             for (int i = 0; i < elementos_.Count; i++)
                             {
@@ -214,7 +216,7 @@ namespace chatbot_wathsapp.clases
                             break;
                         case "ubi":
                             string[] info_mas_nom_usu = op_arr.agregar_registro_del_array(informacion_espliteada, nombre_de_usuario);
-                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, info_mas_nom_usu, "todos-cont");
+                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, info_mas_nom_usu, "todos-cont-encar");
                             break;
                         case "can":
                             mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, informacion_espliteada, "todos");
@@ -261,7 +263,7 @@ namespace chatbot_wathsapp.clases
                                 //le manda su pedido y el total a pagar al que lo pidio
                                 mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
                                 // si es el vendedor
-                                mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar) ));
+                                si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar));
                                 //informacion extra despues de enviarle la informacion
                                 mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, G_mensaje_informacion_extra_despues_de_la_venta);
                                 mandar_mensage(esperar, mensaje_a_enviar);
@@ -336,7 +338,7 @@ namespace chatbot_wathsapp.clases
                         //le manda su pedido y el total a pagar al que lo pidio
                         mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
                         // si es el vendedor
-                        mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar)));
+                        si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar));
                         //informacion extra despues de enviarle la informacion
                         mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, G_mensaje_informacion_extra_despues_de_la_venta);
                         mandar_mensage(esperar, mensaje_a_enviar);
@@ -419,6 +421,25 @@ namespace chatbot_wathsapp.clases
 
                     mandar_mensage(esperar, mensaje);
 
+                }
+
+                for (int i = 0; i < G_repartidores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_repartidores[i]);
+
+                    mandar_mensage(esperar, mensaje);
+                }
+
+
+            }
+
+            else if (NotificarSupEnc == "todos-cont-encar")
+            {
+                for (int i = 0; i < G_supervisores.Length; i++)
+                {
+                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
+
+                    mandar_mensage(esperar, mensaje);
                 }
 
                 for (int i = 0; i < G_repartidores.Length; i++)
@@ -529,7 +550,11 @@ namespace chatbot_wathsapp.clases
             //aqui hacemos que reconosca la barra de texto y escriba
             //html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]
 
-            var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath("html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]")));
+            //var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath("//div[contains(@class, 'g0rxnol2')]/div[@contenteditable='true']")));
+            string lugar_a_escribir = "//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/" + "div[1]/div/div[1]";
+            var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+
+
             string texto_enviar = string.Join("\n", texto_enviar_arreglo);
             escribir_msg.SendKeys(texto_enviar);
             Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
@@ -564,22 +589,12 @@ namespace chatbot_wathsapp.clases
             return resultado;
         }
 
-        private string si_es_el_vendedor(string nombre_de_usuario,string info_a_guardar=null)
+        private void si_es_el_vendedor(string nombre_de_usuario,string info_a_guardar=null)
         {
             if (info_a_guardar!=null)
             {
                 bas.Agregar("config\\registros.txt", nombre_de_usuario + " " + info_a_guardar);
             }
-
-            string texto_a_retornar = "";
-            for (int i = 0; i < G_vendedores.Length; i++)
-            {
-                if (G_vendedores[i]==nombre_de_usuario)
-                {
-                    texto_a_retornar = "ext:si quieres mandar informacion extra\nubi:di masomenos por donde esta o entre que calles\ncan:escribe el numero de folio y el motivo\n EJEMPLO \"can: 1234 me equivoque\"";
-                }
-            }
-            return texto_a_retornar;
         }
 
         private void carga_de_informacion_a_variables_globales()
