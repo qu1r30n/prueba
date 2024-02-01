@@ -1,3 +1,0 @@
-si quieres canselar escribe:
-can: el FOLIO y el motivo de la cancelacion
-EJEMPLO "can: 1234 me equivoque"

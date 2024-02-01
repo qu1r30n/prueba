@@ -1,0 +1,2 @@
+info_para_comandos
+//div[contains(@class, 'message-in')]//span[contains(@class, '_11JPr')]

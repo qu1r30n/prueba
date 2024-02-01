@@ -1,0 +1,2 @@
+mensajes_A_enviar_cuando_resiva_un_mensage
+hola inicial

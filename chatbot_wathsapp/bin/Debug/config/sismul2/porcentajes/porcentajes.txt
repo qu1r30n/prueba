@@ -1,0 +1,5 @@
+fila1:_porsentage_venta_directa_fila2:porcentajes_simple_fila3:_porcentajes_complejo_fila4:_porcentaje_venta_directa_complejo
+15
+10|5
+10|10|10
+15

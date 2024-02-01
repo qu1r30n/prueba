@@ -24,3 +24,13 @@ C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wa
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\bin\Debug\SeleniumExtras.WaitHelpers.dll
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.desinger.herramientas_para_elementos_del_form.resources
 C:\Users\pc1\source\repos\chatbot_wathsapp\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.desinger.Ventana_emergente.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.csproj.AssemblyReference.cache
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.desinger.herramientas_para_elementos_del_form.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.desinger.Ventana_emergente.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.Form1.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.formularios.chatbot.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.Properties.Resources.resources
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.csproj.GenerateResource.cache
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.csproj.CoreCompileInputs.cache
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.exe
+C:\Users\pc1\Desktop\modificaciones totales\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.pdb

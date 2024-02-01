@@ -1,0 +1,6 @@
+0_id_usuario|1_id_patrocinador_comp|2_tabla_patrocinador_comp|3_id_encargado_simple|4_tabla_encargado_simple|5_diner|6_pago_directo|7_pago_inderecto|8_datos|
+1|1|patrocinadores_complejos|1|patrocinadores_complejos|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
+2|1|patrocinadores_complejos|1|patrocinadores_complejos|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
+3|1|patrocinadores_complejos|2|patrocinadores_complejos|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
+4|1|patrocinadores_complejos|3|patrocinadores_complejos|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
+5|1|patrocinadores_complejos|4|patrocinadores_complejos|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|

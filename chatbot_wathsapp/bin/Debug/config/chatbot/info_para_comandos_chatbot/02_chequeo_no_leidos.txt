@@ -1,0 +1,2 @@
+info_para_comandos
+//span[contains(@aria-label, 'No leídos') or contains(@aria-label, '4 mensaje no leído') or contains(@aria-label, '3 mensaje no leído') or contains(@aria-label, '2 mensaje no leído') or contains(@aria-label, '1 mensaje no leído')]

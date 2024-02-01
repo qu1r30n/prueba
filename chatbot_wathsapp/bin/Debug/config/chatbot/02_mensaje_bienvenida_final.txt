@@ -1,0 +1,2 @@
+mensaje_abajo_de_los_productos
+mensaje despues de los productos

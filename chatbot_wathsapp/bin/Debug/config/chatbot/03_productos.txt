@@ -1,0 +1,4 @@
+nombre_del_producto|precio
+comida corrida pollo a la kentoki|75
+comida corrida pechuga rellena|75
+comida corrida pechuga empanizada|75

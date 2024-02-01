@@ -1,0 +1,2 @@
+info_para_comandos
+//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']

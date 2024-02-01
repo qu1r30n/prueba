@@ -12,50 +12,70 @@ using OpenQA.Selenium.Support.UI;
 
 using System.Threading;
 
+using chatbot_wathsapp.clases.herramientas;
+
 
 namespace chatbot_wathsapp.clases
 {
     class chatbot_clase
     {
         operaciones_arreglos op_arr = new operaciones_arreglos();
+        operaciones_textos op_tex = new operaciones_textos();
+        var_fun_GG var_GG = new var_fun_GG();
         Tex_base bas = new Tex_base();
-        string[] G_caracter_separacion = variables_glob_conf.GG_caracter_separacion;
+        string[] G_caracter_separacion = var_fun_GG.GG_caracter_separacion;
+        string[] G_caracter_separacion_funciones_espesificas = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
 
-        string[,] G_productos;
-        string[] G_encargados;
-        string[] G_supervisores;
-        string[] G_contadores;
-        string[] G_vendedores;
-        string[] G_repartidores;
+        int G_donde_inicia_la_tabla = var_fun_GG.GG_indice_donde_comensar;
 
-        string G_productos_string = "";
-        string G_mensaje_bienvenida_inicio = "";
-        string G_mensaje_bienvenida_final = "";
-        string G_mensaje_informacion_extra_despues_de_la_venta = "";
-        string[] G_reg_mensajes;
 
-        string[] G_direcciones =
-            {
-                /*0*/"config\\productos.txt",
-                /*1*/"config\\encargados.txt",
-                /*2*/"config\\supervisores.txt",
-                /*3*/"config\\contadores.txt",
-                /*4*/"config\\vendedores.txt",
-                /*5*/"config\\repartidores.txt",
-                /*6*/"config\\mensaje_bienvenida_inicio.txt",
-                /*7*/"config\\mensaje_bienvenida_final.txt",
-                /*8*/"config\\mensaje_extra_despues_de_la_venta.txt",
-                /*9*/"config\\poner_1_si_recargaras_los_archivos.txt",
-                /*10*/"config\\reg_mensaje.txt",
-                /*11*/"config_prog\\configuracion_programador.txt"
-            };
+        
+        string[] G_dir_arch_conf_chatbot =
+        {
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[5, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[6, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[7, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[8, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[9, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[10, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[11, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[12, 0],
+
+        };
+
+        string[] G_dir_arch_mensages =
+        {
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[13, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[14, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[15, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[16, 0]
+        };
+        string[] G_dir_arch_listas_de_contactos_para_mandar_informacion =
+        {
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[17, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[18, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[19, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0]
+        };
+
+        string[] G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas =
+        {
+            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],
+            
+        };
+
+        string si_es_1_recarga_todos_los_arreglos = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[24, 0];
+
+
+        string[] G_info_de_configuracion_chatbot = null;
 
         public void configuracion_de_inicio()
         {
 
-            crear_archivos_inicio();
-
-            string pagina = "https://" + "web.whatsapp.com/";
+            G_info_de_configuracion_chatbot=extraer_info_de_archivos_de_configuracion_chatbot(G_dir_arch_conf_chatbot);
+            
             //<span class="l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt"
             //aria-label="No leídos">1</span>
 
@@ -70,7 +90,7 @@ namespace chatbot_wathsapp.clases
 
             //declaramos el elemento manejadores
             var manejadores = new ChromeDriver(opciones);
-            manejadores.Navigate().GoToUrl(pagina);
+            manejadores.Navigate().GoToUrl(G_info_de_configuracion_chatbot[0]);
 
             //declaramos un elemento esperarque nos ayude a evitar erroes de elementos no encontrados
             var esperar = new WebDriverWait(manejadores, TimeSpan.FromMinutes(tiempo_en_minutos));//segun 5 min es suficiente pero no hace  la espera
@@ -81,13 +101,10 @@ namespace chatbot_wathsapp.clases
             esperar.Until(manej =>
             {
                 //IWebElement elemento_app = manej.FindElement(By.Id("app"));
-                IWebElement elementoSide = manej.FindElement(By.Id("side"));
+                IWebElement elementoSide = manej.FindElement(By.Id(G_info_de_configuracion_chatbot[1]));
                 return elementoSide;
             });
             
-
-            
-
             procesos(manejadores, esperar);
 
         }
@@ -96,11 +113,10 @@ namespace chatbot_wathsapp.clases
         {
 
             //estos son del no leido--------------------------------------------------------------------
-            string elementos = "//span[contains(@aria-label, 'No leídos')" + " or contains(@aria-label, '4 mensaje no leído')" + " or contains(@aria-label, '3 mensaje no leído')" + " or contains(@aria-label, '2 mensaje no leído')" + " or contains(@aria-label, '1 mensaje no leído')]";
-            string elementos_clase = elementos + "//ancestor::div[@class='_8nE1Y']";
+            string elementos = G_info_de_configuracion_chatbot[2];
+            string elementos_clase = elementos + G_info_de_configuracion_chatbot[3]; ;
             //-----------------------------------------------------------------------------------------
-            //estos son los de buscar el mensage que nos llego
-            string elementos2 = "//div[contains(@class, 'message-in')]//span[contains(@class, '_11JPr')]";
+            
             //------------------------------------------------------------------------------------------
 
 
@@ -120,33 +136,17 @@ namespace chatbot_wathsapp.clases
                             // Si el elemento está presente, retorna verdadero
                             //clickea
                             manejadores.FindElement(By.XPath(elementos_clase)).Click();//clickea el elemento del no leido
-
-                            // texto mensaje que recibio-----------------------------------------------------------------------
-
-                            /*antes se puso haci
-                             IWebElement elementoMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2)));
-                            string textoDelMensaje = elementoMensaje.Text;
-                             */
-                            //antes
-                            //string textoDelMensaje = esperar.Until(manej3 => manej3.FindElement(By.XPath(elementos2))).Text;
-                            //este esta mucho mejor
-                            ReadOnlyCollection<IWebElement> elementos_ = esperar.Until(manej3 => manej3.FindElements(By.XPath(elementos2)));
-
-                            // Inicializa un arreglo de strings para almacenar los textos de los elementos
-                            string[] textosDelMensaje = new string[elementos_.Count];
+                            string[] textosDelMensaje = leer_mensages_recibidos_del_mensage_clickeado(manejadores, esperar);
+                            string nom_del_click = nombre_del_clickeado(manejadores, esperar);
                             
-                            // Itera a través de los elementos para obtener sus textos y guardarlos en el arreglo
-                            for (int i = 0; i < elementos_.Count; i++)
-                            {
-                                textosDelMensaje[i] = elementos_[i].Text;
-                            }
                             //fin mensaje que resibio--------------------------------------------------------------
 
                             Thread.Sleep(1000);
                             try
                             {
-                                string[] separador = { ":" };
-                                opciones_a_hacer_y_mandar_mensge(manejadores, esperar, textosDelMensaje[textosDelMensaje.Length - 1], separador);
+                                
+                                modelo_para_mandar_mensage(manejadores, esperar, nom_del_click, textosDelMensaje,"qui onda");
+                                
                             }
                             catch
                             {
@@ -178,358 +178,139 @@ namespace chatbot_wathsapp.clases
 
         }
 
-        public void opciones_a_hacer_y_mandar_mensge(IWebDriver manejadores, WebDriverWait esperar, string texto_que_envio, string[] caracter_separacion = null)
+
+
+
+        private void modelo_para_mandar_mensage(IWebDriver manejadores, WebDriverWait esperar, string nom_mensage_clickeado, object texto_recibidos_arreglo_objeto, object texto_a_enviar_arreglo_objeto=null)
         {
-            if (caracter_separacion == null)
-            {
-                caracter_separacion = G_caracter_separacion;
-            }
+            string[] texto_enviar_arreglo_string = op_arr.funcion_convert_objeto_a_arreglo(texto_a_enviar_arreglo_objeto);
+            string[] textos_recibidos_srting_arr= op_arr.funcion_convert_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
 
-            
-            
-            var nombre_de_usuario = esperar.Until(manej2 => manej2.FindElement(By.XPath("//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']")).Text);
-            
-            recargar_informacion_de_un_archivos_si_un_archivo_contiene_1_en_su_primera_fila();
+            string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length-1];
+            ultimo_mensaje = ultimo_mensaje.ToLower();
+            string[] lineas_del_mensaje = ultimo_mensaje.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
 
-            string[] lineas_del_mensaje = texto_que_envio.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            string responder_mensage = "";
+            string mensajes_para_ = "";
+            
+            string[] nombre_de_productos = new string[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
+            double[] precio_a_pagar_por_producto = new double[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
+            double[] cantidad_de_productos = new double[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
 
+
+            string mensaje_de_bienvenida_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[0]);
+            string mensaje_de_productos_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[2]);
+            string mensaje_de_bienvenida_final_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[1]);
+
+            string mensage_bienvenida_total = mensaje_de_bienvenida_a_enviar + "\n" + mensaje_de_productos_a_enviar + "\n" + mensaje_de_bienvenida_final_a_enviar;
+
+            double total_a_pagar_de_todo = 0;
             for (int j = 0; j < lineas_del_mensaje.Length; j++)
             {
-                //en esta parte se asegura que no tenga espacios al principio ni al final y que todo este en minusculas
-                string[] informacion_espliteada = lineas_del_mensaje[j].Split(Convert.ToChar(caracter_separacion[0]));
-                string[] temp_informacion_tratada = new string[informacion_espliteada.Length];
-                for (int i = 0; i < informacion_espliteada.Length; i++)
+
+                string[] ultimo_mensaje_espliteado = lineas_del_mensaje[j].Split(':');
+                for (int k = 0; k < ultimo_mensaje_espliteado.Length; k++)
                 {
-                    temp_informacion_tratada[i] = informacion_espliteada[i].Trim();
-                    informacion_espliteada[i] = temp_informacion_tratada[i].ToLower();
+                    ultimo_mensaje_espliteado[k] = ultimo_mensaje_espliteado[k].Trim();
                 }
 
-                string[] mensaje_a_enviar;
 
-                //aqui se chequea que opciones a hacer
-                if (informacion_espliteada.Length > 1)
+                if (ultimo_mensaje_espliteado.Length > 1)
                 {
-                    switch (informacion_espliteada[0])
+                    
+                    
+
+                    switch (ultimo_mensaje_espliteado[0])
                     {
-                        case "ext":
-                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, informacion_espliteada, "todos-cont");
-                            break;
                         case "ubi":
-                            string[] info_mas_nom_usu = op_arr.agregar_registro_del_array(informacion_espliteada, nombre_de_usuario);
-                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, info_mas_nom_usu, "todos-cont-encar");
+                            responder_mensage = responder_mensage + "ubicacion recibida" + G_caracter_separacion_funciones_espesificas[0];
+                            mensajes_para_ = mensajes_para_ + lineas_del_mensaje[j] + G_caracter_separacion_funciones_espesificas[0];
+                            break;
+                        case "ext":
+                            
                             break;
                         case "can":
-                            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, informacion_espliteada, "todos");
+                            
                             break;
                         default:
                             try
                             {
-
-                                Convert.ToInt32(informacion_espliteada[0]);
-                                string numero_de_platillo = informacion_espliteada[0];
-                                double total_a_pagar = 0;
-                                int[] cantidad_de_platillos = new int[G_productos.GetLength(0)];
-                                mensaje_a_enviar = new string[G_productos.GetLength(0)];
-
-
-                                cantidad_de_platillos[Convert.ToInt32(numero_de_platillo)] = Convert.ToInt32(informacion_espliteada[1]);
-
-                                int num_plat = Convert.ToInt32(numero_de_platillo);
-                                total_a_pagar = total_a_pagar + Convert.ToDouble(G_productos[num_plat, 1]);
-                            
-
-                                for (int i = 0; i < mensaje_a_enviar.Length; i++)
+                                int numero_de_platillo = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
+                                Double cantidad_de_platillos = Convert.ToDouble(ultimo_mensaje_espliteado[1]);
+                                for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length; k++)
                                 {
-                                    if (cantidad_de_platillos[i] > 0)
+                                    string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][k].Split(G_caracter_separacion[0][0]);
+
+                                    if (numero_de_platillo==k)
                                     {
-                                        mensaje_a_enviar[i] = G_productos[i, 0] + G_caracter_separacion[0] + cantidad_de_platillos[i];
+                                        
+                                        double total = Convert.ToDouble(productos[1]) * cantidad_de_platillos;
+                                        total_a_pagar_de_todo = total_a_pagar_de_todo + total;
+                                        precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + total;
+                                        cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + cantidad_de_platillos;
                                     }
 
+                                    nombre_de_productos[k] = productos[0];
                                 }
-                                //se le agrega el folio del pedido para buscarlo si hay una cancelacion
-                                mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar,"folio\n"+GenerarCadenaConFechaHoraAleatoria());
-                                
-                                //este guarda el pedido si n el total a pagar por que no tiene que ver  el dinero los encargados de la fabricacion
-                                string[] mensaje_encargados = mensaje_a_enviar;
-                                
-                                string[] mensaje_supervisores = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                                mensaje_supervisores = op_arr.agregar_registro_del_array(mensaje_supervisores, nombre_de_usuario);
-
-                                string[] mensaje_contadoeres = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                                
-                                string[] mensaje_repartidores = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                                mensaje_repartidores = op_arr.agregar_registro_del_array(mensaje_repartidores, nombre_de_usuario);
-
-                                //le manda su pedido y el total a pagar al que lo pidio
-                                mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                                // si es el vendedor
-                                si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar));
-                                //informacion extra despues de enviarle la informacion
-                                mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, G_mensaje_informacion_extra_despues_de_la_venta);
-                                mandar_mensage(esperar, mensaje_a_enviar);
-
-                                
-
-                                //manda pedido a encargados
-                                mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_encargados, "encargados");
-                                //mandar mensaje a contadores
-                                mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_contadoeres, "contadores");
-
-                                //manda mensaje del pedido  a supervisores
-                                mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_supervisores, "supervisores");
-
-                                //mandar mensaje a repartidores
-                                mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_repartidores, "repartidores");
-
                             }
-
-                            catch (Exception ex)
+                            catch (Exception)
                             {
-                                mandar_menu(manejadores, esperar, texto_que_envio, nombre_de_usuario);
+
+                                mandar_mensage(esperar, mensage_bienvenida_total);
+                                return;
+                                
                             }
                             break;
                     }
                 }
-                
-                //este es por si solo pone los numeros de los productos
+
+
                 else
                 {
-                    
                     try
                     {
-
-                        Convert.ToInt32(informacion_espliteada[0]);
-                        string numero_de_platillo = informacion_espliteada[0];
-                        double total_a_pagar = 0;
-                        int[] cantidad_de_platillos = new int[G_productos.GetLength(0)];
-                        mensaje_a_enviar = new string[G_productos.GetLength(0)];
-                        for (int i = 0; i < numero_de_platillo.Length; i++)
+                        int solo_numeros_para_el_pedido = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
+                        for (int i = 0; i < ultimo_mensaje_espliteado[0].Length; i++)
                         {
-
-                            cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])] = Convert.ToInt32(cantidad_de_platillos[Convert.ToInt32("" + numero_de_platillo[i])]) + 1;
-
-                            int num_plat = Convert.ToInt32("" + numero_de_platillo[i]);
-                            total_a_pagar = total_a_pagar + Convert.ToDouble(G_productos[num_plat, 1]);
+                            int numero_de_platillo = Convert.ToInt32((""+ultimo_mensaje_espliteado[0][i]));
+                            string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][numero_de_platillo].Split(G_caracter_separacion[0][0]);
+                            nombre_de_productos[numero_de_platillo] = productos[0];
+                            double precio = Convert.ToDouble(productos[1]);
+                            precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + precio;
+                            total_a_pagar_de_todo = total_a_pagar_de_todo + precio;
+                            cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + 1;
+                            //ultimo_mensaje_espliteado[0][i];
                         }
-
-                        for (int i = 0; i < mensaje_a_enviar.Length; i++)
-                        {
-                            if (cantidad_de_platillos[i] > 0)
-                            {
-                                mensaje_a_enviar[i] = G_productos[i, 0] + G_caracter_separacion[0] + cantidad_de_platillos[i];
-                            }
-
-                        }
-
-                        //se le agrega el folio del pedido para buscarlo si hay una cancelacion
-                        mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, "folio\n" + GenerarCadenaConFechaHoraAleatoria());
-
-                        //este guarda el pedido si n el total a pagar por que no tiene que ver  el dinero los encargados de la fabricacion
-                        string[] mensaje_encargados = mensaje_a_enviar;
-
-                        string[] mensaje_supervisores = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                        mensaje_supervisores = op_arr.agregar_registro_del_array(mensaje_supervisores, nombre_de_usuario);
-
-                        string[] mensaje_contadoeres = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-
-                        string[] mensaje_repartidores = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                        mensaje_repartidores = op_arr.agregar_registro_del_array(mensaje_repartidores, nombre_de_usuario);
-
-                        //le manda su pedido y el total a pagar al que lo pidio
-                        mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, "total a pagar: " + total_a_pagar);
-                        // si es el vendedor
-                        si_es_el_vendedor(nombre_de_usuario, string.Join("\n", mensaje_a_enviar));
-                        //informacion extra despues de enviarle la informacion
-                        mensaje_a_enviar = op_arr.agregar_registro_del_array(mensaje_a_enviar, G_mensaje_informacion_extra_despues_de_la_venta);
-                        mandar_mensage(esperar, mensaje_a_enviar);
-
-
-
-                        //manda pedido a encargados
-                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_encargados, "encargados");
-                        //mandar mensaje a contadores
-                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_contadoeres, "contadores");
-
-                        //manda mensaje del pedido  a supervisores
-                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_supervisores, "supervisores");
-
-                        //mandar mensaje a repartidores
-                        mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, mensaje_repartidores, "repartidores");
-
-
-
                     }
-
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        mandar_menu(manejadores,esperar,texto_que_envio,nombre_de_usuario);
+                        mandar_mensage(esperar, mensage_bienvenida_total);
+                        return;
                     }
 
                 }
-
             }
-        }
 
-        private void mandar_menu(IWebDriver manejadores, WebDriverWait esperar, string texto_que_envio, string nombre_de_usuario)
-        {
-            string[] mensaje_a_enviar;
-            mensaje_a_enviar = new string[] { $"Bienvenido {nombre_de_usuario}",
-                                        G_mensaje_bienvenida_inicio,
-                                        G_productos_string,
-                                        G_mensaje_bienvenida_final};
+
+            string mensaje_a_enviar = "";
+            for (int i = G_donde_inicia_la_tabla; i < nombre_de_productos.Length; i++)
+            {
+                mensaje_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_2(mensaje_a_enviar, cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i] + G_caracter_separacion[0] + precio_a_pagar_por_producto[i], i, nombre_de_productos.Length, '\n');
+            }
+
+            mensaje_a_enviar = mensaje_a_enviar + "\n" + "total_a_pagar " + total_a_pagar_de_todo;
+
+
+            string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[3]);
+
+
+
+            
 
             mandar_mensage(esperar, mensaje_a_enviar);
-
-            string[] nombre_y_mensaje_que_envio = { nombre_de_usuario, texto_que_envio };
-            mandar_mensajes_a_supervisores_y_encargados(manejadores, esperar, nombre_y_mensaje_que_envio, "reg_mensaje");
-        }
-        public void crear_archivos_inicio()
-        {
+            //aqui se mandara el mensage
             
-            for (int i = 0; i < G_direcciones.Length; i++)
-            {
-                bas.Crear_archivo_y_directorio(G_direcciones[i]);
-            }
-
-            carga_de_informacion_a_variables_globales();
-
-        }
-
-        
-        private void mandar_mensajes_a_supervisores_y_encargados(IWebDriver manejadores, WebDriverWait esperar,string[] mensaje,string NotificarSupEnc="todos")
-        {
-            if (NotificarSupEnc == "todos")
-            {
-                for (int i = 0; i < G_supervisores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-                for (int i = 0; i < G_encargados.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
-
-                    mandar_mensage(esperar, mensaje);
-
-                }
-
-                for (int i = 0; i < G_contadores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_contadores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-
-                }
-
-                for (int i = 0; i < G_repartidores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_repartidores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-
-            }
-
-            else if (NotificarSupEnc == "todos-cont-encar")
-            {
-                for (int i = 0; i < G_supervisores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-                for (int i = 0; i < G_repartidores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_repartidores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-
-            }
-
-            else if (NotificarSupEnc == "todos-cont")
-            {
-                for (int i = 0; i < G_supervisores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-                for (int i = 0; i < G_encargados.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
-
-                    mandar_mensage(esperar, mensaje);
-
-                }
-
-                for (int i = 0; i < G_repartidores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_repartidores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-
-            }
-
-            else if (NotificarSupEnc == "supervisores")
-            {
-                for (int i = 0; i < G_supervisores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_supervisores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-            }
-
-            else if (NotificarSupEnc == "encargados")
-            {
-                for (int i = 0; i < G_encargados.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_encargados[i]);
-
-                    mandar_mensage(esperar, mensaje);
-
-                }
-            }
-
-            else if (NotificarSupEnc == "contadores")
-            {
-                for (int i = 0; i < G_contadores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_contadores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-
-                }
-            }
-
-            else if (NotificarSupEnc == "repartidores")
-            {
-                for (int i = 0; i < G_repartidores.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_repartidores[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-            }
-
-            else if (NotificarSupEnc == "reg_mensaje")
-            {
-                for (int i = 0; i < G_reg_mensajes.Length; i++)
-                {
-                    buscar_nombre_y_dar_click(manejadores, esperar, G_reg_mensajes[i]);
-
-                    mandar_mensage(esperar, mensaje);
-                }
-            }
-
 
         }
 
@@ -538,30 +319,52 @@ namespace chatbot_wathsapp.clases
             
             IWebDriver manejadores_de_busqueda = manejadores;
             //ReadOnlyCollection<IWebElement> elementos = manejadores_de_busqueda.FindElements(By.XPath("//span[contains(@title, 'Jorge')]"));
-            IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath("//span[contains(@title, '" + nombre_o_numero + "')]"));
+            IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath(G_info_de_configuracion_chatbot[6] + nombre_o_numero + "')]"));
             string a = elemento.Text;
             elemento.Click();
 
         }
+        
         WebDriverWait G_esperar2;
-        private void mandar_mensage(WebDriverWait esperar, string[] texto_enviar_arreglo)
+        private void mandar_mensage(WebDriverWait esperar, object texto_enviar_arreglo_objeto)
         {
+            string[] texto_enviar_arreglo_string = op_arr.funcion_convert_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\n");
+
+
             G_esperar2 = esperar;
             //aqui hacemos que reconosca la barra de texto y escriba
-            //html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]
-
-            //var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath("//div[contains(@class, 'g0rxnol2')]/div[@contenteditable='true']")));
-            string lugar_a_escribir = "//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/" + "div[1]/div/div[1]";
+            
+            string lugar_a_escribir = G_info_de_configuracion_chatbot[5];
             var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+            string texto_enviar = string.Join("\n", texto_enviar_arreglo_string);
 
-
-            string texto_enviar = string.Join("\n", texto_enviar_arreglo);
             escribir_msg.SendKeys(texto_enviar);
             Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
             escribir_msg.SendKeys(Keys.Enter);
             Thread.Sleep(100); // Puedes ajustar el tiempo de espera según tu escenario
             escribir_msg.SendKeys(Keys.Escape);
-            
+        }
+
+        private string[] leer_mensages_recibidos_del_mensage_clickeado(IWebDriver manejadores, WebDriverWait esperar)
+        {
+
+            //estos son los de buscar el mensage que nos llego
+            string elementos2 = G_info_de_configuracion_chatbot[4];
+
+            ReadOnlyCollection<IWebElement> elementos_ = esperar.Until(manej3 => manej3.FindElements(By.XPath(elementos2)));
+
+            string[] textosDelMensaje = new string[elementos_.Count];
+            for (int i = 0; i < elementos_.Count; i++)
+            {
+                textosDelMensaje[i] = elementos_[i].Text;
+            }
+            return textosDelMensaje;
+        }
+
+        private string nombre_del_clickeado(IWebDriver manejadores, WebDriverWait esperar)
+        {
+            string nombre_a_devolver = esperar.Until(manej2 => manej2.FindElement(By.XPath(G_info_de_configuracion_chatbot[7])).Text);
+            return nombre_a_devolver;
         }
 
         private string GenerarCadenaConFechaHoraAleatoria(int cant_caracteres=4)
@@ -589,57 +392,19 @@ namespace chatbot_wathsapp.clases
             return resultado;
         }
 
-        private void si_es_el_vendedor(string nombre_de_usuario,string info_a_guardar=null)
+        private string[] extraer_info_de_archivos_de_configuracion_chatbot(string[] direcciones)
         {
-            if (info_a_guardar!=null)
+
+            string[] info_a_retornar = null;
+            for (int i = 0; i < direcciones.Length; i++)
             {
-                bas.Agregar("config\\registros.txt", nombre_de_usuario + " " + info_a_guardar);
+                int indice_configuracion_archivos_chatbot = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(direcciones[i]));
+                info_a_retornar = op_arr.agregar_registro_del_array(info_a_retornar, Tex_base.GG_base_arreglo_de_arreglos[indice_configuracion_archivos_chatbot][1]);
             }
+
+            return info_a_retornar;
         }
 
-        private void carga_de_informacion_a_variables_globales()
-        {
-            string[] produc = bas.Leer(G_direcciones[0]);
-            G_encargados = bas.Leer(G_direcciones[1]);
-            G_supervisores = bas.Leer(G_direcciones[2]);
-            G_contadores = bas.Leer(G_direcciones[3]);
-            G_vendedores = bas.Leer(G_direcciones[4]);
-            G_repartidores = bas.Leer(G_direcciones[5]);
-            G_mensaje_bienvenida_inicio = string.Join("\n", bas.Leer(G_direcciones[6]));
-            G_mensaje_bienvenida_final = string.Join("\n", bas.Leer(G_direcciones[7]));
-            G_mensaje_informacion_extra_despues_de_la_venta = string.Join("\n", bas.Leer(G_direcciones[8]));
-            G_productos = new string[produc.Length, 2];
-            for (int i = 0; i < produc.Length; i++)
-            {
-                string[] datosProducto = produc[i].Split(Convert.ToChar(G_caracter_separacion[0]));
-                G_productos[i, 0] = datosProducto[0].Trim(); // Nombre del producto
-                G_productos[i, 1] = datosProducto[1].Trim(); // Precio del producto
-                if (i < produc.Length - 1)
-                {
-                    G_productos_string = G_productos_string + i + ")" + G_productos[i, 0] + " $" + G_productos[i, 1] + "\n";
-                }
-                else
-                {
-                    G_productos_string = G_productos_string + i + ")" + G_productos[i, 0] + " $" + G_productos[i, 1];
-                }
-            }
-            //G_direcciones[9] el archivo que verificaras si se recargara  los datos de los archivos esta en la funcion recargar_informacion
-            G_reg_mensajes = bas.Leer(G_direcciones[10]);
-        }
-        private void recargar_informacion_de_un_archivos_si_un_archivo_contiene_1_en_su_primera_fila()
-        {
-            bas.Crear_archivo_y_directorio(G_direcciones[9]);
-            string[] contenido_del_archivo = bas.Leer(G_direcciones[9]);
-            if (contenido_del_archivo.Length != 0)
-            {
-                if (contenido_del_archivo[0] == "1")
-                {
-                    G_productos_string = "";
-                    carga_de_informacion_a_variables_globales();
-                }
-            }
-            
-        }
 
     }
 }
