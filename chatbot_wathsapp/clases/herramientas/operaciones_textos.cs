@@ -109,7 +109,7 @@ namespace chatbot_wathsapp.clases.herramientas
             return texto_editado;
         }
 
-        public string concatenacion_caracter_separacion_dentro_de_un_for_1(string direccion_archivo)
+        public string concatenacion_caracter_separacion_dentro_de_un_for_1(string direccion_archivo,bool poner_num_fila=false)
         {
             
 
@@ -117,7 +117,12 @@ namespace chatbot_wathsapp.clases.herramientas
             string mensaje_de_bienvenida_a_enviar = "";
             for (int i = G_donde_inicia_la_tabla; i < Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length; i++)
             {
-                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion_dentro_de_un_for_2(mensaje_de_bienvenida_a_enviar, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], i, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length, '\n');
+                string num_fil = "";
+                if (poner_num_fila)
+                {
+                    num_fil = i + ") ";
+                }
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion_dentro_de_un_for_2(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], i, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length, '\n');
 
             }
             return mensaje_de_bienvenida_a_enviar;

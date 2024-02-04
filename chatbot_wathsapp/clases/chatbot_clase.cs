@@ -32,37 +32,37 @@ namespace chatbot_wathsapp.clases
         
         string[] G_dir_arch_conf_chatbot =
         {
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[5, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[6, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[7, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[8, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[9, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[10, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[11, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[12, 0],
+            /*0*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[5, 0],//"config\\chatbot\\info_para_comandos_chatbot\\00_paginaweb.txt",
+            /*1*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[6, 0],//"config\\chatbot\\info_para_comandos_chatbot\\01_ya_entrado_en_la_mensajeria.txt",
+            /*2*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[7, 0],//"config\\chatbot\\info_para_comandos_chatbot\\02_chequeo_no_leidos.txt",
+            /*3*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[8, 0],//"config\\chatbot\\info_para_comandos_chatbot\\03_clickeo.txt",
+            /*4*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[9, 0],//"config\\chatbot\\info_para_comandos_chatbot\\04_lectura_del_mensage.txt",
+            /*5*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[10, 0],//"config\\chatbot\\info_para_comandos_chatbot\\05_reconocer_textbox_de_envio.txt",
+            /*6*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[11, 0],//"config\\chatbot\\info_para_comandos_chatbot\\06_buscar_nombre.txt",
+            /*7*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[12, 0],//"config\\chatbot\\info_para_comandos_chatbot\\07_nombre_del_clikeado.txt",
 
         };
 
         string[] G_dir_arch_mensages =
         {
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[13, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[14, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[15, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[16, 0]
+            /*0*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[13, 0],//"config\\chatbot\\01_mensaje_bienvenida_inicio.txt,"
+            /*1*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[14, 0],//"config\\chatbot\\02_mensaje_bienvenida_final.txt"
+            /*2*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[15, 0],//"config\\chatbot\\03_productos.txt"
+            /*3*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[16, 0]//"config\\chatbot\\04_mensaje_extra_despues_de_la_venta.txt"
         };
-        string[] G_dir_arch_listas_de_contactos_para_mandar_informacion =
+        string[,] G_contactos_lista_para_mandar_informacion =
         {
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[17, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[18, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[19, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0]
+            /*0*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[17, 0],"encargados" },//"config\\chatbot\\05_encargados.txt"
+            /*1*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[18, 0],"supervisores" },//"config\\chatbot\\06_supervisores.txt"
+            /*2*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[19, 0],"contadores" },//"config\\chatbot\\07_contadores.txt"
+            /*3*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],"vendedores" },//"config\\chatbot\\08_vendedores.txt"
+            /*4*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],"repartidores" },//"config\\chatbot\\09_repartidores.txt"
+            /*5*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0],"reg_mensage" }//"config\\chatbot\\10_reg_mensaje.txt"
         };
 
         string[] G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas =
         {
-            Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],
+            /**/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],//"config\\chatbot\\configuracion_programador.txt"
             
         };
 
@@ -124,6 +124,7 @@ namespace chatbot_wathsapp.clases
             {
                 try
                 {
+                    
 
                     //checa si estan los elementos  esto sustitulle al // esperar.Until(manej => manej.FindElement(By.XPath(elementos)));//busca el elemento del no leido
                     //porque siempre marcaba error
@@ -145,7 +146,7 @@ namespace chatbot_wathsapp.clases
                             try
                             {
                                 
-                                modelo_para_mandar_mensage(manejadores, esperar, nom_del_click, textosDelMensaje,"qui onda");
+                                modelo_para_mandar_mensage(manejadores, esperar, nom_del_click, textosDelMensaje);
                                 
                             }
                             catch
@@ -181,10 +182,14 @@ namespace chatbot_wathsapp.clases
 
 
 
-        private void modelo_para_mandar_mensage(IWebDriver manejadores, WebDriverWait esperar, string nom_mensage_clickeado, object texto_recibidos_arreglo_objeto, object texto_a_enviar_arreglo_objeto=null)
+        private void modelo_para_mandar_mensage(IWebDriver manejadores, WebDriverWait esperar, string nom_mensage_clickeado, object texto_recibidos_arreglo_objeto)
         {
-            string[] texto_enviar_arreglo_string = op_arr.funcion_convert_objeto_a_arreglo(texto_a_enviar_arreglo_objeto);
+            recargar_arreglos();
+
+            string nombre_Del_que_envio_el_mensage = nombre_del_clickeado(manejadores, esperar);
+
             string[] textos_recibidos_srting_arr= op_arr.funcion_convert_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
+
 
             string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length-1];
             ultimo_mensaje = ultimo_mensaje.ToLower();
@@ -193,18 +198,21 @@ namespace chatbot_wathsapp.clases
 
             string responder_mensage = "";
             string mensajes_para_ = "";
+
             
+
             string[] nombre_de_productos = new string[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
             double[] precio_a_pagar_por_producto = new double[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
             double[] cantidad_de_productos = new double[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
 
+            
 
             string mensaje_de_bienvenida_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[0]);
-            string mensaje_de_productos_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[2]);
+            string mensaje_de_productos_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[2],true);
             string mensaje_de_bienvenida_final_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[1]);
-
             string mensage_bienvenida_total = mensaje_de_bienvenida_a_enviar + "\n" + mensaje_de_productos_a_enviar + "\n" + mensaje_de_bienvenida_final_a_enviar;
 
+            
             double total_a_pagar_de_todo = 0;
             for (int j = 0; j < lineas_del_mensaje.Length; j++)
             {
@@ -224,14 +232,38 @@ namespace chatbot_wathsapp.clases
                     switch (ultimo_mensaje_espliteado[0])
                     {
                         case "ubi":
-                            responder_mensage = responder_mensage + "ubicacion recibida" + G_caracter_separacion_funciones_espesificas[0];
+                            responder_mensage = responder_mensage + "ubicacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
+                            mandar_mensage(esperar, responder_mensage);
                             mensajes_para_ = mensajes_para_ + lineas_del_mensaje[j] + G_caracter_separacion_funciones_espesificas[0];
+
+                            /*reg*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+
+                            /*sup*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[1, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*repa*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[4, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            return;
                             break;
                         case "ext":
-                            
+                            responder_mensage = responder_mensage + "informacion extra recibida: " + G_caracter_separacion_funciones_espesificas[0];
+                            mandar_mensage(esperar, responder_mensage);
+                            mensajes_para_ = mensajes_para_ + lineas_del_mensaje[j] + G_caracter_separacion_funciones_espesificas[0];
+
+                            /*reg*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*enc*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[0, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*sup*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[1, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*repa*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[4, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            return;
                             break;
                         case "can":
-                            
+                            responder_mensage = responder_mensage + "cancelacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
+                            mandar_mensage(esperar, responder_mensage);
+
+                            mensajes_para_ = mensajes_para_ + lineas_del_mensaje[j] + G_caracter_separacion_funciones_espesificas[0];
+
+                            /*reg*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*enc*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[0, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*sup*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[1, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            /*repa*/mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[4, 1], nombre_Del_que_envio_el_mensage + "\n" + mensajes_para_ + "\n" + "------------------------------------------------------------------------");
+                            return;
                             break;
                         default:
                             try
@@ -258,6 +290,7 @@ namespace chatbot_wathsapp.clases
                             {
 
                                 mandar_mensage(esperar, mensage_bienvenida_total);
+                                mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------");
                                 return;
                                 
                             }
@@ -273,6 +306,7 @@ namespace chatbot_wathsapp.clases
                         int solo_numeros_para_el_pedido = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
                         for (int i = 0; i < ultimo_mensaje_espliteado[0].Length; i++)
                         {
+
                             int numero_de_platillo = Convert.ToInt32((""+ultimo_mensaje_espliteado[0][i]));
                             string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][numero_de_platillo].Split(G_caracter_separacion[0][0]);
                             nombre_de_productos[numero_de_platillo] = productos[0];
@@ -280,37 +314,61 @@ namespace chatbot_wathsapp.clases
                             precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + precio;
                             total_a_pagar_de_todo = total_a_pagar_de_todo + precio;
                             cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + 1;
-                            //ultimo_mensaje_espliteado[0][i];
                         }
                     }
                     catch (Exception)
                     {
                         mandar_mensage(esperar, mensage_bienvenida_total);
+                        mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------");
                         return;
                     }
 
                 }
             }
 
-
-            string mensaje_a_enviar = "";
+            string encargado_cantidades_nom_producto = "";
+            string contador_ventas = "";
+            string respuesta_de_mensaje = "";
+            
             for (int i = G_donde_inicia_la_tabla; i < nombre_de_productos.Length; i++)
             {
-                mensaje_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_2(mensaje_a_enviar, cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i] + G_caracter_separacion[0] + precio_a_pagar_por_producto[i], i, nombre_de_productos.Length, '\n');
+                if (precio_a_pagar_por_producto[i]>0)
+                {
+                    encargado_cantidades_nom_producto = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_2(encargado_cantidades_nom_producto, cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i], i, nombre_de_productos.Length, '\n');
+                    contador_ventas= op_tex.concatenacion_caracter_separacion_dentro_de_un_for_2(contador_ventas, "comida" + G_caracter_separacion[0] + precio_a_pagar_por_producto[i], i, nombre_de_productos.Length, '\n');
+                    string todos_juntos = cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i] + G_caracter_separacion[0] + precio_a_pagar_por_producto[i];
+                    respuesta_de_mensaje = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_2(respuesta_de_mensaje,todos_juntos, i, nombre_de_productos.Length, '\n');
+                    
+                }
+                
+            }
+            
+            respuesta_de_mensaje = respuesta_de_mensaje + "\n" + "total a pagar " + total_a_pagar_de_todo;
+            contador_ventas = contador_ventas + "\n" + "total a pagar " + total_a_pagar_de_todo;
+            string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[3]);
+            for (int i = 0; i < G_contactos_lista_para_mandar_informacion.GetLength(0); i++)
+            {
+                int indice_lista_contactos=Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[i,0]));
+                for (int k = 0; k < Tex_base.GG_base_arreglo_de_arreglos[indice_lista_contactos].Length; k++)
+                {
+
+                    mandar_mensage_supervisores(manejadores,esperar,Tex_base.GG_base_arreglo_de_arreglos[indice_lista_contactos][k], G_contactos_lista_para_mandar_informacion[k, 1]);
+                    
+                }
             }
 
-            mensaje_a_enviar = mensaje_a_enviar + "\n" + "total_a_pagar " + total_a_pagar_de_todo;
-
-
-            string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_caracter_separacion_dentro_de_un_for_1(G_dir_arch_mensages[3]);
-
-
 
             
 
-            mandar_mensage(esperar, mensaje_a_enviar);
+            mandar_mensage(esperar, respuesta_de_mensaje);
             //aqui se mandara el mensage
-            
+            mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------");
+
+            mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[0, 1], encargado_cantidades_nom_producto);
+            mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[1, 1], nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje);
+            mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[2, 1], contador_ventas);
+            mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[4, 1], nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje);
+
 
         }
 
@@ -323,6 +381,24 @@ namespace chatbot_wathsapp.clases
             string a = elemento.Text;
             elemento.Click();
 
+        }
+
+        private void mandar_mensage_supervisores(IWebDriver manejadores, WebDriverWait esperar, string nombre_contacto, object mensage = null)
+        {
+            for (int i = 0; i < G_contactos_lista_para_mandar_informacion.GetLength(0); i++)
+            {
+                if (nombre_contacto== G_contactos_lista_para_mandar_informacion[i,1])
+                {
+                    int indice_contactos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[i, 0]));
+                    for (int j = G_donde_inicia_la_tabla; j < Tex_base.GG_base_arreglo_de_arreglos[indice_contactos].Length; j++)
+                    {
+                        buscar_nombre_y_dar_click(manejadores, esperar, Tex_base.GG_base_arreglo_de_arreglos[indice_contactos][j]);
+                        mandar_mensage(esperar, mensage);
+
+                    }
+                    break;
+                }
+            }
         }
         
         WebDriverWait G_esperar2;
@@ -403,6 +479,37 @@ namespace chatbot_wathsapp.clases
             }
 
             return info_a_retornar;
+        }
+
+        public void recargar_arreglos()
+        {
+            string[] chequeo = bas.Leer_inicial(si_es_1_recarga_todos_los_arreglos);
+            if (chequeo.Length > G_donde_inicia_la_tabla)
+            {
+                if (chequeo[G_donde_inicia_la_tabla] == "1")
+                {
+                    for (int i = G_donde_inicia_la_tabla; i < G_dir_arch_mensages.Length; i++)
+                    {
+                        int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[i]));
+                        Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_arch_mensages[i]);
+                    }
+
+                    for (int i = G_donde_inicia_la_tabla; i < G_contactos_lista_para_mandar_informacion.GetLength(0); i++)
+                    {
+                        int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[i, 0]));
+                        Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_contactos_lista_para_mandar_informacion[i, 0]);
+                    }
+
+                    for (int i = G_donde_inicia_la_tabla; i < G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas.Length; i++)
+                    {
+                        int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[i]));
+                        Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[i]);
+                    }
+
+                }
+            }
+            
+
         }
 
 
