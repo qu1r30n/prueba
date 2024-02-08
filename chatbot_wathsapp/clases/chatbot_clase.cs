@@ -28,9 +28,6 @@ namespace chatbot_wathsapp.clases
 
         int G_donde_inicia_la_tabla = var_fun_GG.GG_indice_donde_comensar;
 
-        public string G_registros_chatbot = "config\\chatbot\\registros\\" + Tex_base.GG_año_mes_dia_para_registros_ + "_reg.txt";
-        public string G_registros_us_chatbot = "config\\chatbot\\registros\\" + Tex_base.GG_año_mes_dia_para_registros_ + "_usuarios_reg.txt";
-
         string[] G_dir_arch_conf_chatbot =
         {
             /*0*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[5, 0],//"config\\chatbot\\info_para_comandos_chatbot\\00_paginaweb.txt",
@@ -59,28 +56,30 @@ namespace chatbot_wathsapp.clases
             /*3*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],"vendedores" },//"config\\chatbot\\08_vendedores.txt",
             /*4*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],"repartidores" },//"config\\chatbot\\09_repartidores.txt",
             /*5*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0],"reg_mensage" },//"config\\chatbot\\10_reg_mensaje.txt"
-            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0],"tesorero" }//"config\\chatbot\\11_tesorero.txt
+            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[26, 0],"tesorero" },//"config\\chatbot\\11_tesorero.txt
+            /*7*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],"programador" }//"config\\chatbot\\configuracion_programador.txt",
         };
 
-        string[] G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas =
+        public string[,] G_dir_para_registros =
         {
-            /*0*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],//"config\\chatbot\\configuracion_programador.txt",
-            /*1*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[24,0]//"config\\chatbot\\folios_a_checar\\folio_ventas.txt"
+            /*0*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[24,0],"folios_a_procesar" },//"config\\chatbot\\folios_a_checar\\folio_ventas.txt,"
+            /*1*/{ "config\\chatbot\\registros\\" + Tex_base.GG_año_mes_dia_para_registros_ + "_reg.txt","registro" },
+            /*2*/{ "config\\chatbot\\registros\\" + Tex_base.GG_año_mes_dia_para_registros_ + "_usuarios_reg.txt","registro_usuario_venta_por_dia" }
         };
-
         string si_es_1_recarga_todos_los_arreglos = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[24, 0];
+        string[][] G_info_de_configuracion_chatbot = null;
+
+
 
         string G_direccion_negocio = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[2, 0];//string G_direccion_negocio = "config\\sismul2\\negocio.txt";
         string G_direccion_patrocinadores_complejos = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[3, 0];//string G_direccion_patrocinadores_complejos = "config\\sismul2\\patrocinadores_complejos.txt";
 
 
-        string[][] G_info_de_configuracion_chatbot = null;
-
         public void configuracion_de_inicio()
         {
 
-            G_info_de_configuracion_chatbot=extraer_info_de_archivos_de_configuracion_chatbot(G_dir_arch_conf_chatbot);
-            
+            G_info_de_configuracion_chatbot = extraer_info_de_archivos_de_configuracion_chatbot(G_dir_arch_conf_chatbot);
+
             //<span class="l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt"
             //aria-label="No leídos">1</span>
 
@@ -109,7 +108,7 @@ namespace chatbot_wathsapp.clases
                 IWebElement elementoSide = manej.FindElement(By.Id(G_info_de_configuracion_chatbot[1][1]));
                 return elementoSide;
             });
-            
+
             procesos(manejadores, esperar);
 
         }
@@ -119,9 +118,9 @@ namespace chatbot_wathsapp.clases
 
             //estos son del no leido--------------------------------------------------------------------
             string elementos = G_info_de_configuracion_chatbot[2][1];
-            string elementos_clase = elementos + G_info_de_configuracion_chatbot[3][1]; 
+            string elementos_clase = elementos + G_info_de_configuracion_chatbot[3][1];
             //-----------------------------------------------------------------------------------------
-            
+
             //------------------------------------------------------------------------------------------
 
 
@@ -129,7 +128,7 @@ namespace chatbot_wathsapp.clases
             {
                 try
                 {
-                    
+
 
                     //checa si estan los elementos  esto sustitulle al // esperar.Until(manej => manej.FindElement(By.XPath(elementos)));//busca el elemento del no leido
                     //porque siempre marcaba error
@@ -144,15 +143,15 @@ namespace chatbot_wathsapp.clases
                             manejadores.FindElement(By.XPath(elementos_clase)).Click();//clickea el elemento del no leido
                             string[] textosDelMensaje = leer_mensages_recibidos_del_mensage_clickeado(manejadores, esperar);
                             string nom_del_click = nombre_del_clickeado(manejadores, esperar);
-                            
+
                             //fin mensaje que resibio--------------------------------------------------------------
 
                             Thread.Sleep(1000);
                             try
                             {
-                                
+
                                 modelo_para_mandar_mensage(manejadores, esperar, nom_del_click, textosDelMensaje);
-                                
+
                             }
                             catch
                             {
@@ -193,17 +192,13 @@ namespace chatbot_wathsapp.clases
 
             string nombre_Del_que_envio_el_mensage = nombre_del_clickeado(manejadores, esperar);
 
-            string[] textos_recibidos_srting_arr = op_arr.funcion_convert_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
+            string[] textos_recibidos_srting_arr = op_arr.convierte_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
 
 
             string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length - 1];
             ultimo_mensaje = ultimo_mensaje.ToLower();
             string[] lineas_del_mensaje = ultimo_mensaje.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
-
-
-
-
 
 
             string[] nombre_de_productos = new string[Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length];
@@ -249,7 +244,7 @@ namespace chatbot_wathsapp.clases
                             mandar_mensage_supervisores(manejadores, esperar, temp_ubi_contactos, temp_ubi_mensages);
 
                             return;
-                            
+
                         case "ext":
                             responder_mensage = "informacion extra recibida: " + G_caracter_separacion_funciones_espesificas[0];
                             mandar_mensage(esperar, responder_mensage);
@@ -261,7 +256,7 @@ namespace chatbot_wathsapp.clases
                             mandar_mensage_supervisores(manejadores, esperar, tem_ext_contactos, tem_ext_mensajes);
 
                             return;
-                            
+
                         case "can":
                             responder_mensage = "cancelacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
                             mandar_mensage(esperar, responder_mensage);
@@ -276,27 +271,14 @@ namespace chatbot_wathsapp.clases
                             return;
                         case "con":
 
-                            int indice_contactos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[1, 0]));
-                            bool tesorero_encontrado = false;
-                            for (int i = 0; i < G_contactos_lista_para_mandar_informacion.GetLength(0); i++)
-                            {
-                                if (nom_mensage_clickeado == G_contactos_lista_para_mandar_informacion[i, 1])
-                                {
-                                    int indice_contactos2 = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[i, 0]));
-                                    for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[indice_contactos2].Length; k++)
-                                    {
-                                        
-                                    }
-                                }
-                            }
+                            comandos_us_con_privilegios(manejadores, esperar, nom_mensage_clickeado, ultimo_mensaje_espliteado);
 
-
-                            
                             return;
-                            
+
                         default:
                             try
                             {
+                                //el platillo : la cantidad del platillo
                                 int numero_de_platillo = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
                                 Double cantidad_de_platillos = Convert.ToDouble(ultimo_mensaje_espliteado[1]);
                                 for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length; k++)
@@ -317,7 +299,7 @@ namespace chatbot_wathsapp.clases
                             }
                             catch (Exception)
                             {
-
+                                // error manda mensaje de bienvenvenida y mensage a registros
                                 mandar_mensage(esperar, mensage_bienvenida_total);
                                 mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------");
                                 return;
@@ -332,6 +314,7 @@ namespace chatbot_wathsapp.clases
                 {
                     try
                     {
+                        //mando solo numeros de platillos
                         int solo_numeros_para_el_pedido = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
                         for (int i = 0; i < ultimo_mensaje_espliteado[0].Length; i++)
                         {
@@ -347,6 +330,7 @@ namespace chatbot_wathsapp.clases
                     }
                     catch (Exception)
                     {
+                        //mando una palabra
                         mandar_mensage(esperar, mensage_bienvenida_total);
                         mandar_mensage_supervisores(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------");
                         return;
@@ -355,6 +339,7 @@ namespace chatbot_wathsapp.clases
                 }
             }
 
+            //preparando mensajes para encargados
             string encargado_cantidades_nom_producto = "";
             string contador_ventas = "";
             string respuesta_de_mensaje = "";
@@ -398,9 +383,9 @@ namespace chatbot_wathsapp.clases
             string temp_contactos = G_contactos_lista_para_mandar_informacion[5, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[2, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1];
             string temp_mensages = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------" + G_caracter_separacion_funciones_espesificas[0] + encargado_cantidades_nom_producto + G_caracter_separacion_funciones_espesificas[0] + nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje + G_caracter_separacion_funciones_espesificas[0] + contador_ventas + G_caracter_separacion_funciones_espesificas[0] + nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje;
             mandar_mensage_supervisores(manejadores, esperar, temp_contactos, temp_mensages);
-            int indice_folios = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[1]));
+            int indice_folios = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros[0,0]));
             string folio = GenerarCadenaConFechaHoraAleatoria(4) + "" + DateTime.Now.ToString("yyMMddHHmmss");
-            
+
 
             string carpetas = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(G_dir_arch_mensages[0], "\\", 1);
             string dir_archivo_v_usuarios = carpetas + "\\reg\\" + DateTime.Now.ToString("yyyyMMdd") + "_v_us.txt";
@@ -409,7 +394,7 @@ namespace chatbot_wathsapp.clases
 
             //config\\chatbot\\reg\\folio_ventas.txt~folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
 
-            
+
             string usuario = op_arr.busqueda_profunda_arreglo(Tex_base.GG_base_arreglo_de_arreglos[indice_nego], "8|6", nom_mensage_clickeado, donde_iniciar: 1);
 
 
@@ -419,20 +404,20 @@ namespace chatbot_wathsapp.clases
             if (usuario != null)
             {
                 string tem_info_si_no_es_vendedor = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + usuario_espliteado[0] + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
-                bas.Agregar(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[1], tem_info_si_no_es_vendedor);
+                bas.Agregar(G_dir_para_registros[0,0], tem_info_si_no_es_vendedor);
 
                 string texto_a_agregar_sino_lo_encuentra;
                 //bas.si_existe_suma_sino_agega_extra__SIN_ARREGLO(G_direccion_folios, 0, usuario_espliteado[0],1,total_a_pagar_de_todo,);
-   
+
             }
 
             else
             {
 
                 string tem_info = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + "no_es_vendedor" + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
-                bas.Agregar(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[1], tem_info);
+                bas.Agregar(G_dir_para_registros[0,0], tem_info);
             }
-            
+
             //bas.si_existe_suma_sino_agega_extra__SIN_ARREGLO(dir_archivo_reg, );
 
 
@@ -442,7 +427,7 @@ namespace chatbot_wathsapp.clases
 
         private void buscar_nombre_y_dar_click(IWebDriver manejadores, WebDriverWait esperar, string nombre_o_numero)
         {
-            
+
             IWebDriver manejadores_de_busqueda = manejadores;
             //ReadOnlyCollection<IWebElement> elementos = manejadores_de_busqueda.FindElements(By.XPath("//span[contains(@title, 'Jorge')]"));
             IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath(G_info_de_configuracion_chatbot[6] + nombre_o_numero + "')]"));
@@ -451,12 +436,12 @@ namespace chatbot_wathsapp.clases
 
         }
 
-        
+
 
         private void mandar_mensage_supervisores(IWebDriver manejadores, WebDriverWait esperar, string nombre_contacto, string mensage = null)
         {
-            string[] supervisores = op_arr.funcion_convert_objeto_a_arreglo(nombre_contacto, G_caracter_separacion[0]);
-            string[] mensage_espliteados = op_arr.funcion_convert_objeto_a_arreglo(mensage, G_caracter_separacion_funciones_espesificas[0]);
+            string[] supervisores = op_arr.convierte_objeto_a_arreglo(nombre_contacto, G_caracter_separacion[0]);
+            string[] mensage_espliteados = op_arr.convierte_objeto_a_arreglo(mensage, G_caracter_separacion_funciones_espesificas[0]);
             for (int k = 0; k < supervisores.Length; k++)
             {
                 for (int i = 0; i < G_contactos_lista_para_mandar_informacion.GetLength(0); i++)
@@ -474,18 +459,18 @@ namespace chatbot_wathsapp.clases
                     }
                 }
             }
-            
+
         }
-        
+
         WebDriverWait G_esperar2;
         private void mandar_mensage(WebDriverWait esperar, object texto_enviar_arreglo_objeto)
         {
-            string[] texto_enviar_arreglo_string = op_arr.funcion_convert_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\n");
+            string[] texto_enviar_arreglo_string = op_arr.convierte_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\n");
 
 
             G_esperar2 = esperar;
             //aqui hacemos que reconosca la barra de texto y escriba
-            
+
             string lugar_a_escribir = G_info_de_configuracion_chatbot[5][1];
             var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
             string texto_enviar = string.Join("\n", texto_enviar_arreglo_string);
@@ -515,27 +500,28 @@ namespace chatbot_wathsapp.clases
 
         private string nombre_del_clickeado(IWebDriver manejadores, WebDriverWait esperar)
         {
-                string nombre_a_devolver = esperar.Until(manej2 => {
-                    try
-                    {
-                        return manej2.FindElement(By.XPath(G_info_de_configuracion_chatbot[7][1])).Text;
-                    }
-                    catch
-                    {
+            string nombre_a_devolver = esperar.Until(manej2 =>
+            {
+                try
+                {
+                    return manej2.FindElement(By.XPath(G_info_de_configuracion_chatbot[7][1])).Text;
+                }
+                catch
+                {
 
-                        return manej2.FindElement(By.XPath(G_info_de_configuracion_chatbot[7][2])).Text;
-                        
-                    }
-                    
-                });
+                    return manej2.FindElement(By.XPath(G_info_de_configuracion_chatbot[7][2])).Text;
+
+                }
+
+            });
 
 
 
             return nombre_a_devolver;
-            
+
         }
 
-        private string GenerarCadenaConFechaHoraAleatoria(int cant_caracteres=4)
+        private string GenerarCadenaConFechaHoraAleatoria(int cant_caracteres = 4)
         {
             // Obtiene la hora actual con segundos
             string HoraConSegundos = DateTime.Now.ToString("HHmmss");
@@ -592,18 +578,66 @@ namespace chatbot_wathsapp.clases
                         Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_contactos_lista_para_mandar_informacion[i, 0]);
                     }
 
-                    for (int i = G_donde_inicia_la_tabla; i < G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas.Length; i++)
+                    for (int i = 0; i < G_dir_para_registros.Length; i++)
                     {
-                        int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[i]));
-                        Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_arch_listas_de_contactos_para_recepcion_de_informacion_para_funciones_espesificas[i]);
+                        int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros[i,0]));
+                        Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_para_registros[i,0]);
                     }
 
                 }
             }
-            
+
 
         }
 
+        public void comandos_us_con_privilegios(IWebDriver manejadores, WebDriverWait esperar, string nombre, object comando, string caracter_de_separacion_si_es_string = null)
+        {
+            string[] comando_espliteado = op_arr.convierte_objeto_a_arreglo(comando, caracter_de_separacion_si_es_string);
+            string[] grupos_en_los_que_esta = pociciones_en_los_que_se_encutra(nombre);
+
+
+            switch (comando_espliteado[0])
+            {
+                case "con":
+                    string[] grupos_donde_puede_ejecutarse = { G_contactos_lista_para_mandar_informacion[6, 1] };
+
+                    string[] grupos_a_aceptados = op_arr.que_elementos_se_encuentra_dentro_de_un_arreglo(grupos_en_los_que_esta, grupos_donde_puede_ejecutarse);
+                    
+                    if (grupos_a_aceptados!=null)
+                    {
+                       // bas.eliminar_fila(G)
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public string[] pociciones_en_los_que_se_encutra(string nombre)
+        {
+            string[] grupos_en_los_que_esta = null;
+            int contactos_listas = G_contactos_lista_para_mandar_informacion.GetLength(0);
+            for (int i = 0; i < contactos_listas; i++)
+            {
+                int indice_dir_contactos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_contactos_lista_para_mandar_informacion[i, 0]));
+                int contactos_listas2 = Tex_base.GG_base_arreglo_de_arreglos[indice_dir_contactos].Length;
+                for (int j = G_donde_inicia_la_tabla; j < contactos_listas2; j++)
+                {
+                    string temp = Tex_base.GG_base_arreglo_de_arreglos[indice_dir_contactos][j];
+                    if (temp == nombre)
+                    {
+                        grupos_en_los_que_esta = op_arr.agregar_registro_del_array(grupos_en_los_que_esta, G_contactos_lista_para_mandar_informacion[i, 1]);
+                        break;
+                    }
+                }
+
+
+            }
+            return grupos_en_los_que_esta;
+        }
+
+        
 
     }
 }

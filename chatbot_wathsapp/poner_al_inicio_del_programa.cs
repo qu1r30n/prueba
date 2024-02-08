@@ -76,8 +76,8 @@ namespace chatbot_wathsapp.clases
             }
 
             chatbot_clase chatbot = new chatbot_clase();
-            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_registros_us_chatbot, "id_usuario|venta", leer_y_agrega_al_arreglo: false);
-            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_registros_chatbot, "folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2", leer_y_agrega_al_arreglo: false);
+            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros[2,0], "id_usuario|venta", leer_y_agrega_al_arreglo: false);
+            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros[1,0], "folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2", leer_y_agrega_al_arreglo: false);
 
 
         }

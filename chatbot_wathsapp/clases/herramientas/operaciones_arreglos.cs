@@ -512,7 +512,7 @@ namespace chatbot_wathsapp.clases.herramientas
             return areglo;
         }
 
-        public string[] funcion_convert_objeto_a_arreglo(object texto_enviar_arreglo_objeto, string caracter_de_separacion_si_es_string = null)
+        public string[] convierte_objeto_a_arreglo(object texto_enviar_arreglo_objeto, string caracter_de_separacion_si_es_string = null)
         {
 
             string[] texto_enviar_arreglo_string = null;
@@ -545,6 +545,25 @@ namespace chatbot_wathsapp.clases.herramientas
             }
 
             return texto_enviar_arreglo_string;
+        }
+
+        public string[] que_elementos_se_encuentra_dentro_de_un_arreglo(string[] arreglo_en_el_que_se_buscara, object elememntos_buscar, string caracter_de_separacion_si_es_string = null)
+        {
+            string[] elementoas_a_buscar_arreglo = convierte_objeto_a_arreglo(elememntos_buscar, caracter_de_separacion_si_es_string);
+            string[] arreglo_a_devolver = null;
+            for (int i = 0; i < elementoas_a_buscar_arreglo.Length; i++)
+            {
+                for (int j = 0; j < arreglo_en_el_que_se_buscara.Length; j++)
+                {
+                    if (arreglo_en_el_que_se_buscara[i]== arreglo_en_el_que_se_buscara[j])
+                    {
+                        arreglo_a_devolver = agregar_registro_del_array(arreglo_a_devolver, arreglo_en_el_que_se_buscara[i]);
+                    }
+                }
+            }
+
+
+            return arreglo_a_devolver;
         }
 
     }
