@@ -13,6 +13,8 @@ namespace chatbot_wathsapp.clases.herramientas
     {
 
         static public string[][] GG_base_arreglo_de_arreglos = null;
+
+
         //direcciones_de_las_bases
         static public string[,] GG_dir_bd_y_valor_inicial_bidimencional = null;
 
@@ -26,10 +28,11 @@ namespace chatbot_wathsapp.clases.herramientas
         public string G_separador_para_funciones_espesificas2 = "§";
         public string G_separador_para_funciones_espesificas3 = "¶";
         */
-        public string[] G_caracter_separacion = var_fun_GG.GG_caracter_separacion;
-        public string[] G_separador_para_funciones_espesificas_ = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
+        public string[] GG_caracter_separacion = var_fun_GG.GG_caracter_separacion;
+        public string[] GG_separador_para_funciones_espesificas_ = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
 
-
+        static public string GG_año_mes_dia_para_registros_ = DateTime.Now.ToString("yyyyMMdd");
+        
 
 
         /*Aquí poner las funciones de las otras clases Si te vas a llevar esta clase solamente --------------------------------
@@ -110,7 +113,7 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     GG_dir_bd_y_valor_inicial_bidimencional = op_arreglos.agregar_registro_del_array_bidimensional(GG_dir_bd_y_valor_inicial_bidimencional, direccion_archivo + caracter_separacion_fun_esp[0] + valor_inicial, caracter_separacion_fun_esp);
                     GG_base_arreglo_de_arreglos = op_arreglos.agregar_arreglo_a_arreglo_de_arreglos(GG_base_arreglo_de_arreglos, Leer_inicial(direccion_archivo));
-                    return direccion_archivo + G_caracter_separacion[0] + "leido";
+                    return direccion_archivo + GG_caracter_separacion[0] + "leido";
                 }
             }
             if (creo_algo)
@@ -286,7 +289,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
                 if (i > GG_base_arreglo_de_arreglos[num_indice_de_direccion_int].Length - 1)
                 {
-                    temp = temp + GG_base_arreglo_de_arreglos[num_indice_de_direccion_int][i] + G_separador_para_funciones_espesificas_[0];
+                    temp = temp + GG_base_arreglo_de_arreglos[num_indice_de_direccion_int][i] + GG_separador_para_funciones_espesificas_[0];
                 }
                 else
                 {
@@ -294,7 +297,7 @@ namespace chatbot_wathsapp.clases.herramientas
                 }
 
             }
-            string[] arreglo_a_retornar = temp.Split(G_separador_para_funciones_espesificas_[0][0]);
+            string[] arreglo_a_retornar = temp.Split(GG_separador_para_funciones_espesificas_[0][0]);
             return arreglo_a_retornar;
         }
 
@@ -360,6 +363,82 @@ namespace chatbot_wathsapp.clases.herramientas
             File.Delete(direccion_archivo);//borramos el archivo original
             File.Move(dir_tem, direccion_archivo);//renombramos el archivo temporal por el que tenia el original
 
+            return exito_o_fallo;
+        }
+
+        public string si_existe_suma_sino_agega_extra__SIN_ARREGLO(string direccion_archivo, int columna_a_comparar, string comparar, string numero_columnas_editar, string cantidad_a_sumar, string texto_a_agregar, char caracter_separacion = '|', bool los_valores_seam_menores_0 = true, string valor_inicial_si_crea_archivo = null, string[] filas_iniciales_si_crea_archivo = null)
+        {
+            Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(direccion_archivo,valor_inicial_si_crea_archivo,filas_iniciales_si_crea_archivo,leer_y_agrega_al_arreglo:false);
+            bool bandera = false;
+            StreamReader sr = new StreamReader(direccion_archivo);
+            string dir_tem = direccion_archivo.Replace(".txt", "_tem.txt");
+            StreamWriter sw = new StreamWriter(dir_tem, true);
+            string exito_o_fallo=null;
+            int num_column_comp = 0;
+
+            try
+            {
+
+                while (sr.Peek() >= 0)//verificamos si hay mas lineas a leer
+                {
+                    string linea = sr.ReadLine();//leemos linea y lo guardamos en linea
+                    if (linea != null)
+                    {
+
+                        string[] linea_espliteada = linea.Split(caracter_separacion);
+                        if (linea_espliteada[columna_a_comparar] == comparar)
+                        {
+                            string[] num_col_spliteadas = numero_columnas_editar.Split(caracter_separacion);
+                            string[] cantidad_spliteada = cantidad_a_sumar.Split(caracter_separacion);
+                            for (int i = 0; i < num_col_spliteadas.Length; i++)
+                            {
+                                if (los_valores_seam_menores_0)
+                                {
+                                    linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])] = "" + (Convert.ToDecimal(linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])]) + Convert.ToDecimal(cantidad_spliteada[i]));
+                                }
+                                else
+                                {
+                                    linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])] = "" + (Convert.ToDecimal(linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])]) + Convert.ToDecimal(cantidad_spliteada[i]));
+                                    double resultado = Convert.ToDouble(linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])]);
+                                    if (resultado < 0)
+                                    {
+                                        linea_espliteada[Convert.ToInt32(num_col_spliteadas[i])] = "0";
+                                    }
+
+                                }
+
+                            }
+                            linea = string.Join("|", linea_espliteada);
+                            exito_o_fallo = linea;
+                            bandera = true;
+                        }
+
+                        sw.WriteLine(linea);
+                    }
+                    num_column_comp++;
+                }
+                num_column_comp = 0;
+
+                sr.Close();
+                sw.Close();
+                File.Delete(direccion_archivo);//borramos el archivo original
+                File.Move(dir_tem, direccion_archivo);//renombramos el archivo temporal por el que tenia el original
+
+                if (bandera == false)
+                {
+                    bandera = false;
+                    Agregar(direccion_archivo, texto_a_agregar);
+                }
+
+
+            }
+            catch (Exception error)
+            {
+                sr.Close();
+                sw.Close();
+                exito_o_fallo = null;
+                File.Delete(dir_tem);//borramos el archivo temporal
+            }
             return exito_o_fallo;
         }
 

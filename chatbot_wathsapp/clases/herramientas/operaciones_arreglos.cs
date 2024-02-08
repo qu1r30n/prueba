@@ -14,6 +14,8 @@ namespace chatbot_wathsapp.clases.herramientas
         public string[] G_caracter_separacion = var_fun_GG.GG_caracter_separacion;
         public string[] G_separador_para_funciones_espesificas_ = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
 
+        int G_donde_inicia_la_tabla = var_fun_GG.GG_indice_donde_comensar;
+
 
         var_fun_GG var_GG = new var_fun_GG();
         public string[] agregar_registro_del_array(string[] arreglo, string registro, string al_inicio = null)
@@ -178,7 +180,7 @@ namespace chatbot_wathsapp.clases.herramientas
             return temp;
         }
 
-        public string busqueda_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string columnas_a_retornar = null, object caracter_separacion_objeto = null)
+        public string busqueda_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string columnas_a_retornar = null, object caracter_separacion_objeto = null,int donde_iniciar=0)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 
@@ -188,7 +190,7 @@ namespace chatbot_wathsapp.clases.herramientas
             //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
             arr_col_rec = columnas_a_recorrer.Split(caracter_separacion[0][0]);
 
-            for (int i = 0; i < areglo.Length; i++)
+            for (int i = donde_iniciar; i < areglo.Length; i++)
             {
 
                 string tem_linea = areglo[i];
@@ -371,7 +373,7 @@ namespace chatbot_wathsapp.clases.herramientas
         }
 
 
-        public string editar_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        public string editar_inc_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {
             //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1", "5", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
@@ -440,6 +442,19 @@ namespace chatbot_wathsapp.clases.herramientas
             }
 
         }
+
+        public string si_existe_edita_o_incrementa_si_no_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        {
+            string encontrado = si_no_existe_agrega_string(arreglo,columnas_a_recorrer,comparar,texto_a_agregar);
+            if (encontrado != null) 
+            {
+                encontrado=editar_inc_busqueda_multiple_edicion_profunda_arreglo(arreglo, columnas_a_recorrer, comparar,indices_a_editar,info_editar,edit_0_o_increm_1,caracter_separacion_objeto,caracter_separacion_para_busqueda_multiple_profuda);
+
+            }
+            return encontrado;
+
+        }
+
 
         public string[] busqueda_multiple_edicion_multiple_arreglo_profunda(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {

@@ -1,3 +1,2 @@
 mensajes_A_enviar_cuando_resiva_un_mensage
-bienvenido a nuestra fondita a domicilio la forma de pedir es
-numero de platillo:cantidad de platillos ejemplo 1:2 o solo pon el numero del platillo
+mensaje bienvenida
