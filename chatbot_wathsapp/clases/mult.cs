@@ -165,7 +165,7 @@ namespace chatbot_wathsapp.clases
             if (porsentage_comision_por_venta != null)
             {
                 string cant_incr = "" + (Convert.ToDouble(porsentage_comision_por_venta) / 100) * Convert.ToDouble(cantidad_dinero_string);
-                bas.Editar_o_incr_espesifico(direccion_enc_simple, 0, id_usuario_simple, "7", cant_incr, "1");
+                bas.Editar_o_incr_espesifico_si_no_esta_agrega_linea(direccion_enc_simple, 0, id_usuario_simple, "7", cant_incr, "1");
             }
 
             if (regis == true)

@@ -1,4 +1,4 @@
 nombre_del_producto|precio
-producto1|0
-producto2|0
-producto3|0
+producto1|1
+producto2|2
+producto3|3

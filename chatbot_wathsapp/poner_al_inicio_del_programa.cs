@@ -42,7 +42,7 @@ namespace chatbot_wathsapp.clases
                 /*11*/ "config\\chatbot\\info_para_comandos_chatbot\\07_nombre_del_clikeado.txt~info_para_comandos~//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']§//*[@id='main']/header/div[2]/div[1]/div/span",
                 /*12*/ "config\\chatbot\\01_mensaje_bienvenida_inicio.txt~mensajes_A_enviar_cuando_resiva_un_mensage~mensaje bienvenida",
                 /*13*/ "config\\chatbot\\02_mensaje_bienvenida_final.txt~mensaje_abajo_de_los_productos~mensaje abajo de los productos",
-                /*14*/ "config\\chatbot\\03_productos.txt~nombre_del_producto|precio~producto1|0§producto2|0§producto3|0",
+                /*14*/ "config\\chatbot\\03_productos.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3",
                 /*15*/ "config\\chatbot\\04_mensaje_extra_despues_de_la_venta.txt~mensajes_despues_de_la_venta~mensaje despues de la venta",
 
                 /*16*/ "config\\chatbot\\05_encargados.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Encargados",
@@ -54,8 +54,10 @@ namespace chatbot_wathsapp.clases
                 
                 /*22*/ "config\\chatbot\\configuracion_programador.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap_y_este_para_funciones_especificas_echas_por_el_programador~",
                 /*23*/ "config\\chatbot\\poner_1_si_recargaras_los_archivos.txt~si_la_primera_linea_tiene_1_lee_el_archivo_si_es_otro_lo_toma_desde_el_arreglo~",
-                /*24*/ "config\\chatbot\\folios_a_checar\\folio_ventas.txt~folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2~",
+                /*24*/ "config\\chatbot\\registros\\folios_a_checar\\folio_ventas.txt~folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2~",
                 /*25*/ "config\\chatbot\\11_tesorero.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Tesorero",
+                /*26*/ "config\\registros\\ventas.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
+                /*27*/ "config\\registros\\compra.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
             };
 
             bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(direccion_archivo_de_direcciones_de_bd, fila_inicial, agregar_filas, caracter_separacion_fun_esp_objeto: G_separador_para_funciones_espesificas_[2]);
@@ -69,16 +71,17 @@ namespace chatbot_wathsapp.clases
                 string[] filas_iniciales = espliteados_direcciones_bases_datos_y_fila_inicial[2].Split(G_separador_para_funciones_espesificas_[1][0]);
                 if (i>0)
                 {
-                    bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(espliteados_direcciones_bases_datos_y_fila_inicial[0], espliteados_direcciones_bases_datos_y_fila_inicial[1], filas_iniciales);   
+                    bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(espliteados_direcciones_bases_datos_y_fila_inicial[0], espliteados_direcciones_bases_datos_y_fila_inicial[1], filas_iniciales);
                 }
 
-                
+
             }
 
             chatbot_clase chatbot = new chatbot_clase();
-            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros[2,0], "id_usuario|venta", leer_y_agrega_al_arreglo: false);
-            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros[1,0], "folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2", leer_y_agrega_al_arreglo: false);
-
+            
+            //estos estaran siempre al final del arreglo y para saber la posicion al el ultimo es el .Length-1 y si quieres el penultimo es .Length-2 y hasi susesivamente
+            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros_y_configuraciones[2,0], "id_usuario|venta");
+            bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(chatbot.G_dir_para_registros_y_configuraciones[1,0], "folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2");
 
         }
     }

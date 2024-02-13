@@ -244,7 +244,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
         }
 
-        public string[] Editar_o_incr_espesifico(string direccion_archivo, int num_column_comp, string comparar, string numero_columnas_editar, string editar_columna, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null)
+        public string[] Editar_o_incr_espesifico_si_no_esta_agrega_linea(string direccion_archivo, int num_column_comp, string comparar, string numero_columnas_editar, string editar_columna, string edit_0_o_increm_1 = null, string linea_a_agregar_si_no_lo_encuentra = null, object caracter_separacion_objeto = null)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 
@@ -252,19 +252,27 @@ namespace chatbot_wathsapp.clases.herramientas
             int num_indice_de_direccion_int = Convert.ToInt32(sacar_indice_del_arreglo_de_direccion(direccion_archivo));
 
 
-
+            bool se_encontro = false;
             for (int i = G_donde_inicia_la_tabla; i < GG_base_arreglo_de_arreglos[num_indice_de_direccion_int].Length; i++)
             {
                 string[] columnas = GG_base_arreglo_de_arreglos[num_indice_de_direccion_int][i].Split(caracter_separacion[0][0]);
 
                 if (columnas[num_column_comp] == comparar)
                 {
-
+                    se_encontro = true;
                     GG_base_arreglo_de_arreglos[num_indice_de_direccion_int][i] = op_arreglos.editar_incr_string_funcion_recursiva(GG_base_arreglo_de_arreglos[num_indice_de_direccion_int][i], numero_columnas_editar, editar_columna, edit_0_o_increm_1);
-
+                    
                     cambiar_archivo_con_arreglo(direccion_archivo, GG_base_arreglo_de_arreglos[num_indice_de_direccion_int]);
                     break;
                 }
+            }
+            if (se_encontro==false)
+            {
+                if (linea_a_agregar_si_no_lo_encuentra != null)
+                {
+                    Agregar(direccion_archivo, linea_a_agregar_si_no_lo_encuentra);
+                }
+                
             }
             return GG_base_arreglo_de_arreglos[num_indice_de_direccion_int];
         }

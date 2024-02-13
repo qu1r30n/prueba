@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using chatbot_wathsapp.clases.herramientas;
 
 namespace chatbot_wathsapp.clases.herramientas
 {
@@ -109,7 +103,7 @@ namespace chatbot_wathsapp.clases.herramientas
             return texto_editado;
         }
 
-        public string concatenacion_caracter_separacion_dentro_de_un_for_1(string direccion_archivo,bool poner_num_fila=false)
+        public string concatenacion_filas_de_un_archivo(string direccion_archivo,bool poner_num_fila=false)
         {
             
 
@@ -122,12 +116,12 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     num_fil = i + ") ";
                 }
-                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion_dentro_de_un_for_2(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], i, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length, '\n');
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], i, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length, '\n');
 
             }
             return mensaje_de_bienvenida_a_enviar;
         }
-        public string concatenacion_caracter_separacion_dentro_de_un_for_2(string tex_a_cambiar, string tex_a_agregar, int ciclo_en_el_que_esta, int ultimo_ciclo_Length, object caracter_separacion_objeto = null)
+        public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar, int ciclo_en_el_que_esta, int ultimo_ciclo_Length, object caracter_separacion_objeto = null)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 

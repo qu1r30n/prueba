@@ -13,7 +13,7 @@ config\chatbot\info_para_comandos_chatbot\06_buscar_nombre.txt~info_para_comando
 config\chatbot\info_para_comandos_chatbot\07_nombre_del_clikeado.txt~info_para_comandos~//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']§//*[@id='main']/header/div[2]/div[1]/div/span
 config\chatbot\01_mensaje_bienvenida_inicio.txt~mensajes_A_enviar_cuando_resiva_un_mensage~mensaje bienvenida
 config\chatbot\02_mensaje_bienvenida_final.txt~mensaje_abajo_de_los_productos~mensaje abajo de los productos
-config\chatbot\03_productos.txt~nombre_del_producto|precio~producto1|0§producto2|0§producto3|0
+config\chatbot\03_productos.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3
 config\chatbot\04_mensaje_extra_despues_de_la_venta.txt~mensajes_despues_de_la_venta~mensaje despues de la venta
 config\chatbot\05_encargados.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Encargados
 config\chatbot\06_supervisores.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Supervisores
@@ -23,5 +23,7 @@ config\chatbot\09_repartidores.txt~nombre_o_numero_de_telefono_que_aparece_en_el
 config\chatbot\10_reg_mensaje.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap_y_envia_todos_los_mensajes_recibidos~Reg_mensaje
 config\chatbot\configuracion_programador.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap_y_este_para_funciones_especificas_echas_por_el_programador~
 config\chatbot\poner_1_si_recargaras_los_archivos.txt~si_la_primera_linea_tiene_1_lee_el_archivo_si_es_otro_lo_toma_desde_el_arreglo~
-config\chatbot\folios_a_checar\folio_ventas.txt~folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2~
+config\chatbot\registros\folios_a_checar\folio_ventas.txt~folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2~
 config\chatbot\11_tesorero.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Tesorero
+config\registros\ventas.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~
+config\registros\compra.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~

@@ -514,7 +514,6 @@ namespace chatbot_wathsapp.clases.herramientas
 
         public string[] convierte_objeto_a_arreglo(object texto_enviar_arreglo_objeto, string caracter_de_separacion_si_es_string = null)
         {
-
             string[] texto_enviar_arreglo_string = null;
             if (texto_enviar_arreglo_objeto == null)
             {
@@ -566,5 +565,35 @@ namespace chatbot_wathsapp.clases.herramientas
             return arreglo_a_devolver;
         }
 
+
+        public string join_para_bidimensional(string[,] arregloBidimensional, string separador = null, string separador2 = null)
+        {
+            if (separador == null)
+            {
+                separador = G_caracter_separacion[1];
+            }
+            if (separador2 == null)
+            {
+                separador2 = G_caracter_separacion[2];
+            }
+            int filas = arregloBidimensional.GetLength(0);
+            int columnas = arregloBidimensional.GetLength(1);
+
+            string[] filasUnidimensionales = new string[filas];
+
+            for (int i = 0; i < filas; i++)
+            {
+                string[] filaActual = new string[columnas];
+                for (int j = 0; j < columnas; j++)
+                {
+                    filaActual[j] = arregloBidimensional[i, j];
+                }
+                filasUnidimensionales[i] = string.Join(separador, filaActual);
+            }
+
+            return string.Join(separador2, filasUnidimensionales);
+        }
     }
+
+
 }
