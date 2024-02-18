@@ -1,1 +1,3 @@
 folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
+104936240216104936|20240216104936|6|venta|1¬producto1¬1°1¬producto2¬2°1¬producto3¬3|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
+120356auS240216120356|20240216120356|9|venta|3¬producto3¬9|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras

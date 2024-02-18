@@ -1,2 +1,2 @@
 info_para_comandos
-//span[contains(@title,'
+//span[contains(@title, '

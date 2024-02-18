@@ -56,7 +56,7 @@ namespace chatbot_wathsapp.clases
             /*3*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],"vendedores" },//"config\\chatbot\\08_vendedores.txt",
             /*4*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],"repartidores" },//"config\\chatbot\\09_repartidores.txt",
             /*5*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0],"reg_mensage" },//"config\\chatbot\\10_reg_mensaje.txt"
-            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[26, 0],"tesorero" },//"config\\chatbot\\11_tesorero.txt
+            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[26, 0],"confirmadores" },//"config\\chatbot\\11_confirmadores.txt
             /*7*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],"programador" }//"config\\chatbot\\configuracion_programador.txt",
         };
 
@@ -217,6 +217,10 @@ namespace chatbot_wathsapp.clases
             string[,] mensajes_para_y_mensaje = null;
             bool hubo_platillos = false;
 
+
+
+
+
             for (int j = 0; j < lineas_del_mensaje.Length; j++)
             {
 
@@ -226,20 +230,24 @@ namespace chatbot_wathsapp.clases
                     ultimo_mensaje_espliteado[k] = ultimo_mensaje_espliteado[k].Trim();
                 }
 
-                string contactos = "";
 
+                confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, ultimo_mensaje_espliteado,":");
+
+
+
+                string contactos = "";
                 if (ultimo_mensaje_espliteado.Length > 1)
                 {
 
 
-                    
+
                     switch (ultimo_mensaje_espliteado[0])
                     {
                         case "ubi":
 
                             contactos = G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1];
                             respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\nubicacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
-                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage,G_caracter_separacion_funciones_espesificas[0]);
+                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
                             break;
 
                         case "ext":
@@ -256,11 +264,7 @@ namespace chatbot_wathsapp.clases
                             mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
 
                             break;
-                        case "con":
 
-                            comandos_us_con_privilegios(manejadores, esperar, nom_mensage_clickeado, ultimo_mensaje_espliteado);
-
-                            break;
 
                         default:
                             try
@@ -292,14 +296,12 @@ namespace chatbot_wathsapp.clases
                                 contactos = G_contactos_lista_para_mandar_informacion[5, 1];
                                 respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
                                 mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
-                                
+
 
                             }
                             break;
                     }
                 }
-
-
                 else
                 {
                     try
@@ -330,94 +332,87 @@ namespace chatbot_wathsapp.clases
                     }
 
                 }
+
+
             }
 
-            //preparando mensajes para encargados
-            string encargado_cantidades_nom_producto = "";
-            string contador_ventas = "";
-            string respuesta_de_mensaje = "";
-            string respuesta_de_mensaje_para_folio = "";
+                //preparando mensajes para encargados
+                string encargado_cantidades_nom_producto = "";
+                string contador_ventas = "";
+                string respuesta_de_mensaje = "";
+                string respuesta_de_mensaje_para_folio = "";
 
-            if (hubo_platillos==true)
-            {
-                for (int i = G_donde_inicia_la_tabla; i < nombre_de_productos.Length; i++)
+                if (hubo_platillos == true)
                 {
-                    if (precio_a_pagar_por_producto[i] > 0)
+                    for (int i = G_donde_inicia_la_tabla; i < nombre_de_productos.Length; i++)
                     {
-                        encargado_cantidades_nom_producto = op_tex.concatenacion_caracter_separacion(encargado_cantidades_nom_producto, cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i], i, nombre_de_productos.Length, '\n');
-                        contador_ventas = op_tex.concatenacion_caracter_separacion(contador_ventas, "comida" + G_caracter_separacion[0] + precio_a_pagar_por_producto[i], i, nombre_de_productos.Length, '\n');
-                        string todos_juntos = cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i] + G_caracter_separacion[0] + precio_a_pagar_por_producto[i];
-                        respuesta_de_mensaje = op_tex.concatenacion_caracter_separacion(respuesta_de_mensaje, todos_juntos, i, nombre_de_productos.Length, '\n');
+                        if (precio_a_pagar_por_producto[i] > 0)
+                        {
+                            encargado_cantidades_nom_producto = op_tex.concatenacion_caracter_separacion(encargado_cantidades_nom_producto, cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i], '\n');
+                            contador_ventas = op_tex.concatenacion_caracter_separacion(contador_ventas, "comida" + G_caracter_separacion[0] + precio_a_pagar_por_producto[i], '\n');
+                            string todos_juntos = cantidad_de_productos[i] + G_caracter_separacion[0] + nombre_de_productos[i] + G_caracter_separacion[0] + precio_a_pagar_por_producto[i];
+                            respuesta_de_mensaje = op_tex.concatenacion_caracter_separacion(respuesta_de_mensaje, todos_juntos, '\n');
 
-                        string todos_juntos_para_folio = cantidad_de_productos[i] + G_caracter_separacion[2] + nombre_de_productos[i] + G_caracter_separacion[2] + precio_a_pagar_por_producto[i];
-                        respuesta_de_mensaje_para_folio = op_tex.concatenacion_caracter_separacion(respuesta_de_mensaje_para_folio, todos_juntos_para_folio, i, nombre_de_productos.Length, G_caracter_separacion[1]);
+                            string todos_juntos_para_folio = cantidad_de_productos[i] + G_caracter_separacion[2] + nombre_de_productos[i] + G_caracter_separacion[2] + precio_a_pagar_por_producto[i];
+                            respuesta_de_mensaje_para_folio = op_tex.concatenacion_caracter_separacion(respuesta_de_mensaje_para_folio, todos_juntos_para_folio, G_caracter_separacion[1]);
+                        }
+
                     }
+
+
+                    respuesta_de_mensaje = respuesta_de_mensaje + "\n" + "total a pagar " + total_a_pagar_de_todo;
+                    contador_ventas = contador_ventas + "\n" + "total a pagar " + total_a_pagar_de_todo;
+                    string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_filas_de_un_archivo(G_dir_arch_mensages[3]);
+                    respuesta_de_mensaje = respuesta_de_mensaje + "\n" + mensaje_despues_de_la_venta_a_enviar;
+
+                    string contactos = G_contactos_lista_para_mandar_informacion[5, 1];
+                    mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + respuesta_de_mensaje, G_caracter_separacion_funciones_espesificas[0]);
+                    respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
+                    mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
+
+
+
+                    //agregar archivos registros
+
+                    int indice_folios = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros_y_configuraciones[0, 0]));
+                    string folio = GenerarCadenaConFechaHoraAleatoria(4) + "" + DateTime.Now.ToString("yyMMddHHmmss");
+
+
+                    string carpetas = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(G_dir_arch_mensages[0], "\\", 1);
+                    string dir_archivo_v_usuarios = carpetas + "\\reg\\" + DateTime.Now.ToString("yyyyMMdd") + "_v_us.txt";
+                    string dir_archivo_reg = carpetas + "\\reg\\" + DateTime.Now.ToString("yyyyMMdd") + "_reg.txt";
+                    int indice_nego = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_direccion_negocio));
+
+
+                    string usuario = op_arr.busqueda_profunda_arreglo(Tex_base.GG_base_arreglo_de_arreglos[indice_nego], "8|6", nom_mensage_clickeado, donde_iniciar: 1);
+
+                    if (usuario != null)
+                    {
+                        string[] usuario_espliteado = usuario.Split(G_caracter_separacion[0][0]);
+                        string tem_info_si_no_es_vendedor = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + usuario_espliteado[0] + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
+                        bas.Agregar(G_dir_para_registros_y_configuraciones[0, 0], tem_info_si_no_es_vendedor);
+
+                    }
+
+                    else
+                    {
+
+                        string tem_info = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + "no_es_vendedor" + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
+                        bas.Agregar(G_dir_para_registros_y_configuraciones[0, 0], tem_info);
+                    }
+
 
                 }
 
+            
 
-                respuesta_de_mensaje = respuesta_de_mensaje + "\n" + "total a pagar " + total_a_pagar_de_todo;
-                contador_ventas = contador_ventas + "\n" + "total a pagar " + total_a_pagar_de_todo;
-                string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_filas_de_un_archivo(G_dir_arch_mensages[3]);
-
-                mandar_mensage(esperar, respuesta_de_mensaje);
-
-            }
-
-
-            //mandar_mensage_supervisores(manejadores, esperar, Tex_base.GG_base_arreglo_de_arreglos[indice_lista_contactos][k], respuesta_de_mensaje);
-
-
-
-
-
-
-
-
-            //aqui se mandara el mensage
-            string temp_contactos = G_contactos_lista_para_mandar_informacion[5, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[2, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1];
-            string temp_mensages = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------" + G_caracter_separacion_funciones_espesificas[0] + encargado_cantidades_nom_producto + G_caracter_separacion_funciones_espesificas[0] + nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje + G_caracter_separacion_funciones_espesificas[0] + contador_ventas + G_caracter_separacion_funciones_espesificas[0] + nombre_Del_que_envio_el_mensage + "\n" + respuesta_de_mensaje;
-            mandar_mensage_supervisores(manejadores, esperar, temp_contactos, temp_mensages);
-            int indice_folios = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros_y_configuraciones[0,0]));
-            string folio = GenerarCadenaConFechaHoraAleatoria(4) + "" + DateTime.Now.ToString("yyMMddHHmmss");
-
-
-            string carpetas = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(G_dir_arch_mensages[0], "\\", 1);
-            string dir_archivo_v_usuarios = carpetas + "\\reg\\" + DateTime.Now.ToString("yyyyMMdd") + "_v_us.txt";
-            string dir_archivo_reg = carpetas + "\\reg\\" + DateTime.Now.ToString("yyyyMMdd") + "_reg.txt";
-            int indice_nego = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_direccion_negocio));
-
-            //config\\chatbot\\reg\\folio_ventas.txt~folio_venta|hora|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
-
-
-            string usuario = op_arr.busqueda_profunda_arreglo(Tex_base.GG_base_arreglo_de_arreglos[indice_nego], "8|6", nom_mensage_clickeado, donde_iniciar: 1);
-
-
-
-            string[] usuario_espliteado = usuario.Split(G_caracter_separacion[0][0]);
-
-            if (usuario != null)
+            //mandar mensages
+            for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
             {
-                string tem_info_si_no_es_vendedor = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + usuario_espliteado[0] + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
-                bas.Agregar(G_dir_para_registros_y_configuraciones[0,0], tem_info_si_no_es_vendedor);
-
-                string texto_a_agregar_sino_lo_encuentra;
-                //bas.si_existe_suma_sino_agega_extra__SIN_ARREGLO(G_direccion_folios, 0, usuario_espliteado[0],1,total_a_pagar_de_todo,);
-
+                mandar_mensage_usuarios(manejadores, esperar, mensajes_para_y_mensaje[i,0], mensajes_para_y_mensaje[i, 1]);
             }
-
-            else
-            {
-
-                string tem_info = folio + G_caracter_separacion[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + G_caracter_separacion[0] + total_a_pagar_de_todo + G_caracter_separacion[0] + "venta" + G_caracter_separacion[0] + respuesta_de_mensaje_para_folio + G_caracter_separacion[0] + "no_es_vendedor" + G_caracter_separacion[0] + nom_mensage_clickeado + G_caracter_separacion[0] + "repartidor" + G_caracter_separacion[0] + "datos_comprador" + G_caracter_separacion[0] + "datos_extras";
-                bas.Agregar(G_dir_para_registros_y_configuraciones[0,0], tem_info);
-            }
-
-            //bas.si_existe_suma_sino_agega_extra__SIN_ARREGLO(dir_archivo_reg, );
-
-
-
-
+            
+            
         }
 
         private void buscar_nombre_y_dar_click(IWebDriver manejadores, WebDriverWait esperar, string nombre_o_numero)
@@ -433,11 +428,12 @@ namespace chatbot_wathsapp.clases
 
 
 
-        private void mandar_mensage_supervisores(IWebDriver manejadores, WebDriverWait esperar, string nombre_contacto, string mensage = null)
+        private void mandar_mensage_usuarios(IWebDriver manejadores, WebDriverWait esperar, object nombre_contacto, string mensage = null, object caracter_separacion_objeto_usuarios = null, object caracter_separacion_objeto_mensages = null)
         {
-            
-            string[] supervisores = op_arr.convierte_objeto_a_arreglo(nombre_contacto, G_caracter_separacion[0]);
-            string[] mensage_espliteados = op_arr.convierte_objeto_a_arreglo(mensage, G_caracter_separacion_funciones_espesificas[0]);
+            string[] caracter_separacion_usuarios = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto_usuarios);
+            string[] caracter_separacion_mensajes = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_objeto_mensages);
+            string[] supervisores = op_arr.convierte_objeto_a_arreglo(nombre_contacto, caracter_separacion_usuarios[0]);
+            string[] mensage_espliteados = op_arr.convierte_objeto_a_arreglo(mensage, caracter_separacion_mensajes[0]);
 
             for (int k = 0; k < supervisores.Length; k++)
             {
@@ -621,6 +617,67 @@ namespace chatbot_wathsapp.clases
                 default:
                     break;
             }
+        }
+
+        public bool confirmaciones_de_usuarios_confirmadores_o_funciones_extras(IWebDriver manejadores, WebDriverWait esperar, string nombre, object comando, object caracter_de_separacion_objet = null,object caraccaracter_de_separacion_objet_para_comando=null)
+        {
+            string[] caracter_de_separacion_si_es_string = var_GG.GG_funcion_caracter_separacion(caracter_de_separacion_objet);
+            string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando, caracter_de_separacion_si_es_string[0]);
+            string[] grupos_en_los_que_esta = pociciones_en_los_que_se_encutra(nombre);
+            bool esta_en_confirmadores = false;
+
+
+            for (int i = 0; i < grupos_en_los_que_esta.Length; i++)
+            {
+                // area del grupo de confirmadores
+                if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[6, 1])
+                {
+                    for (int j = G_donde_inicia_la_tabla; j < comandos_espliteado.Length; j++)
+                    {
+                        if (comandos_espliteado.Length < 1)
+                        {
+                            switch (comandos_espliteado[0])
+                            {
+                                case "conf":
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+
+
+                            for (int k = 0; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
+                            {
+                                string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(caracter_de_separacion_si_es_string[0][0]);
+                                if (comandos_espliteado[j] == movimiento_a_confirmar[0])
+                                {
+                                    if ("Venta" == movimiento_a_confirmar[3])
+                                    {
+
+                                        bas.eliminar_fila(G_dir_para_registros_y_configuraciones[0, 0], 0, movimiento_a_confirmar[0]);
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    esta_en_confirmadores = true;
+
+
+                    return esta_en_confirmadores;
+                }
+                //area configuraciones del programador
+                else if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[7, 1])
+                {
+
+                }
+
+            }
+            return esta_en_confirmadores;
         }
 
         public string[] pociciones_en_los_que_se_encutra(string nombre)

@@ -116,23 +116,26 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     num_fil = i + ") ";
                 }
-                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], i, Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida].Length, '\n');
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], '\n');
 
             }
             return mensaje_de_bienvenida_a_enviar;
         }
-        public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar, int ciclo_en_el_que_esta, int ultimo_ciclo_Length, object caracter_separacion_objeto = null)
+        public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar,  object caracter_separacion_objeto = null)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
+            
+                if (tex_a_cambiar!="")
+                {
+                    tex_a_cambiar = tex_a_cambiar + caracter_separacion[0] + tex_a_agregar;
+                }
+                else
+                {
+                    tex_a_cambiar = tex_a_cambiar + tex_a_agregar;
+                }
+            
+            
 
-            if (ciclo_en_el_que_esta < ultimo_ciclo_Length) 
-            {
-                tex_a_cambiar = tex_a_cambiar + tex_a_agregar + caracter_separacion[0];
-            }
-            else
-            {
-                tex_a_cambiar = tex_a_cambiar + tex_a_agregar;
-            }
             return tex_a_cambiar;
         }
 
