@@ -1,4 +1,4 @@
 nombre_del_producto|precio
-producto1|1
-producto2|2
-producto3|3
+comida corrida caldo de camaron|65
+comida corrida mojarra frita|65
+comida corrida boloñesa |65

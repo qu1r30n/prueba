@@ -23,6 +23,8 @@ namespace chatbot_wathsapp.clases
         operaciones_textos op_tex = new operaciones_textos();
         var_fun_GG var_GG = new var_fun_GG();
         Tex_base bas = new Tex_base();
+        mult simul = new mult();
+        
         string[] G_caracter_separacion = var_fun_GG.GG_caracter_separacion;
         string[] G_caracter_separacion_funciones_espesificas = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
 
@@ -218,123 +220,117 @@ namespace chatbot_wathsapp.clases
             bool hubo_platillos = false;
 
 
-
-
-
             for (int j = 0; j < lineas_del_mensaje.Length; j++)
             {
-
+                
                 string[] ultimo_mensaje_espliteado = lineas_del_mensaje[j].Split(':');
                 for (int k = 0; k < ultimo_mensaje_espliteado.Length; k++)
                 {
                     ultimo_mensaje_espliteado[k] = ultimo_mensaje_espliteado[k].Trim();
                 }
 
+                bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, ultimo_mensaje_espliteado, ":");
 
-                confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, ultimo_mensaje_espliteado,":");
-
-
-
-                string contactos = "";
-                if (ultimo_mensaje_espliteado.Length > 1)
+                if (si_confirmo == false)
                 {
-
-
-
-                    switch (ultimo_mensaje_espliteado[0])
+                    string contactos = "";
+                    if (ultimo_mensaje_espliteado.Length > 1)
                     {
-                        case "ubi":
-
-                            contactos = G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1];
-                            respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\nubicacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
-                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
-                            break;
-
-                        case "ext":
-                            contactos = G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1];
-                            respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\ninformacion extra recibida: " + G_caracter_separacion_funciones_espesificas[0];
-
-                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
-
-                            break;
-
-                        case "can":
-                            contactos = G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[2, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[6, 1];
-                            respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\ncancelacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
-                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
-
-                            break;
 
 
-                        default:
-                            try
-                            {
-                                //el platillo : la cantidad del platillo
-                                int numero_de_platillo = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
-                                Double cantidad_de_platillos = Convert.ToDouble(ultimo_mensaje_espliteado[1]);
-                                for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length; k++)
-                                {
-                                    string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][k].Split(G_caracter_separacion[0][0]);
 
-                                    if (numero_de_platillo == k)
-                                    {
+                        switch (ultimo_mensaje_espliteado[0])
+                        {
+                            case "ubi":
 
-                                        double total = Convert.ToDouble(productos[1]) * cantidad_de_platillos;
-                                        total_a_pagar_de_todo = total_a_pagar_de_todo + total;
-                                        precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + total;
-                                        cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + cantidad_de_platillos;
-                                    }
+                                contactos = G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1];
+                                respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\nubicacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
+                                mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
+                                break;
 
-                                    nombre_de_productos[k] = productos[0];
-                                }
-                                hubo_platillos = true;
-                            }
-                            catch (Exception)
-                            {
-                                mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + mensage_bienvenida_total, G_caracter_separacion_funciones_espesificas[0]);
-                                // error manda mensaje de bienvenvenida y mensage a registros
-                                contactos = G_contactos_lista_para_mandar_informacion[5, 1];
-                                respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
+                            case "ext":
+                                contactos = G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1];
+                                respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\ninformacion extra recibida: " + G_caracter_separacion_funciones_espesificas[0];
+
                                 mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
 
+                                break;
 
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        //mando solo numeros de platillos
-                        int solo_numeros_para_el_pedido = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
-                        for (int i = 0; i < ultimo_mensaje_espliteado[0].Length; i++)
-                        {
+                            case "can":
+                                contactos = G_contactos_lista_para_mandar_informacion[0, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[1, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[2, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[4, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[5, 1] + G_caracter_separacion[0] + G_contactos_lista_para_mandar_informacion[6, 1];
+                                respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\ncancelacion recibida: " + G_caracter_separacion_funciones_espesificas[0];
+                                mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
 
-                            int numero_de_platillo = Convert.ToInt32(("" + ultimo_mensaje_espliteado[0][i]));
-                            string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][numero_de_platillo].Split(G_caracter_separacion[0][0]);
-                            nombre_de_productos[numero_de_platillo] = productos[0];
-                            double precio = Convert.ToDouble(productos[1]);
-                            precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + precio;
-                            total_a_pagar_de_todo = total_a_pagar_de_todo + precio;
-                            cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + 1;
+                                break;
+
+
+                            default:
+                                try
+                                {
+                                    //el platillo : la cantidad del platillo
+                                    int numero_de_platillo = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
+                                    Double cantidad_de_platillos = Convert.ToDouble(ultimo_mensaje_espliteado[1]);
+                                    for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length; k++)
+                                    {
+                                        string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][k].Split(G_caracter_separacion[0][0]);
+
+                                        if (numero_de_platillo == k)
+                                        {
+
+                                            double total = Convert.ToDouble(productos[1]) * cantidad_de_platillos;
+                                            total_a_pagar_de_todo = total_a_pagar_de_todo + total;
+                                            precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + total;
+                                            cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + cantidad_de_platillos;
+                                        }
+
+                                        nombre_de_productos[k] = productos[0];
+                                    }
+                                    hubo_platillos = true;
+                                }
+                                catch (Exception)
+                                {
+                                    mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + mensage_bienvenida_total, G_caracter_separacion_funciones_espesificas[0]);
+                                    // error manda mensaje de bienvenvenida y mensage a registros
+                                    contactos = G_contactos_lista_para_mandar_informacion[5, 1];
+                                    respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
+                                    mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
+
+
+                                }
+                                break;
                         }
-                        hubo_platillos = true;
                     }
-                    catch (Exception)
+                    else
                     {
-                        //mando una palabra
-                        mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + mensage_bienvenida_total, G_caracter_separacion_funciones_espesificas[0]);
-                        contactos = G_contactos_lista_para_mandar_informacion[5, 1];
-                        respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
-                        mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
+                        try
+                        {
+                            //mando solo numeros de platillos
+                            int solo_numeros_para_el_pedido = Convert.ToInt32(ultimo_mensaje_espliteado[0]);
+                            for (int i = 0; i < ultimo_mensaje_espliteado[0].Length; i++)
+                            {
+
+                                int numero_de_platillo = Convert.ToInt32(("" + ultimo_mensaje_espliteado[0][i]));
+                                string[] productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][numero_de_platillo].Split(G_caracter_separacion[0][0]);
+                                nombre_de_productos[numero_de_platillo] = productos[0];
+                                double precio = Convert.ToDouble(productos[1]);
+                                precio_a_pagar_por_producto[numero_de_platillo] = precio_a_pagar_por_producto[numero_de_platillo] + precio;
+                                total_a_pagar_de_todo = total_a_pagar_de_todo + precio;
+                                cantidad_de_productos[numero_de_platillo] = cantidad_de_productos[numero_de_platillo] + 1;
+                            }
+                            hubo_platillos = true;
+                        }
+                        catch (Exception)
+                        {
+                            //mando una palabra
+                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + mensage_bienvenida_total, G_caracter_separacion_funciones_espesificas[0]);
+                            contactos = G_contactos_lista_para_mandar_informacion[5, 1];
+                            respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
+                            mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
+
+                        }
 
                     }
-
                 }
-
-
-            }
 
                 //preparando mensajes para encargados
                 string encargado_cantidades_nom_producto = "";
@@ -359,23 +355,21 @@ namespace chatbot_wathsapp.clases
 
                     }
 
-
+                    string folio = GenerarCadenaConFechaHoraAleatoria(4) + "" + DateTime.Now.ToString("yyMMddHHmmss");
+                    folio = folio.ToLower();
                     respuesta_de_mensaje = respuesta_de_mensaje + "\n" + "total a pagar " + total_a_pagar_de_todo;
-                    contador_ventas = contador_ventas + "\n" + "total a pagar " + total_a_pagar_de_todo;
+                    contador_ventas = contador_ventas + "\n" + "total a pagar " + total_a_pagar_de_todo + "\n" + folio;
                     string mensaje_despues_de_la_venta_a_enviar = op_tex.concatenacion_filas_de_un_archivo(G_dir_arch_mensages[3]);
-                    respuesta_de_mensaje = respuesta_de_mensaje + "\n" + mensaje_despues_de_la_venta_a_enviar;
+                    respuesta_de_mensaje = respuesta_de_mensaje + "\n" + mensaje_despues_de_la_venta_a_enviar + "\nfolio:\n" + folio;
 
                     string contactos = G_contactos_lista_para_mandar_informacion[5, 1];
                     mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, "usuario_actual" + G_caracter_separacion_funciones_espesificas[0] + respuesta_de_mensaje, G_caracter_separacion_funciones_espesificas[0]);
                     respuesta_a_mandar_mensage = nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n" + "------------------------------------------------------------------------";
                     mensajes_para_y_mensaje = op_arr.agregar_registro_del_array_bidimensional(mensajes_para_y_mensaje, contactos + G_caracter_separacion_funciones_espesificas[0] + respuesta_a_mandar_mensage, G_caracter_separacion_funciones_espesificas[0]);
 
-
-
                     //agregar archivos registros
 
                     int indice_folios = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros_y_configuraciones[0, 0]));
-                    string folio = GenerarCadenaConFechaHoraAleatoria(4) + "" + DateTime.Now.ToString("yyMMddHHmmss");
 
 
                     string carpetas = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(G_dir_arch_mensages[0], "\\", 1);
@@ -404,15 +398,21 @@ namespace chatbot_wathsapp.clases
 
                 }
 
-            
 
-            //mandar mensages
-            for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
-            {
-                mandar_mensage_usuarios(manejadores, esperar, mensajes_para_y_mensaje[i,0], mensajes_para_y_mensaje[i, 1]);
+
+                //mandar mensages
+                if (mensajes_para_y_mensaje != null)
+                {
+                    for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
+                    {
+                        mandar_mensage_usuarios(manejadores, esperar, mensajes_para_y_mensaje[i, 0], mensajes_para_y_mensaje[i, 1]);
+                    }
+                }
+                
+                
             }
-            
-            
+
+
         }
 
         private void buscar_nombre_y_dar_click(IWebDriver manejadores, WebDriverWait esperar, string nombre_o_numero)
@@ -567,7 +567,7 @@ namespace chatbot_wathsapp.clases
             {
                 if (chequeo[G_donde_inicia_la_tabla] == "1")
                 {
-                    for (int i = G_donde_inicia_la_tabla; i < G_dir_arch_mensages.Length; i++)
+                    for (int i = 0; i < G_dir_arch_mensages.Length; i++)
                     {
                         int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[i]));
                         Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_arch_mensages[i]);
@@ -579,7 +579,7 @@ namespace chatbot_wathsapp.clases
                         Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_contactos_lista_para_mandar_informacion[i, 0]);
                     }
 
-                    for (int i = 0; i < G_dir_para_registros_y_configuraciones.Length; i++)
+                    for (int i = 0; i < G_dir_para_registros_y_configuraciones.GetLength(0); i++)
                     {
                         int indice_de_arreglo_de_arreglos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_para_registros_y_configuraciones[i,0]));
                         Tex_base.GG_base_arreglo_de_arreglos[indice_de_arreglo_de_arreglos] = bas.Leer_inicial(G_dir_para_registros_y_configuraciones[i,0]);
@@ -619,10 +619,10 @@ namespace chatbot_wathsapp.clases
             }
         }
 
-        public bool confirmaciones_de_usuarios_confirmadores_o_funciones_extras(IWebDriver manejadores, WebDriverWait esperar, string nombre, object comando, object caracter_de_separacion_objet = null,object caraccaracter_de_separacion_objet_para_comando=null)
+        public bool confirmaciones_de_usuarios_confirmadores_o_funciones_extras(IWebDriver manejadores, WebDriverWait esperar, string nombre, string[] comando, object caraccaracter_de_separacion_objet_para_comando = null)
         {
-            string[] caracter_de_separacion_si_es_string = var_GG.GG_funcion_caracter_separacion(caracter_de_separacion_objet);
-            string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando, caracter_de_separacion_si_es_string[0]);
+            string[] caracter_de_separacion_si_es_string = var_GG.GG_funcion_caracter_separacion(caraccaracter_de_separacion_objet_para_comando);
+            
             string[] grupos_en_los_que_esta = pociciones_en_los_que_se_encutra(nombre);
             bool esta_en_confirmadores = false;
 
@@ -632,8 +632,9 @@ namespace chatbot_wathsapp.clases
                 // area del grupo de confirmadores
                 if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[6, 1])
                 {
-                    for (int j = G_donde_inicia_la_tabla; j < comandos_espliteado.Length; j++)
+                    for (int j = 0; j < comando.Length; j++)
                     {
+                        string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando[j], caracter_de_separacion_si_es_string[0]);
                         if (comandos_espliteado.Length < 1)
                         {
                             switch (comandos_espliteado[0])
@@ -644,29 +645,32 @@ namespace chatbot_wathsapp.clases
                                     break;
                             }
                         }
+
                         else
                         {
-
-
-                            for (int k = 0; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
+                            for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
                             {
-                                string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(caracter_de_separacion_si_es_string[0][0]);
+                                string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(G_caracter_separacion[0][0]);
                                 if (comandos_espliteado[j] == movimiento_a_confirmar[0])
                                 {
-                                    if ("Venta" == movimiento_a_confirmar[3])
+                                    if ("venta" == movimiento_a_confirmar[3])
                                     {
-
+                                        if ("no_es_vendedor" != movimiento_a_confirmar[5])
+                                        {
+                                            simul.entrada_dinero_simple_y_complejo(simul.G_direccion_negocio, movimiento_a_confirmar[5], movimiento_a_confirmar[2]);
+                                            
+                                        }
                                         bas.eliminar_fila(G_dir_para_registros_y_configuraciones[0, 0], 0, movimiento_a_confirmar[0]);
                                     }
                                 }
                             }
 
-
                         }
+
                     }
 
                     esta_en_confirmadores = true;
-
+                    mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "ok");
 
                     return esta_en_confirmadores;
                 }

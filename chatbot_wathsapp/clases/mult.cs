@@ -19,11 +19,11 @@ namespace chatbot_wathsapp.clases
         
         */
         //string G_direccion_negocio = "config\\sismul2\\negocio.txt";
-        string G_direccion_negocio = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[2, 0];
+        public string G_direccion_negocio = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[2, 0];
         //string G_direccion_patrocinadores_complejos = "config\\sismul2\\patrocinadores_complejos.txt";
-        string G_direccion_patrocinadores_complejos = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[3, 0];
+        public string G_direccion_patrocinadores_complejos = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[3, 0];
         //string G_direccion_porcentages = "config\\sismul2\\porcentajes\\porcentajes.txt";
-        string G_direccion_porcentages = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[4, 0];
+        public string G_direccion_porcentages = Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[4, 0];
 
 
 
@@ -166,6 +166,11 @@ namespace chatbot_wathsapp.clases
             {
                 string cant_incr = "" + (Convert.ToDouble(porsentage_comision_por_venta) / 100) * Convert.ToDouble(cantidad_dinero_string);
                 bas.Editar_o_incr_espesifico_si_no_esta_agrega_linea(direccion_enc_simple, 0, id_usuario_simple, "7", cant_incr, "1");
+            }
+            else
+            {
+                string cant_incr = "" + (Convert.ToDouble(Tex_base.GG_base_arreglo_de_arreglos[indice_de_porcentages][1]) / 100) * Convert.ToDouble(cantidad_dinero_string);
+                bas.Editar_o_incr_espesifico_si_no_esta_agrega_linea(direccion_enc_simple, 0, id_usuario_simple, "7",cant_incr , "1");
             }
 
             if (regis == true)

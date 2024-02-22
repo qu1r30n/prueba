@@ -1,3 +1,4 @@
 folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
-104936240216104936|20240216104936|6|venta|1¬producto1¬1°1¬producto2¬2°1¬producto3¬3|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
-120356auS240216120356|20240216120356|9|venta|3¬producto3¬9|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
+120224yxk240221120224|20240221120225|195|venta|1¬comida corrida caldo de camaron¬65°1¬comida corrida mojarra frita¬65°1¬comida corrida boloñesa ¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+125318240221125318|20240221125320|130|venta|2¬comida corrida mojarra frita¬130|5|Prueba|repartidor|datos_comprador|datos_extras
+1304005u240221130400|20240221130401|65|venta|1¬comida corrida caldo de camaron¬65|5|Prueba|repartidor|datos_comprador|datos_extras
