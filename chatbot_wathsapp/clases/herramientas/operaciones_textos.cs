@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace chatbot_wathsapp.clases.herramientas
 {
@@ -18,7 +19,19 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (arreglo_objeto is string)
             {
+                
                 arreglo = arreglo_objeto.ToString().Split(caracter_separacion[0][0]);
+                if (arreglo.Length <= 1)
+                {
+                    char[] arreglo_letras = arreglo_objeto.ToString().ToCharArray();
+                    arreglo = new string[arreglo_letras.Length];
+                    for (int i = 0; i < arreglo.Length; i++)
+                    {
+                        arreglo[i] = "" + arreglo_letras[i];
+                    };
+                    
+                    
+                }
             }
             else if (arreglo_objeto is string[])
             {
@@ -121,6 +134,59 @@ namespace chatbot_wathsapp.clases.herramientas
             }
             return mensaje_de_bienvenida_a_enviar;
         }
+
+        public string concatenacion_filas_de_un_arreglo(string[] arreglo, bool poner_num_fila = false)
+        {
+
+
+
+            string mensaje_de_bienvenida_a_enviar = "";
+            for (int i = G_donde_inicia_la_tabla; i < arreglo.Length; i++)
+            {
+                string num_fil = "";
+                if (poner_num_fila)
+                {
+                    num_fil = i + ") ";
+                }
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + arreglo[i], '\n');
+
+            }
+            return mensaje_de_bienvenida_a_enviar;
+        }
+
+        public string concatenacion_filas_de_un_arreglo_bidimencional(string[,] arreglo, bool poner_num_fila = false, object caracter_separacion_obj = null)
+        {
+            
+
+
+            string mensaje_de_bienvenida_a_enviar = "";
+            
+            for (int i = 0; i < arreglo.GetLength(0); i++)
+            {
+                string tiene_informacion = arreglo[i, 0];
+                if (tiene_informacion != null)
+                {
+                    string concatenado = "";
+                    for (int j = 0; j < arreglo.GetLength(1); j++)
+                    {
+                        
+                            concatenado = concatenacion_caracter_separacion(concatenado, arreglo[i, j], caracter_separacion_obj);
+
+                    }
+
+
+                    string num_fil = "";
+                    if (poner_num_fila)
+                    {
+                        num_fil = i + ") ";
+                    }
+                    mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + concatenado, '\n');
+                }
+
+            }
+            return mensaje_de_bienvenida_a_enviar;
+        }
+
         public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar,  object caracter_separacion_objeto = null)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
@@ -138,6 +204,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             return tex_a_cambiar;
         }
+
 
     }
 }

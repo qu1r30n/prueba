@@ -2,3 +2,23 @@ folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedi
 120224yxk240221120224|20240221120225|195|venta|1¬comida corrida caldo de camaron¬65°1¬comida corrida mojarra frita¬65°1¬comida corrida boloñesa ¬65|5|Prueba|repartidor|datos_comprador|datos_extras
 125318240221125318|20240221125320|130|venta|2¬comida corrida mojarra frita¬130|5|Prueba|repartidor|datos_comprador|datos_extras
 1304005u240221130400|20240221130401|65|venta|1¬comida corrida caldo de camaron¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+142539240226142539|20240226142539|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+145001mm240226145001|20240226145001|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+145706240226145706|20240226145706|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+155326n240226155326|20240226155328|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+160029i6h240226160029|20240226160031|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+160304r240226160304|20240226160305|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+162939u240226162939|20240226162939|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+170740lj240226170740|20240226170744|23|venta|1¬menu11¬11°1¬menu12¬12|5|Prueba|repartidor|datos_comprador|datos_extras
+112508y240302112508|20240302112514|0|venta||5|Prueba|repartidor|datos_comprador|datos_extras
+133242m240302133242|20240302133334|23|venta|1¬menu11¬11°1¬menu12¬12|5|Prueba|repartidor|datos_comprador|datos_extras
+1342238240302134223|20240302134228|23|venta|1¬menu11|11|1¬menu12|12|5|Prueba|repartidor|datos_comprador|datos_extras
+154119240302154119|20240302162645|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+1626534ha240302162653|20240302162655|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+162700240302162700|20240302162701|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+163927qq240302163927|20240302164223|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+164231240302164231|20240302164232|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+164237p240302164237|20240302164242|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+164418j04240302164418|20240302164419|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+164421cok240302164421|20240302164505|11|venta|1¬menu11¬11|5|Prueba|repartidor|datos_comprador|datos_extras
+1645087j240302164508|20240302164510|13|venta|1¬menu11¬11°1¬menu2¬2|5|Prueba|repartidor|datos_comprador|datos_extras

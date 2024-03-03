@@ -361,7 +361,8 @@ namespace chatbot_wathsapp.clases.herramientas
                 } while (j < arr_col_rec.Length);
 
                 string tem_linea_2 = "";
-                //comparacion--------------------------------------------------------------------------
+                //compa
+                //racion--------------------------------------------------------------------------
                 if (tem_linea == comparar)
                 {
                     areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], columnas_a_recorrer_editar, info_a_sustituir);
@@ -593,6 +594,8 @@ namespace chatbot_wathsapp.clases.herramientas
 
             return string.Join(separador2, filasUnidimensionales);
         }
+
+
     }
 
 
