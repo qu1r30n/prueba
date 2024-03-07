@@ -1,0 +1,4 @@
+nombre_del_producto|precio
+producto1|65
+producto2|65
+producto3|65

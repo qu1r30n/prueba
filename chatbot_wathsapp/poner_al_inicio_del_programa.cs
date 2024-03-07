@@ -61,6 +61,8 @@ namespace chatbot_wathsapp.clases
                 /*26*/ "config\\chatbot\\11_confirmadores.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Confirmadores",
                 /*27*/ "config\\registros\\ventas.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
                 /*28*/ "config\\registros\\compra.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
+                /*29*/ "config\\chatbot\\11_productos_del_dia.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3"
+
             };
             
             bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(direccion_archivo_de_direcciones_de_bd, fila_inicial, agregar_filas, caracter_separacion_fun_esp_objeto: G_separador_para_funciones_espesificas_[2]);

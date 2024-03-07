@@ -5,3 +5,5 @@ huevos rancheros|35|1|35
 huevos motuleño|50|1|50°1¬huevos motuleño¬50¬50|5|Prueba|repartidor|datos_comprador|datos_extras
 113203q2240307113203|240307113203|130|venta|tacos dorados jamon|30|2|60
 huevos rancheros|35|2|70°2¬huevos rancheros¬35¬70|5|Prueba|repartidor|datos_comprador|datos_extras
+1405241m240307140524|240307140524|130|venta|producto1|65|1|65
+producto2|65|1|65°1¬producto2¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras

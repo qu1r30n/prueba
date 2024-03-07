@@ -51,7 +51,9 @@ namespace chatbot_wathsapp.clases
             /*0*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[13, 0],//"config\\chatbot\\01_mensaje_bienvenida_inicio.txt,",
             /*1*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[14, 0],//"config\\chatbot\\02_mensaje_bienvenida_final.txt",
             /*2*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[15, 0],//"config\\chatbot\\03_productos.txt",
-            /*3*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[16, 0]//"config\\chatbot\\04_mensaje_extra_despues_de_la_venta.txt"
+            /*3*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[16, 0],//"config\\chatbot\\04_mensaje_extra_despues_de_la_venta.txt"
+            /*2*/Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[29, 0]//"config\\chatbot\\03_productos.txt",
+
         };
         string[,] G_contactos_lista_para_mandar_informacion =
         {
@@ -224,7 +226,7 @@ namespace chatbot_wathsapp.clases
                 bool se_hiso_pedido = false;
                 for (int j = 0; j < lineas_del_mensaje.Length; j++)
                 {
-                    bool hubo_cambio_de_menu = cargar_menus(lineas_del_mensaje[j], 'p');
+                    bool hubo_cambio_de_menu = cargar_menus(lineas_del_mensaje[j]);
                     if (hubo_cambio_de_menu)
                     {
                         menu_actual = lineas_del_mensaje[j];
@@ -591,25 +593,46 @@ namespace chatbot_wathsapp.clases
             return null;
         }
 
-        bool cargar_menus(string menu_string, char letra_para_paginas_de_menu = 'p', int quitar_letras_iniciales_para_solo_tener_el_num_pagina = 1)
+        bool cargar_menus(string menu_string, char letra_para_paginas_de_menu = 'p', int quitar_letras_iniciales_para_solo_tener_el_num_pagina = 1, char letra_para_menu_del_dia = 'd')
         {
+            menu_string = menu_string.ToLower();
+
             string letra_para_paginas_string = "" + letra_para_paginas_de_menu;
+            string letra_para_menu_del_dia_string = "" + letra_para_menu_del_dia;
             string primera_letra = "" + menu_string[0];
-            primera_letra = primera_letra.ToLower();
+            
 
             int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
+            int indice_productos_del_dia = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[4]));
 
-
+            string[] arr_todos_los_productos = null;
             if (primera_letra == letra_para_paginas_string)
             {
 
                 string num_menu_sin_la_letra_de_pagina = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(menu_string, restar_cuantas_ultimas_o_primeras_celdas: quitar_letras_iniciales_para_solo_tener_el_num_pagina, restar_primera_celda: true);
+
+                
+
                 try
                 {
+                    if ((num_menu_sin_la_letra_de_pagina[0] + "") == letra_para_menu_del_dia_string)
+                    {
+                        num_menu_sin_la_letra_de_pagina = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(num_menu_sin_la_letra_de_pagina, restar_cuantas_ultimas_o_primeras_celdas: quitar_letras_iniciales_para_solo_tener_el_num_pagina, restar_primera_celda: true);
+                        if (num_menu_sin_la_letra_de_pagina == "" || num_menu_sin_la_letra_de_pagina == null)
+                        {
+                            num_menu_sin_la_letra_de_pagina = "0";
+                        }
+                        arr_todos_los_productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos_del_dia];
+                    }
+                    else
+                    {
+                        arr_todos_los_productos = Tex_base.GG_base_arreglo_de_arreglos[indice_productos];
+                    }
+
                     int num_m = Convert.ToInt32(num_menu_sin_la_letra_de_pagina);
                     G_productos = new string[10, 3];
                     int num_m_por_10 = (num_m * 10);
-                    if (Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length >= (num_m_por_10))
+                    if (arr_todos_los_productos.Length >= (num_m_por_10))
                     {
 
 
@@ -625,11 +648,11 @@ namespace chatbot_wathsapp.clases
 
                         for (int k = temp_donde_iniciar; k < 10; k++)
                         {
-                            if ((k + num_m_por_10) >= Tex_base.GG_base_arreglo_de_arreglos[indice_productos].Length)
+                            if ((k + num_m_por_10) >= arr_todos_los_productos.Length)
                             {
                                 break;
                             }
-                            string[] producto_espliteado = Tex_base.GG_base_arreglo_de_arreglos[indice_productos][num_m_por_10 + k].Split(G_caracter_separacion[0][0]);
+                            string[] producto_espliteado = arr_todos_los_productos[num_m_por_10 + k].Split(G_caracter_separacion[0][0]);
                             G_productos[k, 0] = producto_espliteado[0];
                             G_productos[k, 1] = producto_espliteado[1];
                             G_productos[k, 2] = "0";

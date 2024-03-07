@@ -27,3 +27,4 @@ config\chatbot\registros\folios_a_checar\folio_ventas.txt~folio_venta|añomesdia
 config\chatbot\11_confirmadores.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Confirmadores
 config\registros\ventas.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~
 config\registros\compra.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~
+config\chatbot\11_productos_del_dia.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3
