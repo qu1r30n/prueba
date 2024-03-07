@@ -374,7 +374,7 @@ namespace chatbot_wathsapp.clases.herramientas
         }
 
 
-        public string editar_inc_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {
             //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1", "5", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
@@ -419,7 +419,7 @@ namespace chatbot_wathsapp.clases.herramientas
                         areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], indices_espliteado[k], info_editar_espliteado[k], edit_0_o_increm_1_espliteado[k], caracter_separacion_dif_a_texto: caracter_separacion_para_busqueda_multiple_profuda);
                     }
 
-                    return areglo[i];
+                    return areglo;
                 }
 
             }
@@ -429,30 +429,48 @@ namespace chatbot_wathsapp.clases.herramientas
 
         }
 
-        public string si_no_existe_agrega_string(string[] areglo, string columnas_a_recorrer, string comparar, string texto_a_agregar)
+        public object si_no_existe_agrega_string(string[] areglo, string columnas_a_recorrer, string comparar, string texto_a_agregar)
         {
-            string info_encontrada = busqueda_profunda_arreglo(areglo, columnas_a_recorrer, comparar);
-            if (info_encontrada != null)
+            //retorna objet porque retoran un string del buscado y si no lo encuentra retorna un arreglo del agregado
+            if (areglo != null) 
             {
-                return info_encontrada;
+
+
+                string info_encontrada = busqueda_profunda_arreglo(areglo, columnas_a_recorrer, comparar);
+                if (info_encontrada != null)
+                {
+                    return info_encontrada;
+                }
+                else
+                {
+                    areglo = agregar_registro_del_array(areglo, texto_a_agregar);
+                    return areglo;
+                }
             }
             else
             {
-                agregar_registro_del_array(areglo, texto_a_agregar);
-                return null;
+                areglo = agregar_registro_del_array(areglo, texto_a_agregar);
+                return areglo;
             }
-
         }
 
-        public string si_existe_edita_o_incrementa_si_no_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        public string[] si_existe_edita_o_incrementa_si_no_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {
-            string encontrado = si_no_existe_agrega_string(arreglo,columnas_a_recorrer,comparar,texto_a_agregar);
-            if (encontrado != null) 
-            {
-                encontrado=editar_inc_busqueda_multiple_edicion_profunda_arreglo(arreglo, columnas_a_recorrer, comparar,indices_a_editar,info_editar,edit_0_o_increm_1,caracter_separacion_objeto,caracter_separacion_para_busqueda_multiple_profuda);
+            
 
+            object encontrado = si_no_existe_agrega_string(arreglo,columnas_a_recorrer,comparar,texto_a_agregar);
+            string[] arreglo_a_retornar = null;
+            if (encontrado is string) 
+            {
+                arreglo_a_retornar=editar_inc_busqueda_multiple_edicion_profunda_arreglo(arreglo, columnas_a_recorrer, comparar,indices_a_editar,info_editar,edit_0_o_increm_1,caracter_separacion_objeto,caracter_separacion_para_busqueda_multiple_profuda);
+                
             }
-            return encontrado;
+            else if (encontrado is string[])
+            {
+                arreglo_a_retornar = (string[])encontrado;
+            }
+            
+            return arreglo_a_retornar;
 
         }
 

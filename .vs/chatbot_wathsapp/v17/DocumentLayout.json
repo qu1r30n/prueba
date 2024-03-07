@@ -11,6 +11,14 @@
       "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\herramientas\\operaciones_textos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|c:\\users\\pc1\\documents\\github\\prueba\\chatbot_wathsapp\\clases\\herramientas\\tex_base.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\herramientas\\tex_base.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|c:\\users\\pc1\\documents\\github\\prueba\\chatbot_wathsapp\\clases\\mult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\mult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -22,8 +30,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "mult.cs",
+              "DocumentMoniker": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\mult.cs",
+              "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\mult.cs",
+              "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\mult.cs",
+              "RelativeToolTip": "chatbot_wathsapp\\clases\\mult.cs",
+              "ViewState": "AQIAAP4AAAAAAAAAAAAAAAsBAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T17:52:49.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Tex_base.cs",
+              "DocumentMoniker": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\Tex_base.cs",
+              "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\herramientas\\Tex_base.cs",
+              "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\Tex_base.cs",
+              "RelativeToolTip": "chatbot_wathsapp\\clases\\herramientas\\Tex_base.cs",
+              "ViewState": "AQIAAJ8AAAAAAAAAAAAAAKAAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T17:52:35.827Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -32,21 +66,23 @@
               "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\herramientas\\operaciones_textos.cs",
               "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_textos.cs",
               "RelativeToolTip": "chatbot_wathsapp\\clases\\herramientas\\operaciones_textos.cs",
-              "ViewState": "AQIAAJgAAAAAAAAAAAAmwJ0AAAAIAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-24T23:52:23.756Z"
+              "WhenOpened": "2024-02-24T23:52:23.756Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "operaciones_arreglos.cs",
               "DocumentMoniker": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
               "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
               "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
               "RelativeToolTip": "chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
-              "ViewState": "AQIAAMkBAAAAAAAAAAAwwFUCAAAAAAAA",
+              "ViewState": "AQIAALwBAAAAAAAAAAAowMkBAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-24T23:41:20.59Z"
+              "WhenOpened": "2024-02-24T23:41:20.59Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -56,7 +92,7 @@
               "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\chatbot_clase.cs",
               "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\chatbot_clase.cs",
               "RelativeToolTip": "chatbot_wathsapp\\clases\\chatbot_clase.cs",
-              "ViewState": "AQIAAOEAAAAAAAAAAAAAAOEAAAARAAAA",
+              "ViewState": "AQIAANkAAAAAAAAAAAAwwOYAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-22T20:19:43.956Z",
               "EditorCaption": ""

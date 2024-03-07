@@ -19,7 +19,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (arreglo_objeto is string)
             {
-                
+
                 arreglo = arreglo_objeto.ToString().Split(caracter_separacion[0][0]);
                 if (arreglo.Length <= 1)
                 {
@@ -29,8 +29,8 @@ namespace chatbot_wathsapp.clases.herramientas
                     {
                         arreglo[i] = "" + arreglo_letras[i];
                     };
-                    
-                    
+
+
                 }
             }
             else if (arreglo_objeto is string[])
@@ -116,9 +116,10 @@ namespace chatbot_wathsapp.clases.herramientas
             return texto_editado;
         }
 
-        public string concatenacion_filas_de_un_archivo(string direccion_archivo,bool poner_num_fila=false)
+        public string concatenacion_filas_de_un_archivo(string direccion_archivo, bool poner_num_fila = false, object caracter_separacion_obj = null)
         {
-            
+
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_obj);
 
             int indice_mensage_bienvenida = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(direccion_archivo));
             string mensaje_de_bienvenida_a_enviar = "";
@@ -129,16 +130,16 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     num_fil = i + ") ";
                 }
-                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], '\n');
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + Tex_base.GG_base_arreglo_de_arreglos[indice_mensage_bienvenida][i], caracter_separacion[0]);
 
             }
             return mensaje_de_bienvenida_a_enviar;
         }
 
-        public string concatenacion_filas_de_un_arreglo(string[] arreglo, bool poner_num_fila = false)
+        public string concatenacion_filas_de_un_arreglo(string[] arreglo, bool poner_num_fila = false,object caracter_separacion_obj=null)
         {
 
-
+            string[] caracter_separacion=var_GG.GG_funcion_caracter_separacion(caracter_separacion_obj);
 
             string mensaje_de_bienvenida_a_enviar = "";
             for (int i = G_donde_inicia_la_tabla; i < arreglo.Length; i++)
@@ -148,7 +149,7 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     num_fil = i + ") ";
                 }
-                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + arreglo[i], '\n');
+                mensaje_de_bienvenida_a_enviar = concatenacion_caracter_separacion(mensaje_de_bienvenida_a_enviar, num_fil + arreglo[i], caracter_separacion[0]);
 
             }
             return mensaje_de_bienvenida_a_enviar;
@@ -156,11 +157,11 @@ namespace chatbot_wathsapp.clases.herramientas
 
         public string concatenacion_filas_de_un_arreglo_bidimencional(string[,] arreglo, bool poner_num_fila = false, object caracter_separacion_obj = null)
         {
-            
+
 
 
             string mensaje_de_bienvenida_a_enviar = "";
-            
+
             for (int i = 0; i < arreglo.GetLength(0); i++)
             {
                 string tiene_informacion = arreglo[i, 0];
@@ -169,8 +170,8 @@ namespace chatbot_wathsapp.clases.herramientas
                     string concatenado = "";
                     for (int j = 0; j < arreglo.GetLength(1); j++)
                     {
-                        
-                            concatenado = concatenacion_caracter_separacion(concatenado, arreglo[i, j], caracter_separacion_obj);
+
+                        concatenado = concatenacion_caracter_separacion(concatenado, arreglo[i, j], caracter_separacion_obj);
 
                     }
 
@@ -187,22 +188,29 @@ namespace chatbot_wathsapp.clases.herramientas
             return mensaje_de_bienvenida_a_enviar;
         }
 
-        public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar,  object caracter_separacion_objeto = null)
+        public string concatenacion_caracter_separacion(string tex_a_cambiar, string tex_a_agregar, object caracter_separacion_objeto = null)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
-            
-                if (tex_a_cambiar!="")
+
+            if (tex_a_cambiar != "" && tex_a_cambiar != null)
+            {
+                tex_a_cambiar = tex_a_cambiar + caracter_separacion[0] + tex_a_agregar;
+            }
+            else
+            {
+                if (tex_a_cambiar == null)
                 {
-                    tex_a_cambiar = tex_a_cambiar + caracter_separacion[0] + tex_a_agregar;
+                    tex_a_cambiar = "";
                 }
-                else
-                {
-                    tex_a_cambiar = tex_a_cambiar + tex_a_agregar;
-                }
-            
-            
+                tex_a_cambiar = tex_a_cambiar + tex_a_agregar;
+            }
+
+
 
             return tex_a_cambiar;
+
+
+
         }
 
 

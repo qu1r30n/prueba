@@ -1,15 +1,20 @@
 nombre_del_producto|precio
-menu1|1
-menu2|2
-menu3|3
-menu4|4
-menu5|5
-menu6|6
-menu7|7
-menu8|8
-menu9|9
-menu10|10
-menu11|11
-menu12|12
-menu13|13
-menu14|14
+huevos a la mexicana|40
+huevos rancheros|35
+huevos motuleño|50
+huevos estrellados(con arroz)|25
+omelet |50
+huevos divorciados|6
+pechuga empanizada|40
+chilaquiles chicos|35
+chilaquiles solo con huevo|25
+enchiladas de pollo|50
+enmoladas de pollo|50
+tacos dorados jamon|30
+tacos dorados pollo|45
+sincronisadas de jamon|40
+toratas de carnitas,bisteck o pechuga|35
+cafe de olla|8
+nescafe|12
+cafe con leche|20
+jugo de naranja|28
