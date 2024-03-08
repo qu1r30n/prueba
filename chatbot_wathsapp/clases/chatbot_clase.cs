@@ -206,18 +206,17 @@ namespace chatbot_wathsapp.clases
 
 
             string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length - 1].ToLower();//ultimo mensaje lo pone en minusculas
-            mandar_mensage_usuarios(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], ultimo_mensaje + "\n--------------------------------------------------------------------");
+            mandar_mensage_usuarios(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n--------------------------------------------------------------------");
             buscar_nombre_y_dar_click(manejadores, esperar, nombre_Del_que_envio_el_mensage);//regresar al usuario
 
 
             string[] lineas_del_mensaje = ultimo_mensaje.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
 
-            
 
 
-            string menu_actual = "p0";
-            cargar_menus(menu_actual);
+
+            string menu_actual=horarios_menus();
 
             bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
 
@@ -484,61 +483,64 @@ namespace chatbot_wathsapp.clases
             string[] grupos_en_los_que_esta = pociciones_en_los_que_se_encutra(nombre);
             bool esta_en_confirmadores = false;
 
-
-            for (int i = 0; i < grupos_en_los_que_esta.Length; i++)
+            if (grupos_en_los_que_esta != null) 
             {
-                // area del grupo de confirmadores
-                if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[6, 1])
+                for (int i = 0; i < grupos_en_los_que_esta.Length; i++)
                 {
-                    for (int j = 0; j < comando.Length; j++)
+                    // area del grupo de confirmadores
+                    if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[6, 1])
                     {
-                        string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando[j], caracter_de_separacion_si_es_string[0]);
-                        if (comandos_espliteado.Length < 1)
+                        for (int j = 0; j < comando.Length; j++)
                         {
-                            switch (comandos_espliteado[0])
+                            string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando[j], caracter_de_separacion_si_es_string[0]);
+                            if (comandos_espliteado.Length < 1)
                             {
-                                case "conf":
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-
-                        else
-                        {
-                            for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
-                            {
-                                string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(G_caracter_separacion[0][0]);
-                                if (comandos_espliteado[j] == movimiento_a_confirmar[0])
+                                switch (comandos_espliteado[0])
                                 {
-                                    if ("venta" == movimiento_a_confirmar[3])
-                                    {
-                                        if ("no_es_vendedor" != movimiento_a_confirmar[5])
-                                        {
-                                            simul.entrada_dinero_simple_y_complejo(simul.G_direccion_negocio, movimiento_a_confirmar[5], movimiento_a_confirmar[2]);
-
-                                        }
-                                        bas.eliminar_fila(G_dir_para_registros_y_configuraciones[0, 0], 0, movimiento_a_confirmar[0]);
-                                    }
+                                    case "conf":
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
 
+                            else
+                            {
+                                for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
+                                {
+                                    string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(G_caracter_separacion[0][0]);
+                                    if (comandos_espliteado[j] == movimiento_a_confirmar[0])
+                                    {
+                                        if ("venta" == movimiento_a_confirmar[3])
+                                        {
+                                            if ("no_es_vendedor" != movimiento_a_confirmar[5])
+                                            {
+                                                simul.entrada_dinero_simple_y_complejo(simul.G_direccion_negocio, movimiento_a_confirmar[5], movimiento_a_confirmar[2]);
+
+                                            }
+                                            bas.eliminar_fila(G_dir_para_registros_y_configuraciones[0, 0], 0, movimiento_a_confirmar[0]);
+                                        }
+                                    }
+                                }
+
+                            }
+
                         }
+
+                        esta_en_confirmadores = true;
+                        mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "ok");
+
+                        return esta_en_confirmadores;
+                    }
+                    //area configuraciones del programador
+                    else if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[7, 1])
+                    {
 
                     }
 
-                    esta_en_confirmadores = true;
-                    mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "ok");
-
-                    return esta_en_confirmadores;
                 }
-                //area configuraciones del programador
-                else if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[7, 1])
-                {
-
-                }
-
             }
+            
             return esta_en_confirmadores;
         }
 
@@ -834,6 +836,19 @@ namespace chatbot_wathsapp.clases
             string mensage_bienvenida_total = mensaje_de_bienvenida_a_enviar + "\n" + mensaje_de_productos_a_enviar + "\n" + mensaje_de_bienvenida_final_a_enviar;
 
             acumulador_de_mensajes("usuario_actual", mensage_bienvenida_total);
+        }
+
+        public string horarios_menus()
+        {
+            string hora_minuto = DateTime.Now.ToString("HHmm");
+            string menu_actual = "p0";
+            if (Convert.ToInt32(hora_minuto) >= 1200)
+            {
+                menu_actual = "pd";
+            }
+            
+            cargar_menus(menu_actual);
+            return menu_actual;
         }
 
     }
