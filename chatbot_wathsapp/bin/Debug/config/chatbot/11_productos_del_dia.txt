@@ -1,4 +1,4 @@
 nombre_del_producto|precio
 comida corrida bistek a la mexicana|65
 comida corrida pechuga rellena|65
-comida corrida pollo en salas verde|65
+comida corrida chile relleno|65

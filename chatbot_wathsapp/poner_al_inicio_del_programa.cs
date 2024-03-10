@@ -58,11 +58,16 @@ namespace chatbot_wathsapp.clases
                 /*23*/ "config\\chatbot\\configuracion_programador.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap_y_este_para_funciones_especificas_echas_por_el_programador~",
                 /*24*/ "config\\chatbot\\poner_1_si_recargaras_los_archivos.txt~si_la_primera_linea_tiene_1_lee_el_archivo_si_es_otro_lo_toma_desde_el_arreglo~",
                 /*25*/ "config\\chatbot\\registros\\folios_a_checar\\folio_ventas.txt~folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2~",
-                /*26*/ "config\\chatbot\\11_confirmadores.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Confirmadores",
+                
+                /*26*/ "config\\chatbot\\11_tesoreros.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Tesoreros",
                 /*27*/ "config\\registros\\ventas.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
                 /*28*/ "config\\registros\\compra.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
-                /*29*/ "config\\chatbot\\11_productos_del_dia.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3"
-
+                /*29*/ "config\\chatbot\\11_productos_del_dia.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3",
+                /*30*/ "config\\chatbot\\12_confirmadores.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Confirmadores",
+                /*31*/ "config\\chatbot\\13_pedidos_horario.txt~nombre_o_numero_de_telefono_que_aparece_en_el_watsap~Pedidos_horario",
+                /*32*/ "config\\registros\\pedidos_horario.txt~folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras~",
+                /*33*/ "config\\chatbot\\registros\\pedidos_horario\\pedidos_con_horario.txt~horar|recordatorio|dias~",
+                /*33*/ "config\\chatbot\\registros\\rut\\rutas_clientes.txt~horar|recordatorio|dias~",
             };
             
             bas.Crear_archivo_y_directorio_opcion_leer_y_agrega_arreglo(direccion_archivo_de_direcciones_de_bd, fila_inicial, agregar_filas, caracter_separacion_fun_esp_objeto: G_separador_para_funciones_espesificas_[2]);

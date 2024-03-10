@@ -1,16 +1,7 @@
 folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
-
-111721gt3240307111721|240307111721|125|venta|huevos a la mexicana|40|1|40
-huevos rancheros|35|1|35
-huevos motuleño|50|1|50°1¬huevos motuleño¬50¬50|5|Prueba|repartidor|datos_comprador|datos_extras
-113203q2240307113203|240307113203|130|venta|tacos dorados jamon|30|2|60
-huevos rancheros|35|2|70°2¬huevos rancheros¬35¬70|5|Prueba|repartidor|datos_comprador|datos_extras
-1405241m240307140524|240307140524|130|venta|producto1|65|1|65
-producto2|65|1|65°1¬producto2¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
-151902l240307151902|240307151902|65|venta|comida corrida pollo en salas verde|65|1|65°1¬comida corrida pollo en salas verde¬65¬65|no_es_vendedor|Yos|repartidor|datos_comprador|datos_extras
-152028240307152028|240307152028|50|venta|huevos motuleño|50|1|50°1¬huevos motuleño¬50¬50|no_es_vendedor|Yos|repartidor|datos_comprador|datos_extras
-163434240307163434|240307163434|75|venta|chilaquiles chicos|35|1|35
-sincronisadas de jamon|40|1|40°1¬sincronisadas de jamon¬40¬40|5|Prueba|repartidor|datos_comprador|datos_extras
-0842282240308084228|240308084228|88|venta|cafe de olla|8|1|8
-sincronisadas de jamon|40|1|40
-huevos a la mexicana|40|1|40°1¬huevos a la mexicana¬40¬40|no_es_vendedor|Gerarda|repartidor|datos_comprador|datos_extras
+114241c240310114241|240310114241|75|venta|1¬huevos a la mexicana¬40¬40°1¬huevos rancheros¬35¬35|5|Prueba|repartidor|datos_comprador|datos_extras
+125749240310125749|240310125749|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+130325240310130325|240310130325|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+131406v6240310131406|240310131406|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+131711dy240310131711|240310131711|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+133903qh240310133903|240310133903|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras

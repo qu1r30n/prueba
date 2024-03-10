@@ -63,8 +63,10 @@ namespace chatbot_wathsapp.clases
             /*3*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[20, 0],"vendedores" },//"config\\chatbot\\08_vendedores.txt",
             /*4*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[21, 0],"repartidores" },//"config\\chatbot\\09_repartidores.txt",
             /*5*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[22, 0],"reg_mensage" },//"config\\chatbot\\10_reg_mensaje.txt"
-            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[26, 0],"confirmadores" },//"config\\chatbot\\11_confirmadores.txt
-            /*7*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],"programador" }//"config\\chatbot\\configuracion_programador.txt",
+            /*6*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[26, 0],"tesoreros" },//"config\\chatbot\\11_tesoreros.txt
+            /*7*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[23, 0],"programador" },//"config\\chatbot\\configuracion_programador.txt",
+            /*8*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[31, 0],"pedidos_horario" },//"config\\chatbot\\13_pedidos_horario.txt",
+            /*9*/{ Tex_base.GG_dir_bd_y_valor_inicial_bidimencional[30, 0],"confirmadores" },//"config\\chatbot\\12_confirmadores.txt"
         };
 
         public string[,] G_dir_para_registros_y_configuraciones =
@@ -270,6 +272,8 @@ namespace chatbot_wathsapp.clases
 
         private void buscar_nombre_y_dar_click(IWebDriver manejadores, WebDriverWait esperar, string nombre_o_numero)
         {
+            Actions action = new Actions(manejadores);
+            action.SendKeys(Keys.Escape).Perform();
 
             IWebDriver manejadores_de_busqueda = manejadores;
             //ReadOnlyCollection<IWebElement> elementos = manejadores_de_busqueda.FindElements(By.XPath("//span[contains(@title, 'Jorge')]"));
@@ -286,7 +290,7 @@ namespace chatbot_wathsapp.clases
             string[] caracter_separacion_mensajes = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_objeto_mensages);
             string[] supervisores = op_arr.convierte_objeto_a_arreglo(nombre_contacto, caracter_separacion_usuarios[0]);
             string[] mensage_espliteados = op_arr.convierte_objeto_a_arreglo(mensage, caracter_separacion_mensajes[0]);
-
+            bool encontro_al_supervisor = false;
             for (int k = 0; k < supervisores.Length; k++)
             {
 
@@ -296,6 +300,7 @@ namespace chatbot_wathsapp.clases
 
                     if (supervisores[k] == G_contactos_lista_para_mandar_informacion[h, 1])
                     {
+                        encontro_al_supervisor = true;
                         // Simular la presión de la tecla Escape
                         Actions action = new Actions(manejadores);
                         action.SendKeys(Keys.Escape).Perform();
@@ -312,11 +317,24 @@ namespace chatbot_wathsapp.clases
 
                 if (supervisores[k] == "usuario_actual")
                 {
+                    encontro_al_supervisor = true;
                     mandar_mensage(esperar, mensage_espliteados[k]);
                 }
 
+                if (encontro_al_supervisor==false)
+                {
+                    if (nombre_contacto is string)
+                    {
+                        buscar_nombre_y_dar_click(manejadores, esperar, (string)nombre_contacto);
+                        mandar_mensage(esperar, mensage_espliteados[k]);
+                    }
+                    
+                }
+
+
 
             }
+
 
         }
 
@@ -487,11 +505,12 @@ namespace chatbot_wathsapp.clases
             {
                 for (int i = 0; i < grupos_en_los_que_esta.Length; i++)
                 {
-                    // area del grupo de confirmadores
+                    // area del grupo de tesoreros
                     if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[6, 1])
                     {
                         for (int j = 0; j < comando.Length; j++)
                         {
+                            
                             string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando[j], caracter_de_separacion_si_es_string[0]);
                             if (comandos_espliteado.Length < 1)
                             {
@@ -506,6 +525,7 @@ namespace chatbot_wathsapp.clases
 
                             else
                             {
+                                //aqui se checa los folios y si coinside y es vendedor se hacen las comiciones
                                 for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
                                 {
                                     string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(G_caracter_separacion[0][0]);
@@ -528,7 +548,7 @@ namespace chatbot_wathsapp.clases
                         }
 
                         esta_en_confirmadores = true;
-                        mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "ok");
+                        mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "comicion hecha");
 
                         return esta_en_confirmadores;
                     }
@@ -536,6 +556,57 @@ namespace chatbot_wathsapp.clases
                     else if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[7, 1])
                     {
 
+                    }
+                    // area del grupo de confirmadores
+                    else if (grupos_en_los_que_esta[i] == G_contactos_lista_para_mandar_informacion[9, 1])
+                    {
+                        for (int j = 0; j < comando.Length; j++)
+                        {
+
+                            string[] comandos_espliteado = op_arr.convierte_objeto_a_arreglo(comando[j], caracter_de_separacion_si_es_string[0]);
+                            if (comandos_espliteado.Length < 1)
+                            {
+                                switch (comandos_espliteado[0])
+                                {
+                                    case "conf":
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            else
+                            {
+                                bool encontro_folio = false;
+                                //aqui se checa los folios y si coinside y es vendedor se hacen las comiciones
+                                for (int k = G_donde_inicia_la_tabla; k < Tex_base.GG_base_arreglo_de_arreglos[25].Length; k++)
+                                {
+                                    string[] movimiento_a_confirmar = Tex_base.GG_base_arreglo_de_arreglos[25][k].Split(G_caracter_separacion[0][0]);
+                                    if (comandos_espliteado[j] == movimiento_a_confirmar[0])
+                                    {
+                                        encontro_folio = true;
+                                        if ("venta" == movimiento_a_confirmar[3])
+                                        {
+                                            mandar_mensage(esperar, "mensage enviado a la persona del pedido");
+                                            mandar_mensage_usuarios(manejadores, esperar, movimiento_a_confirmar[6], "esta en proceso tu pedido\n"+ movimiento_a_confirmar[0]+"\n------------------------------------------------");
+                                            
+                                        }
+                                    }
+                                }
+                                if (encontro_folio==false)
+                                {
+                                    mandar_mensage(esperar, "no se encontro el folio");
+                                }
+
+                            }
+
+
+                        }
+
+                        esta_en_confirmadores = true;
+                        //mandar_mensage_usuarios(manejadores, esperar, "usuario_actual", "ok");
+
+                        return esta_en_confirmadores;
                     }
 
                 }
@@ -784,6 +855,7 @@ namespace chatbot_wathsapp.clases
             string mensage_a_enviar_contadores = "";
             string mensage_a_enviar_cocineros = "";
             string mensage_a_enviar_repartidores_supervisores = "";
+            
             string texto_para_registro_foliado = "";
             for (int i = 0; i < pedido.Length; i++)
             {
@@ -799,8 +871,8 @@ namespace chatbot_wathsapp.clases
                 mensage_a_enviar_contadores = op_tex.concatenacion_caracter_separacion(mensage_a_enviar_contadores, "comida: " + G_caracter_separacion[0] + tem_precio_unit + G_caracter_separacion[0] + tem_cant + G_caracter_separacion[0] + tem_tot, "\n");
                 mensage_a_enviar_cocineros = op_tex.concatenacion_caracter_separacion(mensage_a_enviar_cocineros, tem_nom + G_caracter_separacion[0] + tem_cant, "\n");
                 mensage_a_enviar_repartidores_supervisores = op_tex.concatenacion_caracter_separacion(mensage_a_enviar_repartidores_supervisores, tem_cod + G_caracter_separacion[0] + tem_nom + G_caracter_separacion[0] + tem_precio_unit + G_caracter_separacion[0] + tem_cant + G_caracter_separacion[0] + tem_tot, "\n");
-
-                texto_para_registro_foliado = op_tex.concatenacion_caracter_separacion(mensage_a_enviar_usuario, tem_cant + G_caracter_separacion[2] + tem_nom + G_caracter_separacion[2] + tem_precio_unit + G_caracter_separacion[2] + tem_tot, G_caracter_separacion[1]);
+                
+                texto_para_registro_foliado = op_tex.concatenacion_caracter_separacion(texto_para_registro_foliado, tem_cant + G_caracter_separacion[2] + tem_nom + G_caracter_separacion[2] + tem_precio_unit + G_caracter_separacion[2] + tem_tot, G_caracter_separacion[1]);
 
             }
 
@@ -813,6 +885,7 @@ namespace chatbot_wathsapp.clases
             mensage_a_enviar_contadores = mensage_a_enviar_contadores + "\n total: " + total + "\n" + folio + "\n--------------------------------------------------------------------";
             mensage_a_enviar_cocineros = mensage_a_enviar_cocineros + "\n" + folio + "\n--------------------------------------------------------------------";
 
+            string mensage_a_enviar_confirmadores_y_tesoreros = "venta "+nombre_Del_que_envio_el_mensage +" "+ total + "\n" + folio+"\n---------------------------------------------------------------";
 
 
             acumulador_de_mensajes("usuario_actual", mensage_a_enviar_usuario);//usuario
@@ -820,6 +893,10 @@ namespace chatbot_wathsapp.clases
             acumulador_de_mensajes(G_contactos_lista_para_mandar_informacion[2, 1], mensage_a_enviar_contadores);//contadores
             acumulador_de_mensajes(G_contactos_lista_para_mandar_informacion[4, 1], mensage_a_enviar_repartidores_supervisores);//repartidores
             acumulador_de_mensajes(G_contactos_lista_para_mandar_informacion[1, 1], mensage_a_enviar_repartidores_supervisores);//supervisores
+
+            acumulador_de_mensajes(G_contactos_lista_para_mandar_informacion[9, 1], mensage_a_enviar_confirmadores_y_tesoreros);//confirmadores
+            acumulador_de_mensajes(G_contactos_lista_para_mandar_informacion[6, 1], mensage_a_enviar_confirmadores_y_tesoreros);//tesoreros
+
 
             mandar_mensages_acumulados(manejadores, esperar);
 
