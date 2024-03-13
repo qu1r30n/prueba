@@ -1,4 +1,4 @@
 nombre_del_producto|precio
-comida corrida bistek a la mexicana|65
-comida corrida pechuga rellena|65
-comida corrida chile relleno|65
+productoc1|1
+productoc2|2
+productoc3|3

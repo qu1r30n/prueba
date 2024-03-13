@@ -1,7 +1,2 @@
 folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
-114241c240310114241|240310114241|75|venta|1¬huevos a la mexicana¬40¬40°1¬huevos rancheros¬35¬35|5|Prueba|repartidor|datos_comprador|datos_extras
-125749240310125749|240310125749|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
-130325240310130325|240310130325|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
-131406v6240310131406|240310131406|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
-131711dy240310131711|240310131711|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
-133903qh240310133903|240310133903|65|venta|1¬comida corrida bistek a la mexicana¬65¬65|5|Prueba|repartidor|datos_comprador|datos_extras
+181234i240312181234|240312181234|51|venta|2¬producto11¬11¬22°1¬producto12¬12¬12°1¬producto13¬13¬13°2¬producto1¬1¬2°1¬producto2¬2¬2|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras

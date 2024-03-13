@@ -3,4 +3,4 @@
 2|1|patrocinadores_complejos|1|negocio|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
 3|1|patrocinadores_complejos|2|negocio|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
 4|2|patrocinadores_complejos|3|negocio|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|
-5|3|patrocinadores_complejos|4|negocio|0|0|0|nombre°ap_p°ap_m°0°banco°curp°Prueba°direccion°colonia°municipio°estado°correo|
+5|3|patrocinadores_complejos|4|negocio|0|0|0|nombre°ap_p°ap_m°0°banco°curp°7487660000°direccion°colonia°municipio°estado°correo|

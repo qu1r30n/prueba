@@ -1,0 +1,1 @@
+mesa|codigo°nombre_pedido°cantidad|total|datos_extras

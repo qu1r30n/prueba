@@ -1,1 +1,0 @@
-folio|añomesdiahoraminutosegundo|total|lugar|producto1¬precio1°pedido2¬precio2|datos_extras

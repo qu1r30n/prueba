@@ -17,6 +17,7 @@ namespace chatbot_wathsapp.clases.herramientas
         int G_donde_inicia_la_tabla = var_fun_GG.GG_indice_donde_comensar;
 
 
+
         var_fun_GG var_GG = new var_fun_GG();
         public string[] agregar_registro_del_array(string[] arreglo, string registro, string al_inicio = null)
         {
@@ -53,8 +54,6 @@ namespace chatbot_wathsapp.clases.herramientas
 
 
         }
-
-
 
         public string[,] agregar_registro_del_array_bidimensional(string[,] arreglo, string registro, object caracter_separacion_objeto = null, string al_inicio = null)
         {
@@ -180,7 +179,7 @@ namespace chatbot_wathsapp.clases.herramientas
             return temp;
         }
 
-        public string busqueda_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string columnas_a_retornar = null, object caracter_separacion_objeto = null,int donde_iniciar=0)
+        public string busqueda_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string columnas_a_retornar = null, object caracter_separacion_objeto = null, int donde_iniciar = 0)
         {
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 
@@ -244,7 +243,142 @@ namespace chatbot_wathsapp.clases.herramientas
             return null;
         }
 
+        //se le pone yy en referencia a &&
+        public string busqueda_con_YY_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparaciones, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
+        {
+            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 
+            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
+
+            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+
+            for (int i = 0; i < areglo.Length; i++)
+            {
+                string tem_linea = areglo[i];
+
+                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
+
+                string[][] niveles_de_profundidad = null;
+                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
+                {
+
+                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
+
+
+                    int j = 0;
+                    
+                    do
+                    {
+
+                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
+                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+
+                        j++;
+                    } while (j < arr_col_rec.Length);
+
+                    string tem_linea_2 = "";
+                    //comparacion--------------------------------------------------------------------------
+                    chequeo_todas_las_comparaciones[l] = false;
+                    if (tem_linea == arr_comparaciones[l])
+                    {
+                        chequeo_todas_las_comparaciones[l] = true;
+
+
+                    }
+
+                }
+                bool estan_todas_las_comparaciones = true;
+                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
+                {
+                    if (chequeo_todas_las_comparaciones[m] == false)
+                    {
+                        estan_todas_las_comparaciones = false;
+                        break;
+                    }
+                }
+                if (estan_todas_las_comparaciones)
+                {
+
+
+                    return areglo[i];
+                }
+            }
+
+
+            return null;
+
+        }
+
+        //se le pone OO en referencia a ||
+        public string busqueda_con_OO_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparaciones, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
+        {
+            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
+
+            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
+
+            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+
+            for (int i = 0; i < areglo.Length; i++)
+            {
+                string tem_linea = areglo[i];
+
+                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
+
+                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
+                {
+
+                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
+
+                    string[][] niveles_de_profundidad = null;
+                    int j = 0;
+                    do
+                    {
+
+                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
+                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+
+                        j++;
+                    } while (j < arr_col_rec.Length);
+
+                    string tem_linea_2 = "";
+                    //comparacion--------------------------------------------------------------------------
+                    chequeo_todas_las_comparaciones[l] = false;
+                    if (tem_linea == arr_comparaciones[l])
+                    {
+                        chequeo_todas_las_comparaciones[l] = true;
+
+
+                    }
+
+                }
+                bool estan_una_comparacion = false;
+                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
+                {
+                    if (chequeo_todas_las_comparaciones[m] == true)
+                    {
+                        estan_una_comparacion = true;
+                        break;
+                    }
+                }
+                if (estan_una_comparacion)
+                {
+
+                    return areglo[i];
+                }
+            }
+
+
+            return null;
+
+        }
 
 
         public string editar_incr_string_funcion_recursiva(string texto, object columnas_a_recorrer, string info_a_sustituir, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_dif_a_texto = null)
@@ -374,7 +508,7 @@ namespace chatbot_wathsapp.clases.herramientas
         }
 
 
-        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparaciones, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {
             //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1", "5", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
@@ -407,7 +541,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
                 string tem_linea_2 = "";
                 //comparacion--------------------------------------------------------------------------
-                if (tem_linea == comparar)
+                if (tem_linea == comparaciones)
                 {
 
 
@@ -429,10 +563,159 @@ namespace chatbot_wathsapp.clases.herramientas
 
         }
 
+        //se le pone yy en referencia a &&
+        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_yy(string[] areglo, string columnas_a_recorrer, string comparaciones, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
+        {
+            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
+
+            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
+
+            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+
+            for (int i = 0; i < areglo.Length; i++)
+            {
+                string tem_linea = areglo[i];
+
+                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
+
+                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
+                {
+
+                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
+
+                    string[][] niveles_de_profundidad = null;
+                    int j = 0;
+                    do
+                    {
+
+                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
+                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+
+                        j++;
+                    } while (j < arr_col_rec.Length);
+
+                    string tem_linea_2 = "";
+                    //comparacion--------------------------------------------------------------------------
+                    chequeo_todas_las_comparaciones[l] = false;
+                    if (tem_linea == arr_comparaciones[l])
+                    {
+                        chequeo_todas_las_comparaciones[l] = true;
+
+
+                    }
+
+                }
+                bool estan_todas_las_comparaciones = true;
+                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
+                {
+                    if (chequeo_todas_las_comparaciones[m] == false)
+                    {
+                        estan_todas_las_comparaciones = false;
+                        break;
+                    }
+                }
+                if (estan_todas_las_comparaciones)
+                {
+                    string[] indices_espliteado = indices_a_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    string[] info_editar_espliteado = info_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    string[] edit_0_o_increm_1_espliteado = edit_0_o_increm_1.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    for (int k = 0; k < indices_espliteado.Length; k++)
+                    {
+                        areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], indices_espliteado[k], info_editar_espliteado[k], edit_0_o_increm_1_espliteado[k], caracter_separacion_dif_a_texto: caracter_separacion_para_busqueda_multiple_profuda[0]);
+                    }
+
+                    return areglo;
+                }
+            }
+
+
+            return null;
+
+        }
+
+        //se le pone oo en referencia a ||
+        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_oo(string[] areglo, string columnas_a_recorrer, string comparaciones, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
+        {
+            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
+
+            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
+
+            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+
+            for (int i = 0; i < areglo.Length; i++)
+            {
+                string tem_linea = areglo[i];
+
+                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
+
+                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
+                {
+
+                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
+
+                    string[][] niveles_de_profundidad = null;
+                    int j = 0;
+                    do
+                    {
+
+                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
+                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+
+                        j++;
+                    } while (j < arr_col_rec.Length);
+
+                    string tem_linea_2 = "";
+                    //comparacion--------------------------------------------------------------------------
+                    chequeo_todas_las_comparaciones[l] = false;
+                    if (tem_linea == arr_comparaciones[l])
+                    {
+                        chequeo_todas_las_comparaciones[l] = true;
+
+
+                    }
+
+                }
+                bool estan_una_comparacion = false;
+                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
+                {
+                    if (chequeo_todas_las_comparaciones[m] == true)
+                    {
+                        estan_una_comparacion = true;
+                        break;
+                    }
+                }
+                if (estan_una_comparacion)
+                {
+                    string[] indices_espliteado = indices_a_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    string[] info_editar_espliteado = info_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    string[] edit_0_o_increm_1_espliteado = edit_0_o_increm_1.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
+                    for (int k = 0; k < indices_espliteado.Length; k++)
+                    {
+                        areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], indices_espliteado[k], info_editar_espliteado[k], edit_0_o_increm_1_espliteado[k], caracter_separacion_dif_a_texto: caracter_separacion_para_busqueda_multiple_profuda[0]);
+                    }
+
+                    return areglo;
+                }
+            }
+
+
+            return null;
+
+        }
+
+
         public object si_no_existe_agrega_string(string[] areglo, string columnas_a_recorrer, string comparar, string texto_a_agregar)
         {
             //retorna objet porque retoran un string del buscado y si no lo encuentra retorna un arreglo del agregado
-            if (areglo != null) 
+            if (areglo != null)
             {
 
 
@@ -454,25 +737,93 @@ namespace chatbot_wathsapp.clases.herramientas
             }
         }
 
+        public object si_comparacion_YY_no_existe_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar_si_arreglo_es_nulo, string texto_a_agregar_si_no_encuentra_el_dato, string columna_comparar_si_no_lo_encuentra, string comparacion_si_no_lo_encuentra, string columnas_agregar_si_no_lo_encuentra_opcional = null, object caracter_separacion_obj = null)
+        {
+            operaciones_textos op_tex = new operaciones_textos();
+            operaciones_arreglos op_arr = new operaciones_arreglos();
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_obj);
+            //retorna objet porque retoran un string del buscado y si no lo encuentra retorna un arreglo del agregado
+            if (arreglo != null)
+            {
+
+
+                string info_encontrada = busqueda_con_YY_profunda_arreglo(arreglo, columnas_a_recorrer, comparar);
+                if (info_encontrada != null)
+                {
+                    return info_encontrada;
+                }
+                else
+                {
+                    //err__ mod__ esto lo estoy haciendo de rapido para ya tenerlo funcional lo que le falta es que si es profunda la informacion por el momento solo lo hace de forma superficial
+                    for (int i = 0; i < arreglo.Length; i++)
+                    {
+                        string[] elemento_espliteado = arreglo[i].Split(caracter_separacion[0][0]);
+                        if (elemento_espliteado[Convert.ToInt32(columna_comparar_si_no_lo_encuentra)] == comparacion_si_no_lo_encuentra)
+                        {
+
+
+                            elemento_espliteado[Convert.ToInt32(columnas_agregar_si_no_lo_encuentra_opcional)] = op_tex.concatenacion_caracter_separacion(elemento_espliteado[Convert.ToInt32(columnas_agregar_si_no_lo_encuentra_opcional)], texto_a_agregar_si_no_encuentra_el_dato, caracter_separacion[1]);
+
+                        }
+
+
+
+                        arreglo[i] = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(elemento_espliteado, caracter_separacion[0]);
+                        return arreglo;
+                    }
+                }
+            }
+
+            else
+            {
+                arreglo = agregar_registro_del_array(arreglo, texto_a_agregar_si_arreglo_es_nulo);
+                return arreglo;
+            }
+            return null;
+        }
+
         public string[] si_existe_edita_o_incrementa_si_no_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
         {
-            
 
-            object encontrado = si_no_existe_agrega_string(arreglo,columnas_a_recorrer,comparar,texto_a_agregar);
+
+            object encontrado = si_no_existe_agrega_string(arreglo, columnas_a_recorrer, comparar, texto_a_agregar);
             string[] arreglo_a_retornar = null;
-            if (encontrado is string) 
+            if (encontrado is string)
             {
-                arreglo_a_retornar=editar_inc_busqueda_multiple_edicion_profunda_arreglo(arreglo, columnas_a_recorrer, comparar,indices_a_editar,info_editar,edit_0_o_increm_1,caracter_separacion_objeto,caracter_separacion_para_busqueda_multiple_profuda);
-                
+                arreglo_a_retornar = editar_inc_busqueda_multiple_edicion_profunda_arreglo(arreglo, columnas_a_recorrer, comparar, indices_a_editar, info_editar, edit_0_o_increm_1, caracter_separacion_objeto, caracter_separacion_para_busqueda_multiple_profuda);
+
             }
             else if (encontrado is string[])
             {
                 arreglo_a_retornar = (string[])encontrado;
             }
-            
+
             return arreglo_a_retornar;
 
         }
+
+
+        public string[] si_existe_edita_o_incrementa_si_no_agrega_string_comparacion_YY(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1, string texto_a_agregar_si_no_encuentra_el_dato, string columna_comparar_si_no_lo_encuentra, string comparacion_si_no_lo_encuentra, string columnas_agregar_si_no_lo_encuentra_opcional = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        {
+
+
+            object encontrado = si_comparacion_YY_no_existe_agrega_string(arreglo, columnas_a_recorrer, comparar, texto_a_agregar,texto_a_agregar_si_no_encuentra_el_dato, columna_comparar_si_no_lo_encuentra, comparacion_si_no_lo_encuentra, columnas_agregar_si_no_lo_encuentra_opcional, caracter_separacion_objeto);
+            
+            string[] arreglo_a_retornar = null;
+            if (encontrado is string)
+            {
+                arreglo_a_retornar = editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_yy(arreglo, columnas_a_recorrer, comparar, indices_a_editar, info_editar, edit_0_o_increm_1, caracter_separacion_objeto, caracter_separacion_para_busqueda_multiple_profuda);
+
+            }
+            else if (encontrado is string[])
+            {
+                arreglo_a_retornar = (string[])encontrado;
+            }
+
+            return arreglo_a_retornar;
+
+        }
+
 
 
         public string[] busqueda_multiple_edicion_multiple_arreglo_profunda(string[] areglo, string columnas_a_recorrer, string comparar, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
@@ -573,7 +924,7 @@ namespace chatbot_wathsapp.clases.herramientas
             {
                 for (int j = 0; j < arreglo_en_el_que_se_buscara.Length; j++)
                 {
-                    if (arreglo_en_el_que_se_buscara[i]== arreglo_en_el_que_se_buscara[j])
+                    if (arreglo_en_el_que_se_buscara[i] == arreglo_en_el_que_se_buscara[j])
                     {
                         arreglo_a_devolver = agregar_registro_del_array(arreglo_a_devolver, arreglo_en_el_que_se_buscara[i]);
                     }
@@ -613,8 +964,45 @@ namespace chatbot_wathsapp.clases.herramientas
             return string.Join(separador2, filasUnidimensionales);
         }
 
+        public string[][] si_el_multiarreglo_no_tiene_la_cantidad_de_arreglos_se_le_agrega(string[][] arreglo, int cantidad_arreglos_de_arreglos)
+        {
+            if (arreglo == null) { arreglo = new string[1][]; }
+
+            if (cantidad_arreglos_de_arreglos > arreglo.Length)
+            {
+                string[][] arreglo_a_retornar = new string[cantidad_arreglos_de_arreglos + 1][];
+
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    arreglo_a_retornar[i] = arreglo[i];
+
+                }
+                return arreglo_a_retornar;
+            }
+            return arreglo;
+        }
+
+        public string[] extraer_arreglo_dentro_de_un_string(string linea_con_arreglo_dentro, string columnas_a_recorrer = null, object caracteres_separacion_obj = null)
+        {
+            string[] caracteres_separacion = var_GG.GG_funcion_caracter_separacion(caracteres_separacion_obj);
+
+            string[] arr_col_rec = columnas_a_recorrer.Split(caracteres_separacion[0][0]);
+
+            int j = 0;
+            string[][] niveles_de_profundidad = null;
+            do
+            {
+
+                //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
+                niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, linea_con_arreglo_dentro.Split(caracteres_separacion[j][0]));
+                linea_con_arreglo_dentro = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+
+                j++;
+
+            } while (j < arr_col_rec.Length);
+
+            return niveles_de_profundidad[j];
+        }
 
     }
-
-
 }
