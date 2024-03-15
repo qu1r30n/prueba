@@ -962,14 +962,27 @@ namespace chatbot_wathsapp.clases.herramientas
                                 arreglo[j] = null;
                                 if (cont == 0)
                                 {
-                                    cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
-                                    cont++;
+                                    cantidad_de_elementos[i, 1] = "1";
+                                    cont = 1;
                                 }
 
 
                             }
+                            if (cont == 0 && arreglo[i] != null)
+                            {
+                                cantidad_de_elementos[i, 0] = arreglo[i];
+                                cantidad_de_elementos[i, 1] = "1";
+                                cont = 1;
+                            }
                         }
 
+                    }
+
+                    if (cont == 0 && arreglo[i] != null)
+                    {
+                        cantidad_de_elementos[i, 0] = arreglo[i];
+                        cantidad_de_elementos[i, 1] = "1";
+                        cont = 1;
                     }
 
                 }
