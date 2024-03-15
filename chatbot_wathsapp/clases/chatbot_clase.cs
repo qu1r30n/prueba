@@ -222,7 +222,7 @@ namespace chatbot_wathsapp.clases
             string menu_actual=horarios_menus();
 
             bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
-            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != null)
+            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != "")
             {
                 lineas_del_mensaje = G_pedido_a_procesar_cierre_de_cuenta_mesa.Split( '\n');
                 G_pedido_a_procesar_cierre_de_cuenta_mesa = null;
@@ -272,7 +272,11 @@ namespace chatbot_wathsapp.clases
 
 
             }
-            mandar_mensages_acumulados(manejadores, esperar);
+            if (mensajes_acumulados != null)
+            {
+                mandar_mensages_acumulados(manejadores, esperar);
+            }
+            
 
             Actions action = new Actions(manejadores);
             action.SendKeys(Keys.Escape).Perform();
@@ -695,23 +699,9 @@ namespace chatbot_wathsapp.clases
                                         }
                                         
                                     }
-
-                                    string[] tem_mesa = cuenta[0].Split(G_caracter_separacion[0][0]);
-                                    string[] tem_productos = tem_mesa[1].Split(G_caracter_separacion[1][0]);
-                                    bool a = false;
-                                    string mensage_cuenta = "";
-                                    for (int m = 0; m < tem_productos.Length; m++)
-                                    {
-                                        string[] info_producto = tem_productos[m].Split(G_caracter_separacion[2][0]);
-                                        double costo_producto_cantidad = (Convert.ToDouble(info_producto[2]) * Convert.ToDouble(info_producto[3]));
-                                        mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, info_producto[1] + G_caracter_separacion[0] + "p/u: " + info_producto[2] + G_caracter_separacion[0] + "cantidad: " + info_producto[3] + G_caracter_separacion[0] + costo_producto_cantidad, "\n");
-                                    }
-                                    
-                                    mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, "total: " + tem_mesa[2], "\n");
-                                    mensage_cuenta = letra_mesa + nuero_de_mesa_string + "\n" + mensage_cuenta;
                                     mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cerrar_cuenta");
-                                    acumulador_de_mensajes("usuario_actual", mensage_cuenta+"\ncuenta cerrada gracias por su compra\n-----------------------------------------------------------");
-                                    
+
+                                    esta_en_confirmadores = false;
 
                                 }
 
@@ -730,7 +720,11 @@ namespace chatbot_wathsapp.clases
                                     mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, "total: " + tem_mesa[2], "\n");
                                     mensage_cuenta = letra_mesa + nuero_de_mesa_string + "\n" + mensage_cuenta+"\n-------------------------------------------------------------";
                                     acumulador_de_mensajes("usuario_actual", mensage_cuenta);
-                                    esta_en_confirmadores = true;
+                                    if (G_pedido_a_procesar_cierre_de_cuenta_mesa == null)
+                                    {
+                                        esta_en_confirmadores = true;
+                                    }
+                                    
                                 }
                                 else if (comando[j] == "editar")
                                 {
@@ -742,6 +736,7 @@ namespace chatbot_wathsapp.clases
                                     string[] cuenta = mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cancelar");
                                     acumulador_de_mensajes("usuario_actual", "cuenta_cancelada");
                                     esta_en_confirmadores = true;
+                                    
                                 }
 
                                 else
@@ -778,12 +773,14 @@ namespace chatbot_wathsapp.clases
                                             
                                             mandar_mensage(esperar, "_______________________________");
                                         }
+                                        
                                     }
                                     catch(Exception a)
                                     {
                                         string err = ""+a;
                                         Console.WriteLine(err);
                                         //enviar_mensage_inicial();
+                                        
                                     }
                                     esta_en_confirmadores = true;
                                 }

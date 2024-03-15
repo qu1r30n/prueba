@@ -28,7 +28,7 @@ namespace chatbot_wathsapp.clases.herramientas
                     for (int i = 0; i < arreglo.Length; i++)
                     {
                         arreglo[i] = "" + arreglo_letras[i];
-                    };
+                    }
 
 
                 }
@@ -45,13 +45,23 @@ namespace chatbot_wathsapp.clases.herramientas
             {
                 for (int i = restar_cuantas_ultimas_o_primeras_celdas; i < arreglo.Length; i++)
                 {
-                    if (i < arreglo.Length - 1)
+                    if (arreglo_objeto is string)
                     {
-                        a_retornar = a_retornar + arreglo[i] + caracter_separacion[0];
+                        a_retornar = a_retornar + arreglo[i];
                     }
                     else
                     {
-                        a_retornar = a_retornar + arreglo[i];
+
+
+                        if (i < arreglo.Length - 1)
+                        {
+
+                            a_retornar = a_retornar + arreglo[i] + caracter_separacion[0];
+                        }
+                        else
+                        {
+                            a_retornar = a_retornar + arreglo[i];
+                        }
                     }
                 }
 
@@ -74,6 +84,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             return a_retornar;
         }
+
 
         public string joineada_paraesida_SIN_NULOS_y_quitador_de_extremos_del_string(object arreglo_objeto, object caracter_separacion_objeto = null, int restar_cuantas_ultimas_o_primeras_celdas = 0, bool restar_primera_celda = false)
         {
