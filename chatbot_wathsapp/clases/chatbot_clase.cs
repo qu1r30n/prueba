@@ -222,7 +222,7 @@ namespace chatbot_wathsapp.clases
             string menu_actual=horarios_menus();
 
             bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
-            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != "")
+            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != ""&& G_pedido_a_procesar_cierre_de_cuenta_mesa != null)
             {
                 lineas_del_mensaje = G_pedido_a_procesar_cierre_de_cuenta_mesa.Split( '\n');
                 G_pedido_a_procesar_cierre_de_cuenta_mesa = null;
@@ -236,7 +236,10 @@ namespace chatbot_wathsapp.clases
                     if (hubo_cambio_de_menu)
                     {
                         menu_actual = lineas_del_mensaje[j];
-                        enviar_mensage_inicial();
+                        if (lineas_del_mensaje.Length == 1)
+                        {
+                            enviar_mensage_inicial();
+                        }
                     }
                     else
                     {
@@ -252,11 +255,12 @@ namespace chatbot_wathsapp.clases
                         catch
                         {
                             //en este se haran los breaks dentro para que no afecten
-                            if (lineas_del_mensaje.Length==1)
+                            if (lineas_del_mensaje.Length == 1)
                             {
+
                                 enviar_mensage_inicial();
                             }
-                            
+
                         }
                     }
                 }
@@ -769,9 +773,15 @@ namespace chatbot_wathsapp.clases
                                                 pedido_mesa[2] = G_variable_transferencia_grupos2;
                                                 G_mesas_resumen_produc_acum_mesa[solo_num_mesa][0] = op_tex.joineada_paraesida_SIN_NULOS_y_quitador_de_extremos_del_string(pedido_mesa);
                                             }
-                                            
-                                            
-                                            mandar_mensage(esperar, "_______________________________");
+                                            string[] produc_esp_1 = G_variable_transferencia_grupos.Split(G_caracter_separacion[1][0]);
+                                            string mensage_respuesta = "";
+                                            for (int k = 0; k < produc_esp_1.Length; k++)
+                                            {
+                                                string[] produc_esp_2 = produc_esp_1[k].Split(G_caracter_separacion[2][0]);
+                                                //4p0¬chilaquiles¬35¬1
+                                                mensage_respuesta = op_tex.concatenacion_caracter_separacion(mensage_respuesta, produc_esp_2[1] + "\np/u: " + produc_esp_2[2] + "|cantidad: " + produc_esp_2[3] + "| " + (Convert.ToDouble(produc_esp_2[2]) * Convert.ToDouble(produc_esp_2[3])), "\n");
+                                            }
+                                            mandar_mensage(esperar, mensage_respuesta + "\ntotal: " + G_variable_transferencia_grupos2);
                                         }
                                         
                                     }
