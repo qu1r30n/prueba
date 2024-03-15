@@ -12,7 +12,7 @@ namespace chatbot_wathsapp.clases.herramientas
     {
 
         public string[] G_caracter_separacion = var_fun_GG.GG_caracter_separacion;
-        public string[] G_separador_para_funciones_espesificas_ = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
+        public string[] G_caracter_separacion_para_funciones_espesificas = var_fun_GG.GG_caracter_separacion_funciones_espesificas;
 
         int G_donde_inicia_la_tabla = var_fun_GG.GG_indice_donde_comensar;
 
@@ -160,20 +160,32 @@ namespace chatbot_wathsapp.clases.herramientas
 
 
 
-        public string[] quitar_registro_del_array(string[] arreglo)
+        public string[] quitar_registro_del_array(string[] arreglo, int cantidad_a_quitar = 1, bool quitar_del_inicio = false)
         {
             if (arreglo.Length <= 1)
             {
                 // No hay elementos para quitar, devolver un array vacío o el mismo array
                 return null;
             }
-
-            string[] temp = new string[arreglo.Length - 1];
-
-            for (int i = 1; i < arreglo.Length; i++)
+            string[] temp = new string[arreglo.Length - cantidad_a_quitar];
+            if (quitar_del_inicio)
             {
-                temp[i - 1] = arreglo[i];
+
+
+                for (int i = cantidad_a_quitar; i < arreglo.Length; i++)
+                {
+                    temp[i - 1] = arreglo[i];
+                }
             }
+            else
+            {
+
+                for (int i = 0; i < arreglo.Length - cantidad_a_quitar; i++)
+                {
+                    temp[i - 1] = arreglo[i];
+                }
+            }
+
 
 
             return temp;
@@ -243,9 +255,11 @@ namespace chatbot_wathsapp.clases.herramientas
             return null;
         }
 
+
         //se le pone yy en referencia a &&
         public string busqueda_con_YY_profunda_arreglo(string[] areglo, string columnas_a_recorrer, string comparaciones, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
         {
+            operaciones_textos op_tex = new operaciones_textos();
             //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
             string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
 
@@ -257,29 +271,35 @@ namespace chatbot_wathsapp.clases.herramientas
 
             for (int i = 0; i < areglo.Length; i++)
             {
-                string tem_linea = areglo[i];
+
 
                 bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
 
                 string[][] niveles_de_profundidad = null;
                 for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
                 {
-
+                    string tem_linea = areglo[i];
                     string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
 
 
-                    int j = 0;
-                    
-                    do
+
+                    if (arr_col_rec.Length > 1)
                     {
 
-                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
-                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
-                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
+                        string temp_opciones_comp = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(arr_comparaciones_a_rec[l], restar_cuantas_ultimas_o_primeras_celdas: 1);
+                        string[] arr_info = extraer_arreglo_dentro_de_un_string(tem_linea, temp_opciones_comp);
+                        for (int m = 0; m < arr_info.Length; m++)
+                        {
+                            string[] elemento_espliteado = arr_info[m].Split(caracter_separacion[arr_col_rec.Length][0]);
+                            tem_linea = elemento_espliteado[Convert.ToInt32(arr_col_rec[arr_col_rec.Length - 1])];
+                        }
 
-                        j++;
-                    } while (j < arr_col_rec.Length);
-
+                    }
+                    else
+                    {
+                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[0][0]));
+                        tem_linea = niveles_de_profundidad[0][Convert.ToInt32(arr_col_rec[0])];
+                    }
                     string tem_linea_2 = "";
                     //comparacion--------------------------------------------------------------------------
                     chequeo_todas_las_comparaciones[l] = false;
@@ -515,7 +535,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (caracter_separacion_para_busqueda_multiple_profuda == null)
             {
-                caracter_separacion_para_busqueda_multiple_profuda = G_separador_para_funciones_espesificas_[0];
+                caracter_separacion_para_busqueda_multiple_profuda = G_caracter_separacion_para_funciones_espesificas[0];
             }
 
 
@@ -563,153 +583,6 @@ namespace chatbot_wathsapp.clases.herramientas
 
         }
 
-        //se le pone yy en referencia a &&
-        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_yy(string[] areglo, string columnas_a_recorrer, string comparaciones, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
-        {
-            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
-            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
-
-            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
-
-            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
-            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-
-            for (int i = 0; i < areglo.Length; i++)
-            {
-                string tem_linea = areglo[i];
-
-                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
-
-                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
-                {
-
-                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
-
-                    string[][] niveles_de_profundidad = null;
-                    int j = 0;
-                    do
-                    {
-
-                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
-                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
-                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
-
-                        j++;
-                    } while (j < arr_col_rec.Length);
-
-                    string tem_linea_2 = "";
-                    //comparacion--------------------------------------------------------------------------
-                    chequeo_todas_las_comparaciones[l] = false;
-                    if (tem_linea == arr_comparaciones[l])
-                    {
-                        chequeo_todas_las_comparaciones[l] = true;
-
-
-                    }
-
-                }
-                bool estan_todas_las_comparaciones = true;
-                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
-                {
-                    if (chequeo_todas_las_comparaciones[m] == false)
-                    {
-                        estan_todas_las_comparaciones = false;
-                        break;
-                    }
-                }
-                if (estan_todas_las_comparaciones)
-                {
-                    string[] indices_espliteado = indices_a_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    string[] info_editar_espliteado = info_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    string[] edit_0_o_increm_1_espliteado = edit_0_o_increm_1.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    for (int k = 0; k < indices_espliteado.Length; k++)
-                    {
-                        areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], indices_espliteado[k], info_editar_espliteado[k], edit_0_o_increm_1_espliteado[k], caracter_separacion_dif_a_texto: caracter_separacion_para_busqueda_multiple_profuda[0]);
-                    }
-
-                    return areglo;
-                }
-            }
-
-
-            return null;
-
-        }
-
-        //se le pone oo en referencia a ||
-        public string[] editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_oo(string[] areglo, string columnas_a_recorrer, string comparaciones, string indices_a_editar, string info_editar, string edit_0_o_increm_1 = null, object caracter_separacion_objeto = null, object caracter_separacion_para_busqueda_multiple_profuda_obj = null)
-        {
-            //editar_busqueda_multiple_edicion_profunda_arreglo(arreglo, "2|1|1~2|1|0", "5~9", "2|1|1~1~2|1|0", "10~10~10","1~1~0");
-            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_objeto);
-
-            string[] caracter_separacion_para_busqueda_multiple_profuda = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_para_busqueda_multiple_profuda_obj);
-
-            //caracter_separacion[0][0] el primer [0] es la celda y el segundo [0] es el caracter para no usar convert.tochar
-            string[] arr_comparaciones_a_rec = columnas_a_recorrer.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-            string[] arr_comparaciones = comparaciones.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-
-            for (int i = 0; i < areglo.Length; i++)
-            {
-                string tem_linea = areglo[i];
-
-                bool[] chequeo_todas_las_comparaciones = new bool[arr_comparaciones_a_rec.Length];
-
-                for (int l = 0; l < arr_comparaciones_a_rec.Length; l++)
-                {
-
-                    string[] arr_col_rec = arr_comparaciones_a_rec[l].Split(caracter_separacion[0][0]);
-
-                    string[][] niveles_de_profundidad = null;
-                    int j = 0;
-                    do
-                    {
-
-                        //caracter_separacion[j][0] el primer [j] es la celda y el segundo [0] es el caracter para no usar convert.tochar
-                        niveles_de_profundidad = agregar_arreglo_a_arreglo_de_arreglos(niveles_de_profundidad, tem_linea.Split(caracter_separacion[j][0]));
-                        tem_linea = niveles_de_profundidad[j][Convert.ToInt32(arr_col_rec[j])];
-
-                        j++;
-                    } while (j < arr_col_rec.Length);
-
-                    string tem_linea_2 = "";
-                    //comparacion--------------------------------------------------------------------------
-                    chequeo_todas_las_comparaciones[l] = false;
-                    if (tem_linea == arr_comparaciones[l])
-                    {
-                        chequeo_todas_las_comparaciones[l] = true;
-
-
-                    }
-
-                }
-                bool estan_una_comparacion = false;
-                for (int m = 0; m < chequeo_todas_las_comparaciones.Length; m++)
-                {
-                    if (chequeo_todas_las_comparaciones[m] == true)
-                    {
-                        estan_una_comparacion = true;
-                        break;
-                    }
-                }
-                if (estan_una_comparacion)
-                {
-                    string[] indices_espliteado = indices_a_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    string[] info_editar_espliteado = info_editar.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    string[] edit_0_o_increm_1_espliteado = edit_0_o_increm_1.Split(caracter_separacion_para_busqueda_multiple_profuda[0][0]);
-                    for (int k = 0; k < indices_espliteado.Length; k++)
-                    {
-                        areglo[i] = editar_incr_string_funcion_recursiva(areglo[i], indices_espliteado[k], info_editar_espliteado[k], edit_0_o_increm_1_espliteado[k], caracter_separacion_dif_a_texto: caracter_separacion_para_busqueda_multiple_profuda[0]);
-                    }
-
-                    return areglo;
-                }
-            }
-
-
-            return null;
-
-        }
 
 
         public object si_no_existe_agrega_string(string[] areglo, string columnas_a_recorrer, string comparar, string texto_a_agregar)
@@ -737,7 +610,7 @@ namespace chatbot_wathsapp.clases.herramientas
             }
         }
 
-        public object si_comparacion_YY_no_existe_agrega_string(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar_si_arreglo_es_nulo, string texto_a_agregar_si_no_encuentra_el_dato, string columna_comparar_si_no_lo_encuentra, string comparacion_si_no_lo_encuentra, string columnas_agregar_si_no_lo_encuentra_opcional = null, object caracter_separacion_obj = null)
+        public object si_arreglo_es_null_agrega_texto_si_no_agrega_texto_a_columna_seleccionada(string[] arreglo, string texto_a_agregar_si_arreglo_es_nulo, string texto_a_agregar, string columnas_agregar, object caracter_separacion_obj = null)
         {
             operaciones_textos op_tex = new operaciones_textos();
             operaciones_arreglos op_arr = new operaciones_arreglos();
@@ -747,31 +620,23 @@ namespace chatbot_wathsapp.clases.herramientas
             {
 
 
-                string info_encontrada = busqueda_con_YY_profunda_arreglo(arreglo, columnas_a_recorrer, comparar);
-                if (info_encontrada != null)
+
+                for (int i = 0; i < arreglo.Length; i++)
                 {
-                    return info_encontrada;
+                    string[] elemento_espliteado = arreglo[i].Split(caracter_separacion[0][0]);
+
+
+
+                    elemento_espliteado[Convert.ToInt32(columnas_agregar)] = op_tex.concatenacion_caracter_separacion(elemento_espliteado[Convert.ToInt32(columnas_agregar)], texto_a_agregar, caracter_separacion[1]);
+
+
+
+
+
+                    arreglo[i] = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(elemento_espliteado, caracter_separacion[0]);
+                    return arreglo;
                 }
-                else
-                {
-                    //err__ mod__ esto lo estoy haciendo de rapido para ya tenerlo funcional lo que le falta es que si es profunda la informacion por el momento solo lo hace de forma superficial
-                    for (int i = 0; i < arreglo.Length; i++)
-                    {
-                        string[] elemento_espliteado = arreglo[i].Split(caracter_separacion[0][0]);
-                        if (elemento_espliteado[Convert.ToInt32(columna_comparar_si_no_lo_encuentra)] == comparacion_si_no_lo_encuentra)
-                        {
 
-
-                            elemento_espliteado[Convert.ToInt32(columnas_agregar_si_no_lo_encuentra_opcional)] = op_tex.concatenacion_caracter_separacion(elemento_espliteado[Convert.ToInt32(columnas_agregar_si_no_lo_encuentra_opcional)], texto_a_agregar_si_no_encuentra_el_dato, caracter_separacion[1]);
-
-                        }
-
-
-
-                        arreglo[i] = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(elemento_espliteado, caracter_separacion[0]);
-                        return arreglo;
-                    }
-                }
             }
 
             else
@@ -803,22 +668,14 @@ namespace chatbot_wathsapp.clases.herramientas
         }
 
 
-        public string[] si_existe_edita_o_incrementa_si_no_agrega_string_comparacion_YY(string[] arreglo, string columnas_a_recorrer, string comparar, string texto_a_agregar, string indices_a_editar, string info_editar, string edit_0_o_increm_1, string texto_a_agregar_si_no_encuentra_el_dato, string columna_comparar_si_no_lo_encuentra, string comparacion_si_no_lo_encuentra, string columnas_agregar_si_no_lo_encuentra_opcional = null, object caracter_separacion_objeto = null, string caracter_separacion_para_busqueda_multiple_profuda = null)
+        public string[] agrega_textos_a_columna(string[] arreglo, string texto_a_agregar_si_es_nulo_el_arreglo, string texto_a_agregar, string columnas_agregar, object caracter_separacion_objeto = null)
         {
 
-
-            object encontrado = si_comparacion_YY_no_existe_agrega_string(arreglo, columnas_a_recorrer, comparar, texto_a_agregar,texto_a_agregar_si_no_encuentra_el_dato, columna_comparar_si_no_lo_encuentra, comparacion_si_no_lo_encuentra, columnas_agregar_si_no_lo_encuentra_opcional, caracter_separacion_objeto);
-            
             string[] arreglo_a_retornar = null;
-            if (encontrado is string)
-            {
-                arreglo_a_retornar = editar_inc_busqueda_multiple_edicion_profunda_arreglo_con_comparacion_yy(arreglo, columnas_a_recorrer, comparar, indices_a_editar, info_editar, edit_0_o_increm_1, caracter_separacion_objeto, caracter_separacion_para_busqueda_multiple_profuda);
+            object encontrado = si_arreglo_es_null_agrega_texto_si_no_agrega_texto_a_columna_seleccionada(arreglo, texto_a_agregar_si_es_nulo_el_arreglo, texto_a_agregar, columnas_agregar, caracter_separacion_objeto);
 
-            }
-            else if (encontrado is string[])
-            {
-                arreglo_a_retornar = (string[])encontrado;
-            }
+
+            arreglo_a_retornar = (string[])encontrado;
 
             return arreglo_a_retornar;
 
@@ -833,7 +690,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (caracter_separacion_para_busqueda_multiple_profuda == null)
             {
-                caracter_separacion_para_busqueda_multiple_profuda = G_separador_para_funciones_espesificas_[0];
+                caracter_separacion_para_busqueda_multiple_profuda = G_caracter_separacion_para_funciones_espesificas[0];
             }
             string[] comparar_espliteado = comparar.Split(caracter_separacion_para_busqueda_multiple_profuda[0]);
 
@@ -899,7 +756,7 @@ namespace chatbot_wathsapp.clases.herramientas
                 {
                     if (caracter_de_separacion_si_es_string == null)
                     {
-                        texto_enviar_arreglo_string = texto_enviar_arreglo_objeto.ToString().Split(G_separador_para_funciones_espesificas_[2][0]);
+                        texto_enviar_arreglo_string = texto_enviar_arreglo_objeto.ToString().Split(G_caracter_separacion_para_funciones_espesificas[2][0]);
                     }
                     else
                     {
@@ -938,6 +795,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
         public string join_para_bidimensional(string[,] arregloBidimensional, string separador = null, string separador2 = null)
         {
+            operaciones_textos op_tex = new operaciones_textos();
             if (separador == null)
             {
                 separador = G_caracter_separacion[1];
@@ -949,19 +807,30 @@ namespace chatbot_wathsapp.clases.herramientas
             int filas = arregloBidimensional.GetLength(0);
             int columnas = arregloBidimensional.GetLength(1);
 
-            string[] filasUnidimensionales = new string[filas];
+            string[] filasUnidimensionales = null;
 
             for (int i = 0; i < filas; i++)
             {
                 string[] filaActual = new string[columnas];
+                bool estan_sin_nulo = true;
                 for (int j = 0; j < columnas; j++)
                 {
                     filaActual[j] = arregloBidimensional[i, j];
+                    if (arregloBidimensional[i, j] == null)
+                    {
+                        estan_sin_nulo = false;
+                        break;
+                    }
                 }
-                filasUnidimensionales[i] = string.Join(separador, filaActual);
-            }
+                if (estan_sin_nulo)
+                {
+                    filasUnidimensionales = agregar_registro_del_array(filasUnidimensionales, string.Join(separador, filaActual));
 
-            return string.Join(separador2, filasUnidimensionales);
+                }
+
+            }
+            return op_tex.joineada_paraesida_SIN_NULOS_y_quitador_de_extremos_del_string(filasUnidimensionales, separador2);
+
         }
 
         public string[][] si_el_multiarreglo_no_tiene_la_cantidad_de_arreglos_se_le_agrega(string[][] arreglo, int cantidad_arreglos_de_arreglos)
@@ -970,7 +839,7 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (cantidad_arreglos_de_arreglos > arreglo.Length)
             {
-                string[][] arreglo_a_retornar = new string[cantidad_arreglos_de_arreglos + 1][];
+                string[][] arreglo_a_retornar = new string[cantidad_arreglos_de_arreglos][];
 
                 for (int i = 0; i < arreglo.Length; i++)
                 {
@@ -1000,9 +869,215 @@ namespace chatbot_wathsapp.clases.herramientas
                 j++;
 
             } while (j < arr_col_rec.Length);
-
-            return niveles_de_profundidad[j];
+            string[] arreglo_a_retoranar = linea_con_arreglo_dentro.Split(caracteres_separacion[j][0]);
+            return arreglo_a_retoranar;
         }
 
+
+        public string[,] suma_elementos_iguales_dentro_de_un_arreglo_retorna_un_bidimencional(string[] arreglo_entrada, object caracter_separacion_func_esp_obj = null)
+        {
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_func_esp_obj);
+            string[] arreglo = new string[arreglo_entrada.Length];
+            Array.Copy(arreglo_entrada, arreglo, arreglo_entrada.Length);
+
+            string[,] arreglo_a_retornar = null;
+            string[,] cantidad_de_elementos = new string[arreglo.Length, 2];
+            if (arreglo.Length > 1)
+            {
+
+
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    int cont = 0;
+                    for (int j = i + 1; j < arreglo.Length; j++)
+                    {
+                        if (arreglo[i] != null && arreglo[j] != null)
+                        {
+                            if (arreglo[i] == arreglo[j])
+                            {
+                                cantidad_de_elementos[i, 0] = arreglo[i];
+                                cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
+                                arreglo[j] = null;
+                                if (cont == 0)
+                                {
+                                    cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
+                                    cont++;
+                                }
+
+
+                            }
+                        }
+
+                    }
+
+                }
+                string sin_nulos = join_para_bidimensional(cantidad_de_elementos, G_caracter_separacion_para_funciones_espesificas[1], G_caracter_separacion_para_funciones_espesificas[0]);
+                string[] arr1 = sin_nulos.Split(G_caracter_separacion_para_funciones_espesificas[0][0]);
+                string[] arr2 = arr1[0].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                arreglo_a_retornar = new string[arr1.Length, arr2.Length];
+                for (int i = 0; i < arr1.Length; i++)
+                {
+                    arr2 = arr1[i].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                    for (int j = 0; j < arr2.Length; j++)
+                    {
+                        arreglo_a_retornar[i, j] = arr2[j];
+
+                    }
+                }
+            }
+            else
+            {
+                cantidad_de_elementos[0, 0] = arreglo[0];
+                cantidad_de_elementos[0, 1] = "1";
+                arreglo_a_retornar = new string[,] { { cantidad_de_elementos[0, 0], cantidad_de_elementos[0, 1] } };
+            }
+            return arreglo_a_retornar;
+        }
+
+        public string suma_elementos_iguales_dentro_de_un_arreglo_retorna_un_string_al_final_de_cada_elemento(string[] arreglo_entrada, object caracter_separacion_obj = null, object caracter_separacion_func_esp_obj = null)
+        {
+
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_obj);
+            string[] caracter_separacion_funciones_esp = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_func_esp_obj);
+            string[] arreglo = new string[arreglo_entrada.Length];
+            Array.Copy(arreglo_entrada, arreglo, arreglo_entrada.Length);
+
+            string[,] arreglo_a_retornar = null;
+            string[,] cantidad_de_elementos = new string[arreglo.Length, 2];
+            if (arreglo.Length > 1)
+            {
+
+
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    int cont = 0;
+                    for (int j = i + 1; j < arreglo.Length; j++)
+                    {
+                        if (arreglo[i] != null && arreglo[j] != null)
+                        {
+                            if (arreglo[i] == arreglo[j])
+                            {
+                                cantidad_de_elementos[i, 0] = arreglo[i];
+                                cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
+                                arreglo[j] = null;
+                                if (cont == 0)
+                                {
+                                    cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
+                                    cont++;
+                                }
+
+
+                            }
+                        }
+
+                    }
+
+                }
+                string sin_nulos = join_para_bidimensional(cantidad_de_elementos, caracter_separacion_funciones_esp[1], caracter_separacion_funciones_esp[0]);
+                string[] arr1 = sin_nulos.Split(G_caracter_separacion_para_funciones_espesificas[0][0]);
+                string[] arr2 = arr1[0].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                arreglo_a_retornar = new string[arr1.Length, arr2.Length];
+                for (int i = 0; i < arr1.Length; i++)
+                {
+                    arr2 = arr1[i].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                    for (int j = 0; j < arr2.Length; j++)
+                    {
+                        arreglo_a_retornar[i, j] = arr2[j];
+
+                    }
+                }
+            }
+            else
+            {
+                cantidad_de_elementos[0, 0] = arreglo[0];
+                cantidad_de_elementos[0, 1] = "1";
+                arreglo_a_retornar = new string[,] { { cantidad_de_elementos[0, 0], cantidad_de_elementos[0, 1] } };
+            }
+            string info_a_devolver = join_para_bidimensional(arreglo_a_retornar, caracter_separacion[1], caracter_separacion[0]);
+            return info_a_devolver;
+        }
+
+        public string[] suma_elementos_iguales_dentro_de_un_arreglo_retorna_un_arreglo_y_al_final_de_cada_elemento_el_elmento_sumado(string[] arreglo_entrada, object caracter_separacion_obj = null, object caracter_separacion_func_esp_obj = null)
+        {
+
+            string[] caracter_separacion = var_GG.GG_funcion_caracter_separacion(caracter_separacion_obj);
+            string[] caracter_separacion_funciones_esp = var_GG.GG_funcion_caracter_separacion_funciones_especificas(caracter_separacion_func_esp_obj);
+            string[] arreglo = new string[arreglo_entrada.Length];
+            Array.Copy(arreglo_entrada, arreglo, arreglo_entrada.Length);
+
+            string[,] arreglo_bidimencional_a_retornar = null;
+            string[,] cantidad_de_elementos = new string[arreglo.Length, 2];
+            if (arreglo.Length > 1)
+            {
+
+
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    int cont = 0;
+                    for (int j = i + 1; j < arreglo.Length; j++)
+                    {
+                        if (arreglo[i] != null && arreglo[j] != null)
+                        {
+                            if (arreglo[i] == arreglo[j])
+                            {
+                                cantidad_de_elementos[i, 0] = arreglo[i];
+                                cantidad_de_elementos[i, 1] = "" + (Convert.ToInt32(cantidad_de_elementos[i, 1]) + 1);
+                                arreglo[j] = null;
+                                if (cont == 0)
+                                {
+                                    cantidad_de_elementos[i, 1] = "1";
+                                    cont++;
+                                }
+
+
+                            }
+                            else
+                            {
+                                cantidad_de_elementos[i, 0] = arreglo[i];
+                                cantidad_de_elementos[i, 1] = "1";
+                                if (cont == 0)
+                                {
+                                    cont = 1; 
+                                }
+                            }
+                        }
+
+                    }
+
+                    if (cont == 0 && arreglo[i] != null)
+                    {
+                        cantidad_de_elementos[i, 0] = arreglo[i];
+                        cantidad_de_elementos[i, 1] = "1";
+                        if (cont == 0)
+                        {
+                            cont = 1;
+                        }
+                    }
+
+                }
+                string sin_nulos = join_para_bidimensional(cantidad_de_elementos, caracter_separacion_funciones_esp[1], caracter_separacion_funciones_esp[0]);
+                string[] arr1 = sin_nulos.Split(G_caracter_separacion_para_funciones_espesificas[0][0]);
+                string[] arr2 = arr1[0].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                arreglo_bidimencional_a_retornar = new string[arr1.Length, arr2.Length];
+                for (int i = 0; i < arr1.Length; i++)
+                {
+                    arr2 = arr1[i].Split(G_caracter_separacion_para_funciones_espesificas[1][0]);
+                    for (int j = 0; j < arr2.Length; j++)
+                    {
+                        arreglo_bidimencional_a_retornar[i, j] = arr2[j];
+
+                    }
+                }
+            }
+            else
+            {
+                cantidad_de_elementos[0, 0] = arreglo[0];
+                cantidad_de_elementos[0, 1] = "1";
+                arreglo_bidimencional_a_retornar = new string[,] { { cantidad_de_elementos[0, 0], cantidad_de_elementos[0, 1] } };
+            }
+            string info_a_devolver = join_para_bidimensional(arreglo_bidimencional_a_retornar, caracter_separacion[1], caracter_separacion[0]);
+            string[] arrelgo_a_devolver = info_a_devolver.Split(caracter_separacion[0][0]);
+            return arrelgo_a_devolver;
+        }
     }
 }
