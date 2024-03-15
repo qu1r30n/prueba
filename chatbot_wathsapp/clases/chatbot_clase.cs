@@ -698,6 +698,10 @@ namespace chatbot_wathsapp.clases
                                             {
                                                 productos = productos + tem3[0][0];
                                             }
+                                            if (veses_producto==1)
+                                            {
+                                                productos = "" + tem3[0][0];
+                                            }
                                             
                                             G_pedido_a_procesar_cierre_de_cuenta_mesa = op_tex.concatenacion_caracter_separacion(G_pedido_a_procesar_cierre_de_cuenta_mesa, pagina + "\n"+ productos, "\n");
                                         }
@@ -787,9 +791,7 @@ namespace chatbot_wathsapp.clases
                                     }
                                     catch(Exception a)
                                     {
-                                        string err = ""+a;
-                                        Console.WriteLine(err);
-                                        //enviar_mensage_inicial();
+                                        enviar_mensage_inicial();
                                         
                                     }
                                     esta_en_confirmadores = true;

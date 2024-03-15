@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\chatbot_clase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|c:\\users\\pc1\\documents\\github\\prueba\\chatbot_wathsapp\\clases\\chatbot_clase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\chatbot_clase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|c:\\users\\pc1\\documents\\github\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35750800-E5ED-46DD-9CC8-D4818ADA345C}|chatbot_wathsapp\\chatbot_wathsapp_caja_herr.csproj|solutionrelative:chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -80,7 +80,7 @@
               "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
               "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
               "RelativeToolTip": "chatbot_wathsapp\\clases\\herramientas\\operaciones_arreglos.cs",
-              "ViewState": "AQIAAGkAAAAAAAAAAAAAAH8AAAAAAAAA",
+              "ViewState": "AQIAAH8AAAAAAAAAAAAAAH8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-24T23:41:20.59Z",
               "EditorCaption": ""
@@ -93,7 +93,7 @@
               "RelativeDocumentMoniker": "chatbot_wathsapp\\clases\\chatbot_clase.cs",
               "ToolTip": "C:\\Users\\pc1\\Documents\\GitHub\\prueba\\chatbot_wathsapp\\clases\\chatbot_clase.cs",
               "RelativeToolTip": "chatbot_wathsapp\\clases\\chatbot_clase.cs",
-              "ViewState": "AQIAAAADAAAAAAAAAAAuwBkDAAAlAAAA",
+              "ViewState": "AQIAANUAAAAAAAAAAAAwwOIAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-22T20:19:43.956Z",
               "EditorCaption": ""
