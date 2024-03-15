@@ -673,6 +673,11 @@ namespace chatbot_wathsapp.clases
                                 {
                                     nuero_de_pagina_del_menu_string = comando[j];
                                     es_mesa_o_pagina = true;
+                                    cargar_menus(nuero_de_pagina_del_menu_string);
+                                    if (comando.Length==1)
+                                    {
+                                        enviar_mensage_inicial();
+                                    }
                                 }
                                 esta_en_confirmadores = true;
                             }
@@ -767,6 +772,10 @@ namespace chatbot_wathsapp.clases
                                                         G_mesas_resumen_produc_acum_mesa[k] = new string[G_mesas_productos_acumulados_strings[k].Length];
                                                         Array.Copy(G_mesas_productos_acumulados_strings[k], G_mesas_resumen_produc_acum_mesa[k], G_mesas_productos_acumulados_strings[k].Length);
                                                     }
+                                                }
+                                                else
+                                                {
+
                                                 }
                                             }
 
