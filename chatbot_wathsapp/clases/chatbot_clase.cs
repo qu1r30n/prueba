@@ -222,7 +222,11 @@ namespace chatbot_wathsapp.clases
             string menu_actual=horarios_menus();
 
             bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
-
+            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != null)
+            {
+                lineas_del_mensaje = G_pedido_a_procesar_cierre_de_cuenta_mesa.Split( '\n');
+                G_pedido_a_procesar_cierre_de_cuenta_mesa = null;
+            }
             if (si_confirmo==false)
             {
                 bool se_hiso_pedido = false;
@@ -504,6 +508,7 @@ namespace chatbot_wathsapp.clases
 
         string[][] G_mesas_productos_acumulados_strings = null;
         string[][] G_mesas_resumen_produc_acum_mesa = null;
+        string G_pedido_a_procesar_cierre_de_cuenta_mesa = "";
         public bool confirmaciones_de_usuarios_confirmadores_o_funciones_extras(IWebDriver manejadores, WebDriverWait esperar, string nombre, string[] comando, object caraccaracter_de_separacion_objet_para_comando = null,string letra_mesa="m",string letra_pagina_menu="p")
         {
 
@@ -668,14 +673,32 @@ namespace chatbot_wathsapp.clases
                                 if (comando[j] == "cerrar cuenta")
                                 {
                                     string[] cuenta = mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cuanto_lleva");
-                                    string pedido_a_procesar = "";
+                                    
                                     for (int k = 0; k < cuenta.Length; k++)
                                     {
                                         string[] tem = cuenta[0].Split(G_caracter_separacion[0][0]);
-                                        string[] tem2 = cuenta[1].Split(G_caracter_separacion[1][0]);
+                                        string[] tem2 = tem[1].Split(G_caracter_separacion[1][0]);
+                                        string productos = "";
+                                        for (int l = 0; l < tem2.Length; l++)
+                                        {
+                                            string[] tem3 = tem2[l].Split(G_caracter_separacion[2][0]);
+                                            string pagina = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(tem3[0], restar_cuantas_ultimas_o_primeras_celdas: 1,restar_primera_celda: true);
+
+                                            int veses_producto = Convert.ToInt32(tem3[3]);
+                                            
+                                            for (int m = 1; m < veses_producto; m++)
+                                            {
+                                                productos = productos + tem3[0][0];
+                                            }
+                                            
+                                            G_pedido_a_procesar_cierre_de_cuenta_mesa = op_tex.concatenacion_caracter_separacion(G_pedido_a_procesar_cierre_de_cuenta_mesa, pagina + "\n"+ productos, "\n");
+                                        }
+                                        
                                     }
+
                                     string[] tem_mesa = cuenta[0].Split(G_caracter_separacion[0][0]);
                                     string[] tem_productos = tem_mesa[1].Split(G_caracter_separacion[1][0]);
+                                    bool a = false;
                                     string mensage_cuenta = "";
                                     for (int m = 0; m < tem_productos.Length; m++)
                                     {
@@ -756,9 +779,11 @@ namespace chatbot_wathsapp.clases
                                             mandar_mensage(esperar, "_______________________________");
                                         }
                                     }
-                                    catch
+                                    catch(Exception a)
                                     {
-                                        enviar_mensage_inicial();
+                                        string err = ""+a;
+                                        Console.WriteLine(err);
+                                        //enviar_mensage_inicial();
                                     }
                                     esta_en_confirmadores = true;
                                 }
