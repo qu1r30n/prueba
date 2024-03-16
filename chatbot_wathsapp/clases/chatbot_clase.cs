@@ -1126,38 +1126,46 @@ namespace chatbot_wathsapp.clases
         {
             //retornar mensages acumulados
             string[,] mensajes_para_y_mensaje = acumulador_de_mensajes(operacion: "retornar");
-            //ordenar
-            for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
-            {
-                if (mensajes_para_y_mensaje[i, 0] != "usuario_actual")
-                {
-
-                    for (int k = i + 1; k < mensajes_para_y_mensaje.GetLength(0); k++)
-                    {
-                        if (mensajes_para_y_mensaje[k, 0] == "usuario_actual")
-                        {
-                            // Almacenar la fila actual en una variable temporal
-                            string tempUsuario = mensajes_para_y_mensaje[i, 0];
-                            string tempMensaje = mensajes_para_y_mensaje[i, 1];
-
-                            // Intercambiar toda la fila
-                            mensajes_para_y_mensaje[i, 0] = mensajes_para_y_mensaje[k, 0];
-                            mensajes_para_y_mensaje[i, 1] = mensajes_para_y_mensaje[k, 1];
-                            mensajes_para_y_mensaje[k, 0] = tempUsuario;
-                            mensajes_para_y_mensaje[k, 1] = tempMensaje;
-
-                        }
-                    }
-                }
-            }
             //mandar mensages
             if (mensajes_para_y_mensaje != null)
             {
+                
+            }
+            else
+            {
+                //ordenar
+                for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
+                {
+                    if (mensajes_para_y_mensaje[i, 0] != "usuario_actual")
+                    {
+
+                        for (int k = i + 1; k < mensajes_para_y_mensaje.GetLength(0); k++)
+                        {
+                            if (mensajes_para_y_mensaje[k, 0] == "usuario_actual")
+                            {
+                                // Almacenar la fila actual en una variable temporal
+                                string tempUsuario = mensajes_para_y_mensaje[i, 0];
+                                string tempMensaje = mensajes_para_y_mensaje[i, 1];
+
+                                // Intercambiar toda la fila
+                                mensajes_para_y_mensaje[i, 0] = mensajes_para_y_mensaje[k, 0];
+                                mensajes_para_y_mensaje[i, 1] = mensajes_para_y_mensaje[k, 1];
+                                mensajes_para_y_mensaje[k, 0] = tempUsuario;
+                                mensajes_para_y_mensaje[k, 1] = tempMensaje;
+
+                            }
+                        }
+                    }
+                }
+
                 for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
                 {
                     mandar_mensage_usuarios(manejadores, esperar, mensajes_para_y_mensaje[i, 0], mensajes_para_y_mensaje[i, 1]);
                 }
             }
+
+            
+            
         }
 
         public void formato_para_mandar_mensajes_de_los_productos_pedidos(IWebDriver manejadores, WebDriverWait esperar, string nombre_Del_que_envio_el_mensage, string[] pedido)
