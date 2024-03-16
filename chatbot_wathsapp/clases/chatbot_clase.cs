@@ -171,14 +171,14 @@ namespace chatbot_wathsapp.clases
                             }
 
 
-                            Thread.Sleep(3000);
+                            Thread.Sleep(1000);
 
                             return true;
                         }
                         else
                         {
                             // Si el elemento no está presente, espera y luego vuelve a intentar
-                            Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
+                            Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según tu escenario
                             return false;
                         }
                     });
@@ -370,7 +370,7 @@ namespace chatbot_wathsapp.clases
             string texto_enviar = string.Join("\n", texto_enviar_arreglo_string);
 
             escribir_msg.SendKeys(texto_enviar);
-            Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
+            Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según tu escenario
             escribir_msg.SendKeys(Keys.Enter);
 
         }
@@ -641,7 +641,7 @@ namespace chatbot_wathsapp.clases
 
                         string nuero_de_mesa_string = null;
                         int solo_num_mesa = 0;
-                        string nuero_de_pagina_del_menu_string = letra_pagina_menu + "0";
+                        string pagina_del_menu_string = letra_pagina_menu + "0";
 
                         string[] pedido_mesa = null;
 
@@ -668,12 +668,12 @@ namespace chatbot_wathsapp.clases
 
                             else if (("" + comando[j][0]) == letra_pagina_menu)
                             {
-                                string temp_nuero_pagina_menu_string = quitando_el_primeros_caracters_y_checa_si_es_int(comando[j]);
-                                if (temp_nuero_pagina_menu_string != null)
+                                
+                                if (cargar_menus(comando[j]))
                                 {
-                                    nuero_de_pagina_del_menu_string = comando[j];
+                                    pagina_del_menu_string = comando[j];
                                     es_mesa_o_pagina = true;
-                                    cargar_menus(nuero_de_pagina_del_menu_string);
+                                    cargar_menus(pagina_del_menu_string);
                                     if (comando.Length==1)
                                     {
                                         enviar_mensage_inicial();
@@ -686,58 +686,73 @@ namespace chatbot_wathsapp.clases
                                 if (comando[j] == "cerrar cuenta")
                                 {
                                     string[] cuenta = mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cuanto_lleva");
-                                    
-                                    for (int k = 0; k < cuenta.Length; k++)
+                                    if (cuenta != null)
                                     {
-                                        string[] tem = cuenta[0].Split(G_caracter_separacion[0][0]);
-                                        string[] tem2 = tem[1].Split(G_caracter_separacion[1][0]);
-                                        string productos = "";
-                                        for (int l = 0; l < tem2.Length; l++)
+
+
+                                        for (int k = 0; k < cuenta.Length; k++)
                                         {
-                                            string[] tem3 = tem2[l].Split(G_caracter_separacion[2][0]);
-                                            string pagina = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(tem3[0], restar_cuantas_ultimas_o_primeras_celdas: 1,restar_primera_celda: true);
+                                            string[] tem = cuenta[0].Split(G_caracter_separacion[0][0]);
+                                            string[] tem2 = tem[1].Split(G_caracter_separacion[1][0]);
+                                            string productos = "";
+                                            for (int l = 0; l < tem2.Length; l++)
+                                            {
+                                                string[] tem3 = tem2[l].Split(G_caracter_separacion[2][0]);
+                                                string pagina = op_tex.joineada_paraesida_y_quitador_de_extremos_del_string(tem3[0], restar_cuantas_ultimas_o_primeras_celdas: 1, restar_primera_celda: true);
 
-                                            int veses_producto = Convert.ToInt32(tem3[3]);
-                                            
-                                            for (int m = 1; m < veses_producto; m++)
-                                            {
-                                                productos = productos + tem3[0][0];
+                                                int veses_producto = Convert.ToInt32(tem3[3]);
+
+                                                for (int m = 1; m < veses_producto; m++)
+                                                {
+                                                    productos = productos + tem3[0][0];
+                                                }
+                                                if (veses_producto == 1)
+                                                {
+                                                    productos = "" + tem3[0][0];
+                                                }
+
+                                                G_pedido_a_procesar_cierre_de_cuenta_mesa = op_tex.concatenacion_caracter_separacion(G_pedido_a_procesar_cierre_de_cuenta_mesa, pagina + "\n" + productos, "\n");
                                             }
-                                            if (veses_producto==1)
-                                            {
-                                                productos = "" + tem3[0][0];
-                                            }
-                                            
-                                            G_pedido_a_procesar_cierre_de_cuenta_mesa = op_tex.concatenacion_caracter_separacion(G_pedido_a_procesar_cierre_de_cuenta_mesa, pagina + "\n"+ productos, "\n");
+
                                         }
-                                        
+                                        mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cerrar_cuenta");
+
+                                        esta_en_confirmadores = false;
                                     }
-                                    mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cerrar_cuenta");
-
-                                    esta_en_confirmadores = false;
-
+                                    else
+                                    {
+                                        mandar_mensage(esperar, "falto poner la mes de la cuenta");
+                                        esta_en_confirmadores = true;
+                                    }
                                 }
 
                                 else if (comando[j] == "cuánto")
                                 {
                                     string[] cuenta = mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cuanto_lleva");
-                                    string[] tem_mesa = cuenta[0].Split(G_caracter_separacion[0][0]);
-                                    string[] tem_productos = tem_mesa[1].Split(G_caracter_separacion[1][0]);
-                                    string mensage_cuenta = "";
-                                    for (int m = 0; m < tem_productos.Length; m++)
+                                    if (cuenta != null)
                                     {
-                                        string[] info_producto = tem_productos[m].Split(G_caracter_separacion[2][0]);
-                                        double costo_producto_cantidad = (Convert.ToDouble(info_producto[2]) * Convert.ToDouble(info_producto[3]));
-                                        mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, info_producto[1] + G_caracter_separacion[0] + "p/u: " + info_producto[2] + G_caracter_separacion[0] + "cantidad: " + info_producto[3] + G_caracter_separacion[0] + costo_producto_cantidad, "\n");
+                                        string[] tem_mesa = cuenta[0].Split(G_caracter_separacion[0][0]);
+                                        string[] tem_productos = tem_mesa[1].Split(G_caracter_separacion[1][0]);
+                                        string mensage_cuenta = "";
+                                        for (int m = 0; m < tem_productos.Length; m++)
+                                        {
+                                            string[] info_producto = tem_productos[m].Split(G_caracter_separacion[2][0]);
+                                            double costo_producto_cantidad = (Convert.ToDouble(info_producto[2]) * Convert.ToDouble(info_producto[3]));
+                                            mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, info_producto[1] + G_caracter_separacion[0] + "p/u: " + info_producto[2] + G_caracter_separacion[0] + "cantidad: " + info_producto[3] + G_caracter_separacion[0] + costo_producto_cantidad, "\n");
+                                        }
+                                        mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, "total: " + tem_mesa[2], "\n");
+                                        mensage_cuenta = letra_mesa + nuero_de_mesa_string + "\n" + mensage_cuenta + "\n-------------------------------------------------------------";
+                                        acumulador_de_mensajes("usuario_actual", mensage_cuenta);
+                                        if (G_pedido_a_procesar_cierre_de_cuenta_mesa == null)
+                                        {
+                                            esta_en_confirmadores = true;
+                                        }
                                     }
-                                    mensage_cuenta = op_tex.concatenacion_caracter_separacion(mensage_cuenta, "total: " + tem_mesa[2], "\n");
-                                    mensage_cuenta = letra_mesa + nuero_de_mesa_string + "\n" + mensage_cuenta+"\n-------------------------------------------------------------";
-                                    acumulador_de_mensajes("usuario_actual", mensage_cuenta);
-                                    if (G_pedido_a_procesar_cierre_de_cuenta_mesa == null)
+                                    else
                                     {
+                                        mandar_mensage(esperar, "falto poner la mes de la cuenta");
                                         esta_en_confirmadores = true;
                                     }
-                                    
                                 }
                                 else if (comando[j] == "editar")
                                 {
@@ -747,8 +762,16 @@ namespace chatbot_wathsapp.clases
                                 else if (comando[j] == "cancelar")
                                 {
                                     string[] cuenta = mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, operacion: "cancelar");
-                                    acumulador_de_mensajes("usuario_actual", "cuenta_cancelada");
-                                    esta_en_confirmadores = true;
+                                    if (cuenta!=null)
+                                    {
+                                        acumulador_de_mensajes("usuario_actual", "cuenta_cancelada");
+                                        esta_en_confirmadores = true;
+                                    }
+                                    else
+                                    {
+                                        mandar_mensage(esperar, "falto poner la mes de la cuenta");
+                                        esta_en_confirmadores = true;
+                                    }
                                     
                                 }
 
@@ -757,9 +780,9 @@ namespace chatbot_wathsapp.clases
                                     try
                                     {
                                         Convert.ToInt32(comando[j]);
-                                        
 
-                                        mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, comando[j]);
+
+                                        mesas_compra_solo_numeros_o_con_cantidades(nuero_de_mesa_string, comando[j], pagina_del_menu_string);
                                         if (j>=comando.Length-1)
                                         {
                                             

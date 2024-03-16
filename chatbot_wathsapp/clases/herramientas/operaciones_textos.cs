@@ -43,29 +43,36 @@ namespace chatbot_wathsapp.clases.herramientas
 
             if (restar_primera_celda)
             {
-                for (int i = restar_cuantas_ultimas_o_primeras_celdas; i < arreglo.Length; i++)
+                if (arreglo != null)
                 {
-                    if (arreglo_objeto is string)
+
+
+                    for (int i = restar_cuantas_ultimas_o_primeras_celdas; i < arreglo.Length; i++)
                     {
-                        a_retornar = a_retornar + arreglo[i];
-                    }
-                    else
-                    {
-
-
-                        if (i < arreglo.Length - 1)
-                        {
-
-                            a_retornar = a_retornar + arreglo[i] + caracter_separacion[0];
-                        }
-                        else
+                        if (arreglo_objeto is string)
                         {
                             a_retornar = a_retornar + arreglo[i];
                         }
+                        else
+                        {
+
+
+                            if (i < arreglo.Length - 1)
+                            {
+
+                                a_retornar = a_retornar + arreglo[i] + caracter_separacion[0];
+                            }
+                            else
+                            {
+                                a_retornar = a_retornar + arreglo[i];
+                            }
+                        }
                     }
                 }
+                
 
             }
+            
             else
             {
                 int cantidad_celdas_a_retornar_del_arreglo = arreglo.Length - restar_cuantas_ultimas_o_primeras_celdas;

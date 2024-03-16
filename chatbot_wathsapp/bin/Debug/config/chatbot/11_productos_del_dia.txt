@@ -1,4 +1,4 @@
 nombre_del_producto|precio
-productoc1|1
-productoc2|2
-productoc3|3
+comida corrida albondigas|65
+comida corrida albondigas tortitas de haba con arros|65
+comida corrida albondigas pollo|65
