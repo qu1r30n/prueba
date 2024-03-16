@@ -1129,10 +1129,6 @@ namespace chatbot_wathsapp.clases
             //mandar mensages
             if (mensajes_para_y_mensaje != null)
             {
-                
-            }
-            else
-            {
                 //ordenar
                 for (int i = 0; i < mensajes_para_y_mensaje.GetLength(0); i++)
                 {
@@ -1163,6 +1159,7 @@ namespace chatbot_wathsapp.clases
                     mandar_mensage_usuarios(manejadores, esperar, mensajes_para_y_mensaje[i, 0], mensajes_para_y_mensaje[i, 1]);
                 }
             }
+            
 
             
             
