@@ -356,17 +356,18 @@ namespace chatbot_wathsapp.clases
 
         }
 
-        WebDriverWait G_esperar2;
+        //WebDriverWait G_esperar2;
         private void mandar_mensage(WebDriverWait esperar, object texto_enviar_arreglo_objeto)
         {
             string[] texto_enviar_arreglo_string = op_arr.convierte_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\n");
 
 
-            G_esperar2 = esperar;
+            //G_esperar2 = esperar;
             //aqui hacemos que reconosca la barra de texto y escriba
 
             string lugar_a_escribir = G_info_de_configuracion_chatbot[5][1];
-            var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+            //var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+            var escribir_msg = esperar.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
             string texto_enviar = string.Join("\n", texto_enviar_arreglo_string);
 
             escribir_msg.SendKeys(texto_enviar);

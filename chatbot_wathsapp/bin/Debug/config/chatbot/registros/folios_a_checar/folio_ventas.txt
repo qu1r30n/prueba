@@ -7,3 +7,4 @@ folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedi
 152252qr240315152252|240315152252|130|venta|2¬comida corrida albondigas tortitas de haba con arros¬65¬130|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
 1531499240315153149|240315153149|20|venta|1¬refrescos¬20¬20|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
 1535549240315153554|240315153554|70|venta|1¬sandwich club¬50¬50°1¬refrescos¬20¬20|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
+151521or240317151521|240317151521|0|venta|1¬¬0¬0°2¬¬0¬0|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
