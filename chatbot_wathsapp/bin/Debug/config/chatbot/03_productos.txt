@@ -1,13 +1,4 @@
 nombre_del_producto|precio
-micheladas|85
-sandwich club|50
-refrescos|20
-tacos carnitas|20
-chilaquiles|35
-pechuuga empanizada|50
-enchiladas|50
-enmoladas de pollo|50
-tacos dorados(jamon)|35
-tacos dorados(pollo)|50
-sincronisadas|40
-embueltos|40
+producto1|1
+producto2|2
+producto3|3

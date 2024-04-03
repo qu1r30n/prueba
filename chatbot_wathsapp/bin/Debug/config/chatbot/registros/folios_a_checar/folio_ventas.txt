@@ -1,10 +1,1 @@
 folio_venta|añomesdiahoraminutosegundo|total|operacion|producto1¬precio1°pedido2¬precio2|vendedor|num_celular_vendedor|repartidor|datos_comprador°datos_comprador|datos_extra1°dato_extra2
-181234i240312181234|240312181234|51|venta|2¬producto11¬11¬22°1¬producto12¬12¬12°1¬producto13¬13¬13°2¬producto1¬1¬2°1¬producto2¬2¬2|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-0953052wd240313095305|240313095305|44|venta|3¬producto1¬1¬3°2¬producto2¬2¬4°1¬producto3¬3¬3°2¬producto11¬11¬22°1¬producto12¬12¬12|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-211349r6j240314211349|240314211349|6|venta|6¬producto1¬1¬6|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-085535k240315085535|240315085535|6|venta|6¬producto1¬1¬6|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-142113ul240315142113|240315142113|20|venta|1¬tacos carnitas¬20¬20|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-152252qr240315152252|240315152252|130|venta|2¬comida corrida albondigas tortitas de haba con arros¬65¬130|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
-1531499240315153149|240315153149|20|venta|1¬refrescos¬20¬20|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
-1535549240315153554|240315153554|70|venta|1¬sandwich club¬50¬50°1¬refrescos¬20¬20|no_es_vendedor|Cocina_Fonda|repartidor|datos_comprador|datos_extras
-151521or240317151521|240317151521|0|venta|1¬¬0¬0°2¬¬0¬0|no_es_vendedor|Prueba|repartidor|datos_comprador|datos_extras
