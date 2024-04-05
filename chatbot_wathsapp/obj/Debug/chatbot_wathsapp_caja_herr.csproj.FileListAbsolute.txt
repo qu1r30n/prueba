@@ -44,3 +44,4 @@ C:\Users\pc1\Documents\GitHub\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp
 C:\Users\pc1\Documents\GitHub\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp.pdb
 C:\Users\pc1\Documents\GitHub\prueba\chatbot_wathsapp\obj\Debug\chatbot_wathsapp_caja_herr.csproj.AssemblyReference.cache
 C:\Users\pc1\Documents\GitHub\prueba\chatbot_wathsapp\obj\Debug\chatbot_.6B0C745F.Up2Date
+C:\Users\pc1\Documents\GitHub\prueba\chatbot_wathsapp\bin\Debug\System.Drawing.Common.pdb

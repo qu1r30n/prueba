@@ -36,13 +36,13 @@ namespace chatbot_wathsapp.clases
                 
                 /*5*/ "config\\chatbot\\info_para_comandos_chatbot\\00_paginaweb.txt~info_para_comandos~http://web.whatsapp.com/",
                 /*6*/ "config\\chatbot\\info_para_comandos_chatbot\\01_ya_entrado_en_la_mensajeria.txt~info_para_comandos~side",
-                /*7*/ "config\\chatbot\\info_para_comandos_chatbot\\02_chequeo_no_leidos.txt~info_para_comandos~//span[contains(@aria-label, 'No leídos') or contains(@aria-label, '4 mensaje no leído') or contains(@aria-label, '3 mensaje no leído') or contains(@aria-label, '2 mensaje no leído') or contains(@aria-label, '1 mensaje no leído')]",
-                /*8*/ "config\\chatbot\\info_para_comandos_chatbot\\03_clickeo.txt~info_para_comandos~//ancestor::div[@class='_8nE1Y']",
-                /*9*/ "config\\chatbot\\info_para_comandos_chatbot\\04_lectura_del_mensage.txt~info_para_comandos~//div[contains(@class, 'message-in')]//span[contains(@class, '_11JPr')]",
-                /*10*/ "config\\chatbot\\info_para_comandos_chatbot\\05_reconocer_textbox_de_envio.txt~info_para_comandos~//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]",
+                /*7*/ "config\\chatbot\\info_para_comandos_chatbot\\02_chequeo_no_leidos.txt~info_para_comandos~//span[contains(@aria-label, 'mensajes no leídos') or contains(@aria-label, 'mensaje no leído')]",
+                /*8*/ "config\\chatbot\\info_para_comandos_chatbot\\03_clickeo.txt~info_para_comandos~//ancestor::div[@class='_ak8k']",
+                /*9*/ "config\\chatbot\\info_para_comandos_chatbot\\04_lectura_del_mensage.txt~info_para_comandos~//div[contains(@class, 'message-in')]//span[contains(@class, '_ao3e')]",
+                /*10*/ "config\\chatbot\\info_para_comandos_chatbot\\05_reconocer_textbox_de_envio.txt~info_para_comandos~//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div[2]§//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]",
                 /*11*/ "config\\chatbot\\info_para_comandos_chatbot\\06_buscar_nombre.txt~info_para_comandos~//span[contains(@title, '",
 
-                /*12*/ "config\\chatbot\\info_para_comandos_chatbot\\07_nombre_del_clikeado.txt~info_para_comandos~//header[@class='AmmtE']//div[@class='Mk0Bp _30scZ']§//*[@id='main']/header/div[2]/div[1]/div/span",
+                /*12*/ "config\\chatbot\\info_para_comandos_chatbot\\07_nombre_del_clikeado.txt~info_para_comandos~//header[@class='AmmtE']//div[@class='_aou8 _aj_h']§//*[@id='main']/header/div[2]/div[1]/div/span",
                 /*13*/ "config\\chatbot\\01_mensaje_bienvenida_inicio.txt~mensajes_A_enviar_cuando_resiva_un_mensage~mensaje bienvenida",
                 /*14*/ "config\\chatbot\\02_mensaje_bienvenida_final.txt~mensaje_abajo_de_los_productos~mensaje abajo de los productos",
                 /*15*/ "config\\chatbot\\03_productos.txt~nombre_del_producto|precio~producto1|1§producto2|2§producto3|3",
