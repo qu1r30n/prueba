@@ -1,2 +1,2 @@
 info_para_comandos
-//ancestor::div[@class='_ak8k']
+//ancestor::div[@class='_ahlk']
