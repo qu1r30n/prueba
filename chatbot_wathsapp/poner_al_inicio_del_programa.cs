@@ -39,7 +39,7 @@ namespace chatbot_wathsapp.clases
                 /*7*/ "config\\chatbot\\info_para_comandos_chatbot\\02_chequeo_no_leidos.txt~info_para_comandos~//span[contains(@aria-label, 'mensajes no leídos') or contains(@aria-label, 'mensaje no leído')]",
                 /*8*/ "config\\chatbot\\info_para_comandos_chatbot\\03_clickeo.txt~info_para_comandos~//ancestor::div[@class='_ak8k']",
                 /*9*/ "config\\chatbot\\info_para_comandos_chatbot\\04_lectura_del_mensage.txt~info_para_comandos~//div[contains(@class, 'message-in')]//span[contains(@class, '_ao3e')]",
-                /*10*/ "config\\chatbot\\info_para_comandos_chatbot\\05_reconocer_textbox_de_envio.txt~info_para_comandos~//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div[2]§//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]",
+                /*10*/ "config\\chatbot\\info_para_comandos_chatbot\\05_reconocer_textbox_de_envio.txt~info_para_comandos~//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div[2]§//*[@id=\"side\"]/div[1]/div/div[2]/div[2]/div/div[1]/p/br§//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]",
                 /*11*/ "config\\chatbot\\info_para_comandos_chatbot\\06_buscar_nombre.txt~info_para_comandos~//span[contains(@title, '",
 
                 /*12*/ "config\\chatbot\\info_para_comandos_chatbot\\07_nombre_del_clikeado.txt~info_para_comandos~//header[@class='AmmtE']//div[@class='_aou8 _aj_h']§//*[@id='main']/header/div[2]/div[1]/div/span",

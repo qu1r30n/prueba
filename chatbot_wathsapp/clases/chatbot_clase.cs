@@ -111,7 +111,7 @@ namespace chatbot_wathsapp.clases
 
             //declaramos un elemento esperarque nos ayude a evitar erroes de elementos no encontrados
             var esperar = new WebDriverWait(manejadores, TimeSpan.FromMinutes(tiempo_en_minutos));//segun 5 min es suficiente pero no hace  la espera
-            Thread.Sleep(tiempo_en_segunds_espera * 1000);//puse este yo para que se haga la espera
+            //Thread.Sleep(tiempo_en_segunds_espera * 1000);//puse este yo para que se haga la espera
 
             //esperar.Until(manej => manej.FindElement(By.Id("side")));//este es un id que aparece despues de escanear el codigo
 
@@ -293,11 +293,34 @@ namespace chatbot_wathsapp.clases
             Actions action = new Actions(manejadores);
             action.SendKeys(Keys.Escape).Perform();
 
+            //buscamos persona en el buscador de personas
+            //aqui hacemos que reconosca la barra de texto y escriba
+
+            string lugar_a_escribir = G_info_de_configuracion_chatbot[5][2];
+            //var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+            var escribir_msg = esperar.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+
+            escribir_msg.SendKeys(nombre_o_numero);
+            escribir_msg.SendKeys(Keys.Enter);
+
+
+            /* lla funciona con el enter que se le da en busqueda asi que no es nesesario
+            //damos click
             IWebDriver manejadores_de_busqueda = manejadores;
             //ReadOnlyCollection<IWebElement> elementos = manejadores_de_busqueda.FindElements(By.XPath("//span[contains(@title, 'Jorge')]"));
-            IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath(G_info_de_configuracion_chatbot[6][1] + nombre_o_numero + "')]"));
+            string buscar_elemento = G_info_de_configuracion_chatbot[6][1] + nombre_o_numero + "')]";
+            IWebElement elemento = manejadores_de_busqueda.FindElement(By.XPath(buscar_elemento));
             string a = elemento.Text;
             elemento.Click();
+            */
+
+            //limpiamos_lo_que_se_puso_en_el_buscador_de_contactos
+            escribir_msg.Click(); // Enfocar el elemento
+            for (int i = 0; i < nombre_o_numero.Length; i++)
+            {
+                escribir_msg.SendKeys(Keys.Backspace); // Borrar el contenido del textbox
+            }
+            
 
         }
 
