@@ -320,7 +320,7 @@ namespace chatbot_wathsapp.clases
             {
                 escribir_msg.SendKeys(Keys.Backspace); // Borrar el contenido del textbox
             }
-            
+
 
         }
 
