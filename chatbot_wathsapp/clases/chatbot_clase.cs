@@ -203,85 +203,88 @@ namespace chatbot_wathsapp.clases
         {
             recargar_arreglos();
 
-
-
-            string[] textos_recibidos_srting_arr = op_arr.convierte_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
-
-
-            string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length - 1].ToLower();//ultimo mensaje lo pone en minusculas
-            mandar_mensage_usuarios(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n--------------------------------------------------------------------");
-            buscar_nombre_y_dar_click(manejadores, esperar, nombre_Del_que_envio_el_mensage);//regresar al usuario
-
-
-            string[] lineas_del_mensaje = ultimo_mensaje.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
-
-
-
-
-            string menu_actual=horarios_menus();
-
-            bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
-            if (G_pedido_a_procesar_cierre_de_cuenta_mesa != ""&& G_pedido_a_procesar_cierre_de_cuenta_mesa != null)
+            //la comparacion de registro y vendedores es temporal por que se deve hacer desde los archivos
+            if (nombre_Del_que_envio_el_mensage != "Reg_mensaje")
             {
-                lineas_del_mensaje = G_pedido_a_procesar_cierre_de_cuenta_mesa.Split( '\n');
-                G_pedido_a_procesar_cierre_de_cuenta_mesa = null;
-            }
-            if (si_confirmo==false)
-            {
-                bool se_hiso_pedido = false;
-                for (int j = 0; j < lineas_del_mensaje.Length; j++)
+
+                string[] textos_recibidos_srting_arr = op_arr.convierte_objeto_a_arreglo(texto_recibidos_arreglo_objeto);
+
+
+                string ultimo_mensaje = textos_recibidos_srting_arr[textos_recibidos_srting_arr.Length - 1].ToLower();//ultimo mensaje lo pone en minusculas
+                mandar_mensage_usuarios(manejadores, esperar, G_contactos_lista_para_mandar_informacion[5, 1], nombre_Del_que_envio_el_mensage + "\n" + ultimo_mensaje + "\n--------------------------------------------------------------------");
+                buscar_nombre_y_dar_click(manejadores, esperar, nombre_Del_que_envio_el_mensage);//regresar al usuario
+
+
+                string[] lineas_del_mensaje = ultimo_mensaje.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                int indice_productos = Convert.ToInt32(bas.sacar_indice_del_arreglo_de_direccion(G_dir_arch_mensages[2]));
+
+
+
+
+                string menu_actual = horarios_menus();
+
+                bool si_confirmo = confirmaciones_de_usuarios_confirmadores_o_funciones_extras(manejadores, esperar, nombre_Del_que_envio_el_mensage, lineas_del_mensaje, ":");
+                if (G_pedido_a_procesar_cierre_de_cuenta_mesa != "" && G_pedido_a_procesar_cierre_de_cuenta_mesa != null)
                 {
-                    bool hubo_cambio_de_menu = cargar_menus(lineas_del_mensaje[j]);
-                    if (hubo_cambio_de_menu)
+                    lineas_del_mensaje = G_pedido_a_procesar_cierre_de_cuenta_mesa.Split('\n');
+                    G_pedido_a_procesar_cierre_de_cuenta_mesa = null;
+                }
+                if (si_confirmo == false)
+                {
+                    bool se_hiso_pedido = false;
+                    for (int j = 0; j < lineas_del_mensaje.Length; j++)
                     {
-                        menu_actual = lineas_del_mensaje[j];
-                        if (lineas_del_mensaje.Length == 1)
+                        bool hubo_cambio_de_menu = cargar_menus(lineas_del_mensaje[j]);
+                        if (hubo_cambio_de_menu)
                         {
-                            enviar_mensage_inicial();
+                            menu_actual = lineas_del_mensaje[j];
+                            if (lineas_del_mensaje.Length == 1)
+                            {
+                                enviar_mensage_inicial();
+                            }
                         }
+                        else
+                        {
+
+
+                            try
+                            {
+                                Convert.ToInt32(lineas_del_mensaje[j]);
+                                compra_solo_numeros_o_con_cantidades(lineas_del_mensaje[j], menu_actual);
+                                se_hiso_pedido = true;
+
+                            }
+                            catch
+                            {
+                                //en este se haran los breaks dentro para que no afecten
+                                if (lineas_del_mensaje.Length == 1)
+                                {
+
+                                    enviar_mensage_inicial();
+                                }
+
+                            }
+                        }
+                    }
+                    if (se_hiso_pedido)
+                    {
+                        string[] pedido = compra_solo_numeros_o_con_cantidades(operacion: "retornar");
+                        formato_para_mandar_mensajes_de_los_productos_pedidos(manejadores, esperar, nombre_Del_que_envio_el_mensage, pedido);
                     }
                     else
                     {
-
-
-                        try
-                        {
-                            Convert.ToInt32(lineas_del_mensaje[j]);
-                            compra_solo_numeros_o_con_cantidades(lineas_del_mensaje[j], menu_actual);
-                            se_hiso_pedido = true;
-
-                        }
-                        catch
-                        {
-                            //en este se haran los breaks dentro para que no afecten
-                            if (lineas_del_mensaje.Length == 1)
-                            {
-
-                                enviar_mensage_inicial();
-                            }
-
-                        }
+                        mandar_mensages_acumulados(manejadores, esperar);
                     }
+
+
                 }
-                if (se_hiso_pedido)
-                {
-                    string[] pedido = compra_solo_numeros_o_con_cantidades(operacion: "retornar");
-                    formato_para_mandar_mensajes_de_los_productos_pedidos(manejadores, esperar, nombre_Del_que_envio_el_mensage, pedido);
-                }
-                else
+                if (mensajes_acumulados != null)
                 {
                     mandar_mensages_acumulados(manejadores, esperar);
                 }
 
-
-            }
-            if (mensajes_acumulados != null)
-            {
-                mandar_mensages_acumulados(manejadores, esperar);
             }
             
-
             Actions action = new Actions(manejadores);
             action.SendKeys(Keys.Escape).Perform();
 

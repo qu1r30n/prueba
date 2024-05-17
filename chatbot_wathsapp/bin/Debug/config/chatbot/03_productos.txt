@@ -1,4 +1,24 @@
 nombre_del_producto|precio
-producto1|1
-producto2|2
-producto3|3
+comida corrida pechuga rellena|75
+comida corrida bistec a la mexicana|75
+comida corrida pechuga asada|75
+desayuno tarde club sanwich|50
+desayuno huevo a la mexicana|40
+desayuno huevo ranchero|35
+desayuno huevo motuleño|50
+desayuno huevo estrellado|30
+desayuno omelet|40
+desayuno huevo divorciados|50
+tarde pechuga empanizada|50
+desayuno chilaquiles|50
+desayuno enchiladas suisas|50
+desayuno enmoladas|50
+desayuno tacos dorados|40
+desayuno hotcakes|40
+desayuno sincronisadas|40
+desayuno molletes|50
+tarde torta bistek|35
+desayuno coctel de frutas|50
+desayuno cafe|10
+desayuno cafe con leche|20
+desayuno jugo de naranja|28
