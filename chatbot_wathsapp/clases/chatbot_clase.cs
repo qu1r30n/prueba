@@ -382,24 +382,25 @@ namespace chatbot_wathsapp.clases
 
         }
 
-        //WebDriverWait G_esperar2;
+        WebDriverWait G_esperar2;
         private void mandar_mensage(WebDriverWait esperar, object texto_enviar_arreglo_objeto)
         {
-            string[] texto_enviar_arreglo_string = op_arr.convierte_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\n");
+            string[] texto_enviar_arreglo_string = op_arr.convierte_objeto_a_arreglo(texto_enviar_arreglo_objeto, "\r\n");
 
 
-            //G_esperar2 = esperar;
+            G_esperar2 = esperar;
             //aqui hacemos que reconosca la barra de texto y escriba
 
             string lugar_a_escribir = G_info_de_configuracion_chatbot[5][1];
-            //var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
-            var escribir_msg = esperar.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
-            string texto_enviar = string.Join("\n", texto_enviar_arreglo_string);
+            var escribir_msg = G_esperar2.Until(manej => manej.FindElement(By.XPath(lugar_a_escribir)));
+            string texto_enviar = op_tex.joineada_paraesida_SIN_NULOS_y_quitador_de_extremos_del_string(texto_enviar_arreglo_string, Keys.Shift + Keys.Enter+Keys.Shift);
+            texto_enviar=texto_enviar.Replace("\n", "");
 
             escribir_msg.SendKeys(texto_enviar);
-            Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según tu escenario
+            Thread.Sleep(3000); // Puedes ajustar el tiempo de espera según tu escenario
             escribir_msg.SendKeys(Keys.Enter);
-
+            Thread.Sleep(100); // Puedes ajustar el tiempo de espera según tu escenario
+            escribir_msg.SendKeys(Keys.Escape);
         }
 
         private string[] leer_mensages_recibidos_del_mensage_clickeado(IWebDriver manejadores, WebDriverWait esperar)
